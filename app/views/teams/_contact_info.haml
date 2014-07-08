@@ -1,0 +1,24 @@
+%div{ :class=>"desc-#{avatar_height}" }
+  %h2.teamName
+    = h @team.name
+  %p
+    - if @team.address1 && @team.address1.length > 0
+      = h @team.address1
+    - if @team.address2 && @team.address2.length > 0
+      = h @team.address2
+    |
+    - if @team.city || @team.state_id
+      = h [@team.city,(@team.state_id ? @team.state.name : nil),@team.zip].compact.join(' ')
+      
+      
+    - if (@team.phone && @team.phone.length > 0) || (@team.email && @team.email.length > 0)
+      %br/
+      =h @team.phone
+      - if @team.phone && @team.phone.length > 0 && @team.email && @team.email.length > 0
+        |
+      =h @team.email
+
+    - if current_user && current_user.can_edit?(@team) #current_user.team_staff?(@team)
+      \&nbsp;
+      = link_to 'Edit', edit_team_path(@team), :class=>"edit-#{avatar_height}"
+      

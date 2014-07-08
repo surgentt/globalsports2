@@ -1,0 +1,104 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        =link_to _('ACCOUNT'), user_path(current_user.admin? ? @user : current_user)
+      Billing for
+      = "#{current_user.admin? ? @user.full_name : current_user.full_name}"
+  .listings
+    =render :partial => "users/profile_membership_notice"
+
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        %h2.boxDescription
+          Billing Information
+      .contentBoxContent.edit-profile
+
+        = error_messages_for :credit_card, :am_credit_card, :merchant_credit_card, :billing_address, :user, :object_name => 'Credit Card'
+        
+        %form{:action => '/users/update_billing', :method => :post}
+        
+          %div{ :style => "float: right; background-color: #ffffff; width: 400px; margin: 10px 10px 10px 10px; padding: 10px 10px 10px 10px" }
+            = render :partial => "billing/credit_card_help"      
+            
+          = hidden_field_tag "id", @user.id
+                    
+          %label{"for"=>"firstname"}
+            * First Name
+            %br
+            = text_field :credit_card, :first_name
+
+          %br
+          %label{"for"=>"lastname"}
+            * Last Name
+            %br
+            = text_field :credit_card,:last_name
+
+          %fieldset.inline
+            %label{"for"=>"expiration_date"}
+              * Expiration Date:
+              = "#{@credit_card.year} / #{@credit_card.month}"
+              %br/
+              %table
+                %tr
+                  %td
+                    =collection_select :credit_card, :year, cc_years, :number, :name, { :prompt => '-Year-', :selected => @credit_card.year.to_i }
+                  %td
+                    =collection_select :credit_card, :month, cc_months, :number, :name, { :prompt => '-Month-', :selected => @credit_card.month.to_i }
+                    
+          %label{"for"=>"number"}
+            * Card Number
+            %br
+            = text_field :credit_card, :number, :size => 16, :maxlength => 16, :value => cc_displayable_fill(@credit_card)
+
+          %br
+          %label{"for"=>"verification_value"}
+            * Verification number
+            %br
+            = text_field :credit_card, :verification_value, {:size => 4, :maxlength => 4, :value => "***" }
+        
+          - hide_billing_address = @billing_address.nil? || params[:skip_billing_address] # || @billing_address.new_record?
+          - if hide_billing_address
+            %fieldset.inline
+              %input{:type => 'checkbox', :checked => 'checked', :name => 'skip_billing_address', :id => 'skip_billing_address', :onclick => "this.checked ? $$('#billingAddress')[0].hide() : $$('#billingAddress')[0].show()"}
+              %label{:for => 'skip_billing_address'}
+                Use primary account address as billing address
+
+          - if @billing_address
+            = hidden_field_tag 'billing_address[id]', @billing_address.id
+        
+          %div{:id => 'billingAddress', :style => "display: #{hide_billing_address ? 'none' : 'block'}"}
+        
+            %br
+            %label{:for=>'address1'}
+              Address Line 1
+              %br/
+              = text_field :billing_address, :address1
+
+            %br
+            %label{:for=>'address2'}
+              Address Line 2
+              %br/
+              = text_field :billing_address, :address2
+
+            %br
+            %label{:for=>'city'}
+              City
+              %br/
+              = text_field :billing_address, :city
+
+            %br
+            %label{:for => 'state'}
+              State
+              %br/
+              =collection_select(:billing_address ,:state , State.all(:order => "name asc"),"name","name", { :prompt => 'State', :selected => ( (@billing_address && @billing_address.state?) ? @billing_address.state : '') })
+
+            %br
+            %label{:for=>'zip'}
+              Zip/Postal Code
+              %br/
+              = text_field :billing_address, :zip
+            / end of billing address
+        
+          %p
+            = submit_tag 'Save Changes'

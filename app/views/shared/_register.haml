@@ -1,0 +1,29 @@
+#loginPopup{ :style=>'display:none' }
+
+  - close = true if close.nil?
+  - if close
+    .closer
+      %a{ :onclick=>"Element.update('dialog', '');" }
+        close[x]
+  -#
+    .innerContainer
+      %form#login{ :action => sessions_path, :method => "post" }
+        %p
+          username (email address)
+        = image_tag '/images/loginBox_fields.png'
+        = text_field_tag 'login', nil, :class => 'loginFormInput'
+        %br
+        %p
+          password
+        .forgotPassword
+          = link_to 'forgot password?', forgot_password_path()
+        = image_tag '/images/loginBox_fields.png'
+        = password_field_tag 'password', nil, :class => 'loginFormInput'
+        %input#loginButton{ :name => "submit", :type => "submit" }/
+        %br
+      #joinNowButton
+        =link_to image_tag("/images/btn_joinNow.png", :mouseover=>"/images/btn_joinNow_ro.png"), register_path()
+
+    -#= fb_login_and_redirect('/facebook', :perms=>::FACEBOOK_PERMISSIONS)
+
+  = render :partial => 'shared/login_container'

@@ -1,0 +1,312 @@
+- @content_area_class = 'registrationContentArea'
+#membershipBand
+  =image_tag('/images/title_register.png')
+  .content
+    -#Global Sports has 2 distinct membership types. Figure out what type of member you are below. Basic membership is free and allows you to watch full-game video.
+    Registration is free and easy. Join Global Sports to start watching your games, uploading your content and creating your highlights.
+-#thinSpacerBand{ :style => 'height:10px;' }
+
+.RegContent
+  -#smallMemberBox
+    .smallMemberBoxLeft
+    .smallMemberBoxRight
+    .smallMemberBoxContent
+      .smallMemberBoxImage= image_tag('/images/reg_fans.png', :alt => 'Athletes & Fans')
+      .smallMemberBoxText
+        .smallMemberBoxTitle
+          Athletes & Fans
+        .smallMemberBoxDesc
+          Registration is free and easy. Join Global Sports to start watching your games, uploading your content and creating your highlights. If you want to use some of our premium features, you can upgrade your account now or later.
+
+  .RegistrationContent
+  
+    = error_messages_for :user, :team, :league, :promotion, :object_name => page_title
+    
+    %p
+      %br/
+      -#.bothCols
+        -#%div{ :style => "float: right; text-align: right" }
+          (* = required information)
+        -#%h1
+          Part 2: 
+          =page_title
+          
+        %br/
+        .contentBox{ :style => "margin-bottom: 0px" }
+          - case @requested_role
+            - when Role[:team].id
+              You are registering as the administrator of your school's/club's Global Sports account.
+              Please provide your personal info, as well as your organization's info below.
+              This will create your personal profile and your school's public front-page that you, as the administrator, can customize and manage.
+            - when Role[:league].id
+              / No content yet
+            - when Role[:scout].id
+              / No content yet
+            - else #when Role[:member].id
+              / No content yet
+
+    -# form_tag '/users/jcreate', { :id =>"registrationForm", :action=>"javascript:gs.register()" } do |f|
+    -# form_for :user, :url => users_path, :html => {:class => 'userForm'} do |f|
+    - form_for :user, :url => users_path do |f|
+      %input{ :type=>'hidden', :name=>'session_return_to', :value=>params['session_return_to'] }
+      %input{ :type=>'hidden', :name=>'login', :value=>"gs-exp-#{Time.now.to_i}#{rand(1000)}" }
+
+
+
+      .mainCol1
+        .contentBox.registration
+
+          -#
+            %hr
+
+            %nobr
+              %span.section-head
+                - case @requested_role
+                  - when Role[:team].id
+                    Administrator Information
+                  - else
+                    Your Information
+            %br
+            %br
+
+            Please enter your personal information here.
+            Your address info will not be shown publicly.
+
+            %br
+            %br
+
+          = gs_text_field @user, :firstname, 'First Name', :size => 20
+          = gs_text_field @user, :lastname, 'Last Name', :size => 24
+          %br
+
+          = gs_text_field @user, :email, 'email address', :size => 36
+          %br
+
+          = gs_password_field @user, :password, 'password', :size => 18
+          = gs_password_field @user, :password_confirmation, 'confirm password', :size => 18
+
+          %br
+          %br
+
+
+
+          -##reg_team_pick
+            - state_selected = @teams
+            %table
+              %tr
+                %td.field-block
+                  .gsSelect
+                    =collection_select :team, :state_id, State.all(:order => "name asc"), :id, :name, { :prompt => 'State' }, { :style => "width: 60px", :onchange => "#{remote_function(:url=>{:controller=>'users',:action=>'registration_fill_teams_by_state'},:with=>"'requested_role=#{@requested_role}&state_id='+value")}" }
+                %td.field-block
+                  %span{ :style=>"float:right" }
+                    %a{:href => "#", :onclick => "new Lightbox.base('team_help', { closeOnOverlayClick : true }); return false;", :class => 'helptip' }
+                      what's this?
+                  %label.required{ :for => "team_id" }
+                    School or Club Name
+                  %br
+                    - if state_selected
+                      .gsSelect
+                        =collection_select :team, :id, @teams, :id, :name, { }, { :style => "width: 210px", :onchange => "#{remote_function(:url=>{:controller=>'users',:action=>'registration_fill_team'},:with=>"'requested_role=#{@requested_role}&state_id=#{@team.state_id}&team_id='+value")}" }
+                    - else
+                      =gs_text_field "foo", "bar", '<< Select a state', :disabled => true, :style => "width: 210px"
+
+            #team_help.help_box{:style => "display: none"}
+              When you associate yourself with a school or club, each time you log
+              into your Global Sports account your landing page will contain
+              custom content provided by your school or club such as Athletes of
+              the Week, Game of the Week and other news. In addition, your chosen
+              school or club receives a donation from Global Sports for each
+              member that associates herself/himself with them.
+
+
+
+          %br
+
+
+          %br
+          %br
+          %br
+
+          -# old
+            %table
+              %tr
+                %td.field-block
+                  %label.required{"for"=>"firstname"}
+                    * First Name
+                  %br
+                  = text_field :user, :firstname, :size => 12
+                %td.field-block
+                  %label{"for"=>"minitial"}
+                    M.I.
+                  %br
+                  = text_field :user, :minitial, :size => 1
+                %td.field-block
+                  %label.required{"for"=>"lastname"}
+                    * Last Name
+                  %br
+                  = text_field :user, :lastname, :size => 16
+
+            %table
+              %tr
+                %td.field-block
+                  %label.required{"for"=>"address1"}
+                    * Address Line One
+                  %br
+                  = text_field :user, :address1, :size => 16
+                %td.field-block
+                  %label{"for"=>"address2"}
+                    Address Line Two
+                  = text_field :user, :address2, :size => 16
+
+            %table
+              %tr
+                %td.field-block
+                  %label.required{"for"=>"city"}
+                    * City
+                  %br
+                  = text_field :user, :city, :size => 16
+
+                %td.field-block
+                  %label.required{"for"=>"zip"}
+                    * Zip/Postal Code
+                  = text_field :user, :zip, :size => 12
+
+            %table
+              %tr
+                %td.field-block
+                  %label.required{"for"=>"state"}
+                    * State
+                  %br
+                  =collection_select(:user ,:state_id,State.all(:order => "name asc"),"id","name", { :prompt => 'State'})
+
+
+                %td.field-block
+                  %label.required{"for"=>"country"}
+                    * Country
+                  %br
+                  =collection_select(:user ,:country_id ,Country.all,"id","name", { :prompt => 'Choose Country'})
+
+            .field-block
+              %label.required{"for"=>"phone"}
+                * Phone
+              %br
+              = text_field :user, :phone, :size => 14
+
+            %br
+            %br
+
+            %hr
+            .section-head Username and Password
+            %br
+
+            %table
+              %tr
+                %td.field-block
+                  %label.required{"for"=>"email"}
+                    * E-mail address
+                  %br
+                  = text_field :user, :email, :size => 24
+
+            %table
+              %tr
+                %td.field-block
+                  %label.required{"for"=>"password"}
+                    * Choose a password
+                  %br
+                  = password_field :user, :password, :size => 18
+
+                %td.field-block
+                  %label.required{"for"=>"password_confirmation"}
+                    * Re-type password
+                  %br
+                  = password_field :user, :password_confirmation, :size => 18
+
+            %br
+
+            Your e-mail address will be your username.
+            Passwords should be 8-10 characters
+            in length and contain at least one number and
+            one non-alphabetic character.
+
+            %br
+            %br
+
+            .field-block
+              %label.required{"for"=>"birthdate"}
+                * Birthday:
+                %em (you must be at least 13 years old to sign up.)
+              %br
+              = date_select :user, :birthday, {:start_year => 1926, :end_year => Time.now.year - 13}
+
+      .mainCol2
+
+        .contentBox.registration
+          -#= fb_login_and_redirect('/facebook', :perms=>::FACEBOOK_PERMISSIONS)
+
+
+          [  O P T I O N A L  ]
+
+          = gs_text_field @user, :zip, 'zip code', :size => 12
+
+
+          %br
+
+
+          .gsSelect
+            = date_select :user, :birthday, {:start_year => 1926, :end_year => Time.now.year - 13}
+            is my Birthday
+
+          %br
+
+          = render :partial => 'registration_pick_team'
+
+          = gs_text_field_tag :promo_code, @promocode, 'promo code', :size => 24
+
+          %br
+
+
+          -#%input{ :name => "Continue", :type => "image", :src => "/gs/images/continue.png", :value => "Continue", :alt => "Continue", :style => 'border: none' }
+
+          %input#registerMe{ :type=>'submit', :value=>'Register Me' }
+
+          #registerOut
+
+        -#.contentBox
+
+          -# Team/League Stuff
+
+          - case @requested_role
+            - when Role[:team].id
+              =render :partial => 'new_team'
+            - when Role[:league].id
+              = render :partial => "new_league"
+            - when Role[:scout].id
+              = render :partial => "new_scout"
+            - else #when Role[:member].id
+              = render :partial => "new_member"
+          %br
+          %br
+          %hr
+          .section-head Promotion Code
+          %br
+
+          %table
+            %tr
+              %td.field-block
+                %label{"for"=>"promo_code"}
+                  If you have a promotion code, enter it in the box below.
+                %br
+                -#= text_field_tag :promo_code, ( params[:promo] || params[:promo_code] ) , :size => 24
+                = text_field_tag :promo_code, @promocode , :size => 24
+
+          %br
+          %br
+          = hidden_field_tag :inviter_id, session[:inviter_id]
+          = hidden_field_tag :inviter_code, session[:inviter_code]
+          = hidden_field_tag :role, @requested_role
+          -#%p= submit_tag 'Sign up'
+          .accountContinue2
+            %p
+              %input{ :name => "Continue", :type => "image", :src => "/gs/images/continue.png", :value => "Continue", :alt => "Continue", :style => 'border: none' }
+
+      %br{ :clear=>:left }

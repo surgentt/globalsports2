@@ -1,0 +1,14 @@
+
+- if @all.size() > 0
+  - @all.each() do |v|
+    %a{ :href=>video_path(v) }
+      %img{ :src=>@vidavee.file_thumbnail_medium(v.thumbnail_dockey || v.dockey) }
+      = h (v.nil? ? 'Video Missing' : v.title )
+      (
+      = v.favorites.size
+      Votes )
+
+      %br
+      %br
+- else
+  No eligable videos submitted for this school.

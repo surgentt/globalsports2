@@ -1,0 +1,49 @@
+- title @promotion.promo_code
+- @section = 'promotions'
+- @page_title = _('PROMOTION')
+
+.forumContentArea
+  .listingPage
+    .profilePageHeader
+      %h2.columnDescriptor
+        %span
+          =link_to 'PROMOTIONS', promotions_path
+        = @promotion.promo_code    
+  .listings
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        .boxDescription
+          = _('Promotion Details')
+      .contentBoxContent
+        %div{ :style => "padding: 10px 10px 10px 10px" }
+          %div{ :align => "right" }
+            - if current_user.admin?
+              = link_to "Edit", edit_promotion_path(@promotion), :class => 'genericButton'
+              %br/
+            - if !@promotion.enabled?
+              %div{ :style => "float:right; color: red" }
+                %strong This promotion is currently DISABLED            
+  
+          .listingItem  
+            %strong Promotion Code:
+            = @promotion.promo_code
+          .listingItem
+            %strong Name:
+            = @promotion.name
+          .listingItem
+            %strong Cost:
+            = number_to_currency @promotion.cost
+          .listingItem
+            %strong Period:
+            - if !@promotion.period_days.nil?
+              = @promotion.period_days
+              = @promotion.period_days > 1 ? 'Day'.pluralize : 'Day'            
+          .listingItem
+            %strong Subscription Plan:
+            - if @promotion.subscription_plan != nil
+              = @promotion.subscription_plan.description
+          .listingItem
+            %div{:style => "background-color: #ffffff; padding: 10px"}
+              %p
+                = @promotion.html_content
+                %br/

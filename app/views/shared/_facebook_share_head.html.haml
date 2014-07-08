@@ -1,0 +1,41 @@
+- if @video_reel
+  %meta{:property => "og:description", :content => "Check out this highlight reel I just created at GlobalSports.net. At GlobalSports.net you and your team can upload game (or practice) video and create your own clips and highlight reels for free. All online! Nothing to download. Check it out!"}
+  %meta{:property => "og:title", :content => @video_reel.title}
+
+- default_description = 'Check out this video, and come create your own clips and highlights from the thousands of full-game videos at GlobalSports.net'
+
+-# "if true" avoi returns falseds this faulty current_page? check, which incorrectly
+- if true || current_page?(:action => 'show')
+
+  - video = @video_clip || @video_reel || @video_asset || @video_user
+  - if video
+
+    - if video.respond_to?(:public_description) && video.public_description
+      - default_description = video.public_description()
+
+    %meta{:name=>'title', :content=>video.title}
+    
+    - if video.description && !video.description.empty?
+      %meta{:name=>'description', :content=>"#{video.description}" }
+    - else
+      %meta{:name=>'description', :content=>"#{default_description}" }
+    
+    %link{:rel=>'image_src', :href=>@vidavee.file_thumbnail_medium(video.thumbnail_dockey || video.dockey)}
+  
+  -# inject FB meta tags for shared_access
+  - if @shared_access && @shared_access.video? && @shared_access.item
+    %meta{:name=>'title', :content=>@shared_access.item.title}
+    
+    - if @shared_access.item.description && !@shared_access.item.description.empty? 
+      %meta{:name=>'description', :content=>@shared_access.item.description}
+    - else
+      %meta{:name=>'description', :content=>default_description}
+      
+    %link{:rel=>'image_src', :href=>@vidavee.file_thumbnail_medium(@shared_access.item.thumbnail_dockey || @shared_access.item.dockey)}
+
+    - if params[:embed]
+      - abs_share_url = "#{APP_URL}/players/previewPlayer.swf?sakey=#{@shared_access.key}&dockeys=#{@shared_access.item.dockey}"
+      %link{:rel=>'video_src', :href=>abs_share_url}
+      %meta{:name=>'video_height', :content=>"300"}
+      %meta{:name=>'video_width', :content=>"400"}
+      %meta{:name=>'video_type', :content=>'application/x-shockwave-flash'}

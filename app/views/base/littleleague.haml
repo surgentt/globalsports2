@@ -1,0 +1,149 @@
+- @hide_right_ad = true
+%style
+  :plain
+    #llFlash{
+      float: left;
+      width: 640px;
+      height: 480px;
+      background: black;
+    }
+#centerBand{ :style=>'height: 480px;' }
+  -#homeFlash
+    %h1
+      Problems Starting Video Player.
+    %p
+      To view video content you will need to have Adobe Flash player installed and JavaScript enabled on your browser.
+
+  -#= render :partial => 'shared/video_player', :locals => {:target => 'homeFlash', :player_name => '/players/main.swf', :fvars => {:dockeys => @game_dockey_string } }
+  -#%IFRAME{ :SRC=>"http://gs3.sportzcast.tv?id=6666", :WIDTH=>532, :HEIGHT=>400 }
+
+
+  #llFlash
+    = render :partial => "series/player", :locals => { :series_video => @series_video }
+
+    -#%IFRAME{ :SRC=>"http://gs3.sportzcast.tv?id=6666", :WIDTH=>580, :HEIGHT=>400 }
+
+  -#homeDivider
+
+  #homeWelcome{ :style=>'left: 640px;' }
+    #header
+      Watch Select Games LIVE and On-Demand, for FREE!
+    #content
+
+      The following tournaments will be broadcast
+      %b LIVE, for free,
+      online.
+      All tournament games listed below will also be available to watch
+      %b On-Demand
+      after the game is over.
+      But don't just watch the game - you'll be able to
+      %b create your own clips and highlights,
+      right in your browser, to share the most important moments with friends and family.
+
+    -#promote{ :style=>'padding-top: 32px' }
+      %a{ :href=>'/video_assets/4573', :style=>'font-size: 180%; font-weight: bold; color: gold; text-decoration: none' } Edit and Share this Game!
+
+.clearDiv
+
+
+#llmap{ :style=>'background-color: black; color:white' }
+  -# logo-littleleaguebaseball.png
+  -# logo-littleleaguesoftball.png
+
+  %style
+    :plain
+      .show, .show a {
+        float: left;
+        color: gold;
+        font-weight: bold;
+        padding-right: 8px;
+        text-decoration: none;
+      }
+      .date {
+        padding-left: 16px;
+        padding-bottom: 8px;
+      }
+
+  %table{ :width=>'100%' }
+    %tr
+      %td{ :valign=>'top', :width=>'700px' }
+        -#%img{ :src=>'/images/partners/llmap.png', :style=>'float: left;' }
+      %td{ :valign=>'top' }
+        -#%p
+          .show Big League Baseball
+          Easley, SC
+          %br
+          .date July 27th - Aug 3rd
+        %p
+          .show
+            -#= protected_link_to 'Big League Softball', '/series/1'
+            %a{ :href=>'/series/1' } NJ State Championship
+          Williamstown, NJ
+          .date July 29th - Aug 2nd
+        -#%p
+          .show Big League Softball
+          Kalamazoo, MI
+          .date Aug 4th - Aug 10th
+        -#%p
+          .show Southwest Regional
+          Waco, TX
+          .date Aug 4th - Aug 11th
+        -#%p
+          .show Midwest Regional
+          Indianapolis, IN
+          .date Aug 4th - Aug 13th
+        -#%p
+          .show Great Lakes Regional
+          Indianapolis, IN
+          .date Aug 4th - Aug 13th
+        -#%p
+          .show Southeast Regional
+          Warner Robins, GA
+          .date Aug 5th - Aug 12th
+        -#%p
+          .show Northwest Regional
+          San Bernadino, CA
+          .date Aug 5th - Aug 13th
+        -#%p
+          .show West Regional
+          San Bernadino, CA
+          .date Aug 5th - Aug 13th
+        -#%p
+          .show New England Regional
+          Bristol, CT
+          .date Aug 5th - Aug 14th
+        -#%p
+          .show Mid-Atlantic Regional
+          Bristol, CT
+          .date Aug 5th - Aug 14th
+        -#%p
+          .show Senior League Softball
+          Lower Sussex, DE
+          .date Aug 7th - Aug 13th
+        -#%p
+          .show Junior League Baseball
+          Taylor, MI
+          .date Aug 14th - Aug 20th
+        -#%p
+          .show Senior League Baseball
+          Bangor, ME
+          .date Aug 14th - Aug 20th
+        -#%p
+          .show Junior League Softball
+          Kirkland, WA
+          .date Aug 14th - Aug 20th
+
+
+-#bottomBand
+
+  .multiAdContainer
+  .adContainer1
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 4}
+  .adContainer2
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 5}
+  .adContainer3
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 6}
+

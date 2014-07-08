@@ -1,0 +1,236 @@
+- @include_calendar = true
+
+%h2 Uploading a Video
+GameXchange needs specific information about the game you are uploading in order to store it properly in our database. Please take your time to ensure the accuracy of the data you are providing since this will be used later as search criteria.
+
+%br
+%br
+
+%h2 Video Information
+%hr{ :height=>'3px', :color=>'black', :style=>'border: 1px solid black;' }
+
+%br
+
+= f.error_messages
+= error_messages_for :access_item
+  
+- autofill_title = @video_asset.nil? || @video_asset.title.nil? || @video_asset.title.blank?
+%script
+  function autofill_video_title() {
+  //if (document.getElementById('autofill').checked)
+  return generate_video_title();
+  }
+  Event.observe(window, 'load', function() {
+  generate_video_title();
+  });
+  
+  
+= hidden_field :gamex_user, :id
+
+%p
+  %table
+    %tr
+      %td
+        %p
+          = f.label :sport
+          %br/
+          %select{ :id=>"video_asset_sport", :name=>"video_asset[sport]", :onchange=>"javascript:autofill_video_title(); return true;" }
+            %option{ :selected=>'selected' } Football
+
+
+      %td &nbsp;
+      %td
+        %p
+          %label{:for=>"video_asset[game_level]"} Level
+          %br/
+          - game_levels = @video_asset.game_level_choices.clone
+          - game_levels << 'Other'
+          = collection_select("video_asset","game_level",game_levels, "to_s","to_s", { :selected => @video_asset.game_level}, {:style => "width: 115px", :id => 'video_asset_game_level_select', :name=>'video_asset_game_level_select', :onchange=>'javascript:gs.video_assets.select_game_level()'})
+          = text_field :video_asset, :game_level, :size=>12, :onchange => "javascript:autofill_video_title(); return true;", :style => "display:none"
+          -#= collection_select("video_asset","game_level",@video_asset.game_level_choices, "to_s","to_s", { :selected => @video_asset.game_level}, {:style => "width: 115px", :onchange => "javascript:autofill_video_title(); return true;"})
+          -#%script
+            var z=dhtmlXComboFromSelect("video_asset_game_level");
+
+      %td &nbsp;
+      %td
+        %p
+          %label{:for=>"video_asset[game_gender]"} Boys/Girls
+          %br/
+          = collection_select("video_asset","game_gender",VideoAsset.GAME_GENDERS,"to_s","to_s",{ :selected => @video_asset.game_gender }, { :onchange => "javascript:autofill_video_title(); return true;" } )
+
+%p
+  %table
+    %tr
+      %td
+        %p
+          %label{:for=>"video_asset[home_team_name]"} Home Team (Our Team)
+          %br/
+          = text_field_with_auto_complete :video_asset, :home_team_name, :autocomplete => "off", :onchange => "javascript:autofill_video_title(); return true;"
+      %td &nbsp;
+      %td
+        %p
+          %label{:for=>"video_asset[home_score]"} Score
+          %br/
+          = text_field :video_asset, :home_score, :value => @video_asset.home_score, :size=>3, :onchange => "javascript:autofill_video_title(); return true;"
+    %tr
+      %td
+        %p
+          %label{:for=>"video_asset[visiting_team_name]"} Opponent
+          %br/
+          
+          - visiting_team = @video_asset.visiting_team
+          - visiting_team_name = (@video_asset.visiting_team ? @video_asset.visiting_team.name : '')
+
+          - if @show_opponent_text
+            - other_team_style = ''
+            - @video_asset.visiting_team_id = -1
+          - else
+            - other_team_style = 'display: none;'
+
+          = f.collection_select :visiting_team_id, @opponents, :id, :team_name, {:prompt => "-Select-"}, {:onchange=>'javascript:gamex_fill_team_name()'}
+          -#%input{ :type=>'hidden', :id=>'video_asset_visiting_team_name' }
+          %br
+          %span#gamex-other-team-field{ :style=>other_team_style }
+            = text_field_with_auto_complete :video_asset, :visiting_team_name, { :value=>visiting_team_name, :autocomplete => "off"}, :onchange => "javascript:autofill_video_title(); return true;"
+
+      %td &nbsp;
+      %td
+        %p
+          %label{:for=>"video_asset[visitor_score]"} Score
+          %br/        
+          = text_field :video_asset, :visitor_score, :value => @video_asset.visitor_score, :size=>3, :onchange => "javascript:autofill_video_title(); return true;"
+
+
+%p
+  = f.label "Game Date"
+  %br/
+  -#= text_field :video_asset, :game_date, :value => @video_asset.game_date_string, :onchange => "javascript:autofill_video_title(); return true;"
+  = calendar_date_select_tag( "video_asset[game_date]",@video_asset.game_date,:time=>false,:size=>15,:maxlength=>'20%' )
+  
+%p
+  -if @gamex_users.size > 1
+    = f.label :league
+    %br/
+    = f.collection_select :gamex_league_id, @gamex_users, :league_id, :league_name
+  -else
+    = f.hidden_field :gamex_league_id, :value=>@gamex_user.league_id
+
+%p
+  %table
+    %tr
+
+      %td
+        %p
+          %label{:for=>"video_asset[game_type]"} Game Type
+          %br/
+          = collection_select("video_asset","game_type",@video_asset.game_type_choices, "to_s","to_s", {},{:style => "width: 115px", :onchange => "javascript:autofill_video_title(); return true;"})
+          %script
+            var z=dhtmlXComboFromSelect("video_asset_game_type");
+
+      
+      - access_groups = AccessGroup.for_team(current_user.team)
+      - if access_groups.size > 0
+        %td &nbsp;
+        %td
+          %p
+            - @access_item = AccessItem.for_item(@video_asset).first
+            - if @gamex_user && @access_item.nil?
+              - @access_item = AccessItem.new({:access_group_id => @gamex_user.access_group_id})
+            %label{:for=>"access_item[id]"} Access Group
+            %br/
+            = collection_select :access_item, :access_group_id, access_groups, :id, :name
+
+
+
+
+
+
+            
+=f.hidden_field :public_video, :value=>false
+
+=f.hidden_field :title
+
+-#%p
+  = f.label :title
+  %input#autofill{:type => 'checkbox', :name => 'autofill', :checked => autofill_title, :onclick => 'autofill_video_title()', :value => 1}
+  Auto-fill
+  %br/
+  = f.text_field :title, :size => 85, :onkeydown => 'disable_autofill_video_title();return true'
+
+%p
+  = f.label :description
+  %br/
+  = f.text_area :description, :rows => 3, :cols => 45
+
+%p
+  %br/
+  %label
+    = f.check_box :notify_ready, :checked=>true
+    Automatically notify all users when this video is ready for viewing.
+
+%p
+- if current_user.admin?
+  %fieldset.emphasized
+    %legend="Advanced Fields (Admin Only)"
+    %p
+      %label{:for=>"video_asset[gsan]"} GSAN
+      %br/
+      = f.text_field :gsan
+    %p
+      %label{:for=>"video_asset[internal_notes]"} Internal Use Only
+      %br/
+      = f.text_area :internal_notes, :rows => 3, :cols => 65
+      
+    %p
+      = f.label :league_name
+      %br/
+      = text_field_with_auto_complete :video_asset, :league_name, :autocomplete => "off"
+    %p
+      = f.label :team_name
+      %br/
+      = text_field_with_auto_complete :video_asset, :team_name, :autocomplete => "off"
+    %p
+      %br
+      = f.check_box :gamex_release_override
+      = f.label :gamex_release_override
+
+
+
+  %fieldset.emphasized
+    %legend="Very Advanced Fields (Vidavee Coordination, Admin Only)"
+    %p
+      = f.label :dockey
+      %br/
+      = f.text_field :dockey, :size => 32
+
+
+    %p
+      = f.label :host_key
+      %br/
+      = f.text_field :host_key, :size => 6
+    %p
+      = f.label :media_id
+      %br/
+      = f.text_field :media_id, :size => 12
+
+
+    %p
+      = f.label :video_length
+      %br/
+      = f.text_field :video_length
+    %p
+      = f.label :video_type
+      %br/
+      = f.text_field :video_type
+    %p
+      = f.label :video_status
+      %br/
+      = f.text_field :video_status
+
+%br
+%br
+
+-# %h2 Attach Your Video File
+-# Please click the "Browse" button below to locate the video file you wish to upload. Note that only Windows Media (.wmv) files are accepted at this time.
+-# %br
+-# %br

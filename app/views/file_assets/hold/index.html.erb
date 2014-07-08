@@ -1,0 +1,30 @@
+<h1>Listing file_assets</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Status</th>
+    <th>Blocks written</th>
+    <th>Total blocks</th>
+    <th>Md5</th>
+  </tr>
+
+<% for file_asset in @file_assets %>
+  <tr>
+    <td><%=h file_asset.name %></td>
+    <td><%=h file_asset.location %></td>
+    <td><%=h file_asset.status %></td>
+    <td><%=h file_asset.blocks_written %></td>
+    <td><%=h file_asset.total_blocks %></td>
+    <td><%=h file_asset.md5 %></td>
+    <td><%= link_to 'Show', file_asset %></td>
+    <td><%= link_to 'Edit', edit_file_asset_path(file_asset) %></td>
+    <td><%= link_to 'Destroy', file_asset, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New file_asset', new_file_asset_path %>

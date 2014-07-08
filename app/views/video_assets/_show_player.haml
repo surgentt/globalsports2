@@ -1,0 +1,149 @@
+%style
+  :plain
+    .mainContentArea, .landingContentArea { background-color: #0C1329; }
+    #sidebar {
+      float: right;
+      width: 220px;
+    }
+    #clipDropper {
+      height: 540px;
+      overflow: scroll;
+      width: 220px;
+    }
+    #fbfan {
+    }
+
+
+= javascript_include_tag 'video_assets'
+-# allowed = current_user && current_user.enabled? && current_user.has_access?(@video_asset)
+-# allowed = current_user && ((current_user.enabled? && current_user.has_access?(@video_asset)) || (current_user.can_ppv?) )
+- allowed = current_user && current_user.has_access?(@video_asset)
+
+- ready = @video_asset.video_status == 'ready'
+-#- if ready
+-#  %h2{ :style=>"color: white; padding: 8px 8px" }= @video_asset.title
+-#  %img{ :style=>"padding: 8px 8px", :src => "/images/video_#{@video_asset.video_status}.jpg" }
+-#- else
+
+- @clips = current_user ? @video_asset.video_clips.for_user(current_user) : []
+
+.leftNavColPlayer
+  .leftNavPlayer{ :style=>'width:950px;' }
+    - if ready
+      = render :partial => 'ratings/stars', :locals => { :item => @video_asset }
+    - if allowed
+      = render :partial => 'shared/video_actions', :locals => { :video_listing => @video_asset, :ppv => @ppv }
+    -#els
+
+    - if ready
+      - if !@video_asset.is_restricted?
+        -#%a{ :href=>"javascript:gs.video_assets.buy_video(#{@video_asset.id})", :style=>'float:right;' }
+          %img{ :src=>'/images/purchase.jpg' }
+
+        %div
+          - options = {:mouseclick => '/images/listing_icons/sel-dvd.png', :border=>0, :alt => 'Burn a DVD', :title => 'Burn a DVD' }
+          - url = Purchase.url_to_buy(@video_asset)
+          - url = new_user_path(:session_return_to=>url) if ! current_user
+          %a.listingButton{ :href=>url, :style=>'padding-left: 4px; width: 60px;' }
+            = image_tag('/images/listing_icons/dvd.png', options)
+
+        -#.ppv-action-purchase-video
+          %a{ :href=>"javascript:gs.video_assets.buy_video(#{@video_asset.id})" }= 'Purchase Video'
+        -#= link_to image_tag('/images/purchase_video.png', :border=>0, :alt => 'Purchase Video', :title => 'Purchase Video'), "javascript:gs.video_assets.buy_video(#{@video_asset.id})"
+
+        -#.facebook_links{ :style=>'padding-left: 16px;' }
+          - share_url = "#{APP_URL}/video_assets/#{@video_asset.id}"
+          -#= %Q|<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=251993151486921&amp;xfbml=1"></script><fb:like href="#{share_url}" send="true" layout="button_count" width="450" show_faces="true" colorscheme="dark" font=""></fb:like>|
+          = facebook_share(share_url)
+          -#<a name="fb_share" type="button" style='float:right;'
+          -#= "share_url='#{share_url}'"
+          -#href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+
+        -#%a{ :href=>"http://www.facebook.com/sharer.php?u=#{APP_URL}/video_assets/#{@video_asset.id}", :style=>'float:right;' }
+          %img{ :src=>'/images/fb_share.jpg' }
+
+      - if @video_asset.can_download?(current_user)
+        %div
+          - options = {:mouseclick => '/images/listing_icons/sel-download.png', :border=>0, :alt => 'Download', :title => 'Download' }
+          - url = @video_asset.download_url
+          %a.listingButton{ :href=>url, :style=>'padding-left: 4px; width: 75px;' }
+            = image_tag('/images/listing_icons/download.png', options)
+
+
+
+      - style = ''
+      - if !current_user ||  @clips.size < 2
+        - style = 'display: none'
+      #promote_reels{ :style=>style }
+        %a{ :href=>'/video_reels/new' }
+          Make a Highlight Reel!
+
+
+
+- if @video_asset.media_id && !@video_asset.media_id.empty? && !params[:clipmaker]
+  .v4player{ :style=>'padding: 50px; width: 640px;' }
+    - if ready
+      %span{ :style=>'float:right; font-size: 160%;' }
+        %a{ :href=> video_asset_path(@video_asset, :clipmaker=>1) }
+          Create a Clip!
+    %h2{ :style=>"color: white; " }= @video_asset.title
+    .clearDiv
+    %br
+    %IFRAME{ :SRC=>"http://#{@video_asset.host_key}.sportzcast.tv?id=#{@video_asset.media_id}", :WIDTH=>885, :HEIGHT=>610 }
+
+- elsif ready
+  #sidebar
+    #clipDropper
+      - if !current_user
+        %div{:style=>'padding-top:30px; font-size: 133%; color: white; width: 140px'}
+          Share Your Favorite Clips on Facebook or via email.
+          %br
+          %br
+          Log in or
+          %a{ :href=>'/signup', :style=>'color: gold;' } sign up
+          to create clips from your favorite game moments and share them with your family, friends and fans.
+          %br
+          %br
+          = fb_login_and_redirect(request.request_uri, :perms=>::FACEBOOK_PERMISSIONS)
+      - else
+        %script
+          - @clips.collect(&:dockey).each() do |dockey|
+            :plain
+              gs.video_assets.clip_created('#{dockey}')
+
+    #fbfan
+      <fb:fan profile_id="111330332304350" stream="false" connections="5" width="220" height="160"></fb:fan>
+
+  .flashArea#flashArea
+  - if @vidavee && session[:vidavee] && @video_asset.dockey && (allowed || !@video_asset.is_restricted?)
+    - params = {:allowFullScreen=>"true"}
+    - fvars = {:dockey => @video_asset.dockey, :allowFS => "true"}
+    - player_name = '/players/clipmaker.swf'
+    - if !allowed
+      - fvars[:previewTime] = 18000
+      -# player_name = '/players/clipmaker-ppv.swf'
+      - player_name = '/players/clipmaker.swf'
+    = render(:partial => 'shared/video_player', :locals => { :player_name => player_name, :fvars => fvars, :params => params, :target => 'flashArea', :height => 685, :width => 760 })
+
+  .clearDiv
+
+  -#.commentContainer
+    %br
+    .commentArea
+      .forumContentBox
+        -if allowed
+          .commentForm
+            =render :partial => 'comments/comment_form', :locals => { :commentable => @video_asset }
+          .comments#comments
+            #newest_comment
+            =render :partial => 'comments/comment', :collection => @video_asset.comments
+          %span#more_comments_links= more_comments_links(@video_asset)
+        -elsif @video_asset.is_restricted?
+          We’re sorry, but this video is currently restricted. Please contact your coach at
+          - team_name = (@video_asset.team ? @video_asset.team.name : '   ' )
+          = link_to team_name, team_path(@video_asset.team)
+          to inquire about gaining in-season access to this video.
+
+- else
+  %h2{ :style=>"color: white; padding: 8px 8px" }= @video_asset.title
+  %img{ :style=>"padding: 8px 8px", :src => "/images/video_#{@video_asset.video_status}.jpg" }

@@ -1,0 +1,81 @@
+#centerBand
+  #homeFlash
+    %h1
+      Problems Starting Video Player.
+    %p
+      To view video content you will need to have Adobe Flash player installed and JavaScript enabled on your browser.
+
+  = render :partial => 'shared/video_player', :locals => {:target => 'homeFlash', :player_name => '/players/main.swf', :fvars => {:dockeys => @game_dockey_string } }
+
+  #homeDivider
+
+  #homeWelcome
+    #header
+      ="Welcome to #{@site_name}!"
+    #content
+      We are the largest online repository for full-game amateur athletics video. The
+      = @site_name
+      library spans over 60 years of high-school, college, and athletic-club content from around the country.
+      =link_to('Register for free', register_path())
+      to get complete access to our video library and unique video-editing tools. Start making your own clips and highlights and sharing with friends and family today!
+      %br
+      .spacer{:style => 'height:10px;'}
+      Register for these great benefits:
+    #list
+      %li
+        Watch any full game video
+      %li
+        Upload videos and pictures
+      %li
+        Create your clips & highlights
+      %li
+        Share with friends and family
+
+.clearDiv
+
+#bottomBand
+  .panelContainer1
+    .panel
+      %img{ :src=>"/images/box_find.png" }
+      .textContainer
+        See if your school is already a member of GlobalSports. Don't worry though, if your school isn't here, you can upload your own games.
+      .actionButton
+        =link_to(image_tag("/images/link_find.png", :mouseover=>"/images/link_find_ro.png"), url_for({:controller => 'teams', :action => 'find_my_school'}))
+  .panelContainer2
+    .panel
+      %img{ :src=>"/images/box_more.png" }
+      - story = @articles_of_the_week[0] if @articles_of_the_week && @articles_of_the_week.size > 0
+      - if story
+        .morePhoto
+          - unless story.image_thumbnail_for_post('medium').blank?
+            =image_tag(story.image_thumbnail_for_post('medium'), {:width => '306', :height=>'160'})
+      .textContainer
+        - if story
+          =link_to(truncate(h(story.title),100), url_for({:controller => 'posts', :action => 'show_public', :id => story.id}))
+          &nbsp; 
+          =human_date(story.published_at)
+          %br
+          %br
+          =truncate( h(story.post.gsub(/<\/?[^>]*>/, "")) ,75)
+      .actionButton
+        - if story
+          =link_to(image_tag("/images/link_more.png", :mouseover=>"/images/link_more_ro.png"), url_for({:controller => 'posts', :action => 'show_public', :id => story.id}))
+  .panelContainer3
+    .panel
+      %img{ :src=>"/images/box_join.png" }
+      .textContainer
+        Get all our great tools and features by registering today for FREE! Watch full-game video, create clips and highlights and share your highlights over the web!
+      .actionButton
+        =link_to(image_tag("/images/link_join.png", :mouseover=>"/images/link_join_ro.png"), '/register')
+
+  .multiAdContainer
+  .adContainer1
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 4}
+  .adContainer2
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 5}
+  .adContainer3
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 6}
+

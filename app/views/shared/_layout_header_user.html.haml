@@ -1,0 +1,179 @@
+-# This layout has quickly gotten out of control due to last minute additions of action menu, Gamex menu, and rollover and selected states.  Needs refactoring with more partials
+
+#headerBand1
+  -#=link_to(image_tag("/images/gs_logo_small.png"), '/')
+  =link_to(image_tag(@site_logo), '/')
+  %span
+    %a{:href => "#{url_for(edit_account_user_path(current_user))}", :class => "button#{'_selected' if params[:controller] == 'users' && params[:action] == 'edit_account'}" } Edit Account
+
+  %span
+    %a{:href => "#{team_path(current_user.team)}", :class => "button#{'_selected' if params[:controller] == 'teams' && params[:action] == 'show'}" } My School
+
+  %span
+    %a{:href => "#{user_path(current_user.id)}", :class => "button#{'_selected' if params[:controller] == 'users' && params[:action] == 'show' && current_user.id == @user.id}" } Profile
+
+  -#if @render_gamex_menu and current_user.gamex_users.size > 0
+  -if current_user.gamex_users.size > 0
+    %span
+      %a{:href => '/gamex', :class => "button#{'_selected' if (params[:controller] == 'gamex' || @render_gamex_menu)}" } GameXchange
+
+  %span
+    -#=link_to 'Log-out', logout_path, :class=>'logout'
+    =link_to 'Log-out', 'javascript:gs.logout()', :class=>'button' #logout'
+
+  %span.userInfo
+    = current_user.full_name
+    %br
+    -#= current_facebook_user.full_name
+
+#subNavBand
+  #horizontal_spacer{:style => 'display:inline-block;width:13px;'}
+
+  -if params[:controller] == 'messages'
+    =link_to "Inbox<br>" + image_tag("/images/subNav_icons/inbox_col.png", :alt => 'Inbox', :name => 'subNavInbox'), messages_path, {:class => "iconContainer_selected"}
+  -else
+    =link_to "Inbox<br>" + image_tag("/images/subNav_icons/inbox.png", :alt => 'Inbox', :name => 'subNavInbox'), messages_path, {:class => "iconContainer", :onMouseOver => "document.subNavInbox.src = '/images/subNav_icons/inbox_col.png';", :onMouseOut => "document.subNavInbox.src = '/images/subNav_icons/inbox.png';"}
+
+  .divider
+
+  -if params[:controller] == 'search' && params[:action] == 'my_videos'
+    =link_to "My Videos<br>" + image_tag("/images/subNav_icons/clips_col.png", :alt => 'My Videos', :name => 'subNavMyVideos'), {:controller => 'search', :action => 'my_videos', :user_id => current_user.id}, {:class => "iconContainer_selected"}
+  -else
+    =link_to "My Videos<br>" + image_tag("/images/subNav_icons/clips.png", :alt => 'My Videos', :name => 'subNavVideos'), {:controller => 'search', :action => 'my_videos', :user_id => current_user.id}, {:class => "iconContainer", :onMouseOver => "document.subNavVideos.src = '/images/subNav_icons/clips_col.png';", :onMouseOut => "document.subNavVideos.src = '/images/subNav_icons/clips.png';"}
+
+  .divider
+
+  -if params[:controller] == 'video_reels' && params[:action] == 'new'
+    =link_to "New Reel<br>" + image_tag("/images/subNav_icons/reels_col.png", :alt => 'New Reel', :name => 'subNavNewReel'), new_video_reel_path, {:class => "iconContainer_selected"}
+  -else
+    =link_to "New Reel<br>" + image_tag("/images/subNav_icons/reels.png", :alt => 'New Reel', :name => 'subNavNewReel'), new_video_reel_path, {:class => "iconContainer", :onMouseOver => "document.subNavNewReel.src = '/images/subNav_icons/reels_col.png';", :onMouseOut => "document.subNavNewReel.src = '/images/subNav_icons/reels.png';"}
+
+  -if !@render_gamex_menu
+    .divider
+    -if current_user && current_user.can_upload?
+      -if params[:controller] == 'video_assets' && params[:action] == 'new'
+        =link_to "Upload<br>" + image_tag("/images/subNav_icons/upload_col.png", :alt => 'Upload', :name => 'subNavUpload'), new_video_asset_path, {:class => "iconContainer_selected"}
+      -else
+        =link_to "Upload<br>" + image_tag("/images/subNav_icons/upload.png", :alt => 'Upload', :name => 'subNavUpload'), new_video_asset_path, {:class => "iconContainer", :onMouseOver => "document.subNavUpload.src = '/images/subNav_icons/upload_col.png';", :onMouseOut => "document.subNavUpload.src = '/images/subNav_icons/upload.png';"}
+    -else 
+      -if params[:controller] == 'video_users' && params[:action] == 'new'
+        =link_to "Upload<br>" + image_tag("/images/subNav_icons/upload_col.png", :alt => 'Upload', :name => 'subNavUpload'), new_video_user_path, {:class => "iconContainer_selected"}
+      -else
+        =link_to "Upload<br>" + image_tag("/images/subNav_icons/upload.png", :alt => 'Upload', :name => 'subNavUpload'), new_video_user_path, {:class => "iconContainer", :onMouseOver => "document.subNavUpload.src = '/images/subNav_icons/upload_col.png';", :onMouseOut => "document.subNavUpload.src = '/images/subNav_icons/upload.png';"}
+
+  .divider
+
+  -if params[:controller] == 'posts'
+    =link_to "Blogs<br>" + image_tag("/images/subNav_icons/blog_col.png", :alt => 'Blogs', :name => 'subNavBlogs'), user_posts_path(current_user.id), {:class => "iconContainer_selected"}
+  -else
+    =link_to "Blogs<br>" + image_tag("/images/subNav_icons/blog.png", :alt => 'Blogs', :name => 'subNavBlogs'), user_posts_path(current_user.id), {:class => "iconContainer", :onMouseOver => "document.subNavBlogs.src = '/images/subNav_icons/blog_col.png';", :onMouseOut => "document.subNavBlogs.src = '/images/subNav_icons/blog.png';"}
+
+  .divider
+
+  -if params[:controller] == 'favorites'
+    =link_to "Favorites<br>" + image_tag("/images/subNav_icons/favorite_col.png", :alt => 'Favorites', :name => 'subNavFavorites'), user_favorites_path(current_user.id), {:class => "iconContainer_selected"}
+  -else
+    =link_to "Favorites<br>" + image_tag("/images/subNav_icons/favorite.png", :alt => 'Favorites', :name => 'subNavFavorites'), user_favorites_path(current_user.id), {:class => "iconContainer", :onMouseOver => "document.subNavFavorites.src = '/images/subNav_icons/favorite_col.png';", :onMouseOut => "document.subNavFavorites.src = '/images/subNav_icons/favorite.png';"}
+
+  -if current_user.can_grant_access?()
+    .divider
+    -if params[:controller] == 'access_groups'
+      =link_to "Groups<br>" + image_tag("/images/subNav_icons/groups_col.png", :alt => 'Groups', :name => 'subNavGroups'), access_groups_path, {:class => "iconContainer_selected"}
+    -else
+      =link_to "Groups<br>" + image_tag("/images/subNav_icons/groups.png", :alt => 'Groups', :name => 'subNavGroups'), access_groups_path, {:class => "iconContainer", :onMouseOver => "document.subNavGroups.src = '/images/subNav_icons/groups_col.png';", :onMouseOut => "document.subNavGroups.src = '/images/subNav_icons/groups.png';"}
+
+  -if current_user.can_publish?
+    .divider
+    -if params[:controller] == 'channels'
+      =link_to "Channels<br>" + image_tag("/images/subNav_icons/channels_col.png", :alt => 'Channels', :name => 'subNavChannels'), channels_path(), {:class => "iconContainer_selected"}
+    -else
+      =link_to "Channels<br>" + image_tag("/images/subNav_icons/channels.png", :alt => 'Channels', :name => 'subNavChannels'), channels_path(), {:class => "iconContainer", :onMouseOver => "document.subNavChannels.src = '/images/subNav_icons/channels_col.png';", :onMouseOut => "document.subNavChannels.src = '/images/subNav_icons/channels.png';"}
+
+  -if current_user.can_manage_staff? #team_admin? || current_user.league_admin?
+    .divider
+    -if params[:controller] == 'admin'
+      =link_to "Staff<br>" + image_tag("/images/subNav_icons/staff_col.png", :alt => 'Staff', :name => 'subNavStaff'), staffs_path, {:class => "iconContainer_selected"}
+    -else
+      =link_to "Staff<br>" + image_tag("/images/subNav_icons/staff.png", :alt => 'Staff', :name => 'subNavStaff'), staffs_path, {:class => "iconContainer", :onMouseOver => "document.subNavStaff.src = '/images/subNav_icons/staff_col.png';", :onMouseOut => "document.subNavStaff.src = '/images/subNav_icons/staff.png';"}
+
+  -if current_user.can?(Permission::COACH)
+    .divider
+    -if params[:controller] == 'team_sports'
+      =link_to "My Teams<br>" + image_tag("/images/subNav_icons/manage_team_col.png", :alt => 'My Teams', :name => 'subNavTeams'), team_sports_url(), {:class => "iconContainer_selected"}
+    -else
+      =link_to "My Teams<br>" + image_tag("/images/subNav_icons/manage_team.png", :alt => 'My Teams', :name => 'subNavTeams'), team_sports_url(), {:class => "iconContainer", :onMouseOver => "document.subNavTeams.src = '/images/subNav_icons/manage_team_col.png';", :onMouseOut => "document.subNavTeams.src = '/images/subNav_icons/manage_team.png';"}
+
+  -if !current_user.admin? && !Purchase.shopping_cart(current_user).empty?
+    .divider
+    -if params[:controller] == 'purchases'
+      =link_to "Checkout<br>" + image_tag("/images/subNav_icons/cart_col.png", :alt => 'My Teams', :name => 'subNavCart'), purchases_url(), {:class => "iconContainer_selected"}
+    -else
+      =link_to "Checkout<br>" + image_tag("/images/subNav_icons/cart.png", :alt => 'My Teams', :name => 'subNavCart'), purchases_url(), {:class => "iconContainer", :onMouseOver => "document.subNavCart.src = '/images/subNav_icons/cart_col.png';", :onMouseOut => "document.subNavCart.src = '/images/subNav_icons/cart_col.png';"}
+
+#headerBand2
+  .outerContainer
+    %span.videoQuickFind
+      Video Quickfind
+      - form_tag url_for({:controller => 'search', :action => 'quickfind'}), :method => :get, :id=>'videoQuickFind' do
+        =collection_select("quickfind","id",@quickfind_states,"id","name", {:prompt => "-State-", :selected => "-State-"}, {:id => 'videoFindState', :name => 'state', :onchange=>"#{remote_function(:url=>{:controller=>'search',:action=>'quickfind_select_state'},:with=>"'state='+value")}" })
+        #quickfind_schools
+          = render :partial => '/search/quickfind_schools', :object => @quickfind_schools
+        #quickfind_sports
+          = render :partial => '/search/quickfind_sports', :object => @quickfind_sports
+        #quickfind_seasons
+          = render :partial => '/search/quickfind_seasons', :object => @quickfind_seasons
+        %input.submit.button{ :name => "submit", :src => "/gs/images/top_nav_search.gif", :type => "image", :value => "search", :alt => "Search" }
+    %span.siteSearch
+      Site Search
+      - form_tag url_for({:controller => 'search', :action => "q"}), :method => 'get' do
+        -# this focus and value are to help select the field on IE
+        %input#searchTerms{ :name => "search[keyword]", :type => "text", :value => '                  ', :onfocus => 'this.select()'}
+        %input.submit.button{ :name => "submit", :src => "/gs/images/top_nav_search.gif", :type => "image", :value => "search", :alt => "Search" }/
+
+
+- if params[:controller] == 'users' && params[:action] == 'show'
+  - if (current_user.admin? && @user && @user.id != current_user.id) || (@user && current_user.can_grant_access?(@user))
+    #actionNavBand
+      .actionTitle
+        ACTIONS
+      - if @user && current_user.can_grant_access?(@user)    
+        .divider
+        .actionItem
+          = link_to 'Grant Access', add_user_to_access_group_path(@user)
+
+      - if current_user.admin?
+        -if @user && @user.id != current_user.id
+          .divider
+          .actionItem
+            = link_to( "GameX Allow", url_for({:controller => 'gamex_users', :action => 'new', :'gamex_user[user_id]' => @user.id}) )
+
+          .divider
+          .actionItem
+            = link_to( "Disable user", url_for({:controller => 'users', :action => 'disable', :id => @user}), {:method => :delete, :confirm => 'Are you sure you want to disable this user account?'} )
+
+          .divider
+          .actionItem
+            = link_to( "Assume ID", assume_user_path(@user) )
+
+      .divider
+
+-#if @render_gamex_menu and current_user.gamex_users.size > 0
+-if @render_gamex_menu || (current_user.gamex_users.size > 0 && (params[:controller] == 'gamex' || (params[:controller] == 'video_assets' && params[:action] == 'new')))
+  #gamexNavBand
+    .actionTitle
+      GameXchange
+    .divider
+    .actionItem
+      = link_to 'Upload', new_video_asset_path('gamex_user[id]' => '')
+    .divider
+    .actionItem
+      = link_to 'Download', '/gamex/download'
+    .divider
+    .actionItem
+      = link_to 'History', '/gamex/history'
+    .divider
+    .actionItem
+      = link_to 'Help Center', 'http://files.globalsports.net/gamexchange/helpcenter/home/index.php', :target => '_blank'
+    .divider
+
+

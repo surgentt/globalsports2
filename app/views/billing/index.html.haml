@@ -1,0 +1,45 @@
+- @section = (params[:metro_area_id] ? 'metro_area' : 'users')
+
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        =link_to 'BILLING', billing_index_path
+      Memberships
+  .listings
+    .box
+      %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+        %thead
+          %tr.yellowHeader
+            %td.padded.contentBoxHeader.la
+              = _('Membership Name')
+            %td.padded.contentBoxHeader.la
+              = _('Billing Method')
+            %td.padded.contentBoxHeader.numeric
+              = _('Cost') 
+            %td.padded.contentBoxHeader.la
+              = _('Promotion') 
+            %td.padded.contentBoxHeader.la
+              = _('Joined') 
+            %td.padded.contentBoxHeader.la
+              = _('Canceled') 
+            %td.padded.contentBoxHeader.la
+              = _('History') 
+        %tbody
+          = render :partial => "billing/membership", :collection => @memberships
+  
+      - if @users && @users.any
+        %br.clear
+        %h3= "#{AppConfig.community_name} Users"
+        %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+        %thead
+          %tr.yellowHeader
+            %td.padded.contentBoxHeader.la
+              = _('User Name')
+            %td.padded.contentBoxHeader.la
+              = _('Joined') 
+            %td.padded.contentBoxHeader.la
+              = _('Enabled')
+            %td.padded.contentBoxHeader.la
+              = _('Member of')
+          = render :partial => "billing/userlist", :collection => @users

@@ -1,0 +1,62 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        %h2.boxDescription
+          My Photo:
+          =h(@photo.display_name)
+      .contentBoxContent
+
+        .listingItem
+          .listingImage
+            %table
+              %tr
+                %td{ :valign=>:bottom }
+                  = link_to "&laquo; Prev", user_photo_path(@user, @previous), :class => 'left' if @previous
+                %td{ :valign=>:bottom }
+                  = image_tag( @photo.public_filename, :class => "polaroid" )  
+                %td{ :valign=>:bottom }
+                  = link_to "Next &raquo;", user_photo_path(@user, @next), :class => 'right' if @next
+            %h4
+              = h @photo.description
+              %br/
+              = @photo.tags.collect{|t| link_to( h(t.name), tag_url(t.name), :class => 'tag') }.join(", ")
+          %ul.listingActions    
+            - if (current_user && (current_user.admin? || current_user.id == @photo.user_id))
+              %li
+                = link_to 'Use as Avatar', change_profile_photo_user_path({:id => @user.id, :photo_id => @photo}), :method => :put,  :class=>'genericButton'
+                    
+              - if @user.league_staff? || @user.admin?
+                %li
+                  = link_to "Use as league logo", change_league_photo_user_path({:id => @user.id, :photo_id => @photo}), :method => :put,  :class=>'genericButton'
+                
+              - if @user.team_staff? || @user.admin?
+                %li
+                  = link_to "Use as team logo", change_team_photo_user_path({:id => @user.id, :photo_id => @photo}), :method => :put,  :class=>'genericButton'
+
+              %li
+                %a.genericButton{ :href => edit_user_photo_path(@user,@photo) }
+                  %span
+                    Edit
+    
+              %li
+                = link_to 'Delete', user_photo_path(@user,@photo), :confirm => 'Are you sure?', :method => :delete,  :class=>'genericButton'
+            - else
+              %li
+                = render :partial => 'shared/inappropriate_item', :locals => { :item => @photo }
+
+            %li
+              = render :partial => 'shared/favorite_item', :locals => { :item => @photo }
+                
+          .clearDiv
+        .clearDiv
+
+
+        #comments.box.hfeed.comments
+          %h2 Add Your Comment!
+          %p= render :partial => 'comments/comment_form', :locals => {:commentable => @photo}
+          %a#newest_comment
+          = render :partial => 'comments/comment', :collection => @photo.comments
+          %span#more_comments_links= more_comments_links(@photo)
+

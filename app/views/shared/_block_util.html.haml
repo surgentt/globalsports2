@@ -1,0 +1,17 @@
+.util
+  - if logged_in?
+    -#= render :partial => 'shared/user_menu'
+    %span
+      %a{ :href => "/info/about" }
+        about
+      |
+      %a{ :href => "/info/contact" }
+        contact
+      |
+      %a{ :href => "/info/help" }
+        help
+      |
+      =link_to 'logout', logout_path
+      %img{ :src => "/gs/images/lock.gif", :alt => "Lock", :title => "logout"}/
+  
+  

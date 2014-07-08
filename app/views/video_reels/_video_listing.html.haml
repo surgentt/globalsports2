@@ -1,0 +1,35 @@
+.listingBox-2cols{:id => "video_reel_#{video_listing.id}"}
+  .frameTop
+  .col1
+    .listingBoxHeader
+      .title{ :style => "float:right; width:60px; text-align:right;" }
+        = "(#{video_listing.video_length})"
+      .title{:style => "width: 270px"}
+        = truncate(video_listing.title,40)
+
+    .thumb
+      = "<a href='#{user_video_reel_path(video_listing.user_id,video_listing)}'><img src='#{@vidavee.file_thumbnail_medium(video_listing.thumbnail_dockey)}' title='#{h(video_listing.title).gsub(/\'/,'')}' alt='Reel'/></a>"
+
+    .listingBoxContent
+      %p= truncate(video_listing.description,200)
+
+      %br
+      %p
+        Views:
+        = number_with_delimiter(video_listing.view_count)
+        = render :partial => 'shared/favorite_count', :locals => {:item => video_listing}
+
+    .clearDiv
+    .listingBoxFooter
+      Created by:
+      %span.recentFriendFeed
+        = link_to h(video_listing.user.full_name), user_path(video_listing.user_id)
+      on
+      = video_listing.created_at.strftime("%B %d, %Y")
+
+  .col2
+    .listingBoxActions
+      = render :partial => 'shared/video_actions', :locals => { :video_listing => video_listing, :listing => true }
+      
+  .clearDiv
+  .frameBtm

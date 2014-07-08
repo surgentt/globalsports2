@@ -1,0 +1,32 @@
+#findBand
+  =image_tag('/images/find_my_school.png')
+  .content
+    The GlobalSports video library reaches across the country. Choose a state from the list below to see if your school has any games in our library.
+
+#stateMapBand
+  #stateMap
+    =image_tag('/images/find_map.png')
+  #stateListing
+    .title
+      States in the GS Library
+      %br
+      %br
+    .list
+      - column_split = (@states.size / 2.0).round
+      %table{:width => '300px'}
+        %tr
+          %td
+            - @states[0..column_split-1].each do |state|
+              %p= link_to_function(state.long_name, "javascript:gs.find_my_school.update_state('#{state.long_name}');")
+          %td
+            - @states[column_split..@states.size].each do |state|
+              %p= link_to_function(state.long_name, "javascript:gs.find_my_school.update_state('#{state.long_name}');")
+
+#greySpacerBand
+
+#schoolListingContainer
+  %span#stateName
+  %span#smallPrint{:style => 'display: none;'}
+    &nbsp;&nbsp; Click an organization to see a list of the video assets in our library.
+  #schoolList
+

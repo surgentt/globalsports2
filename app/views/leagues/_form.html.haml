@@ -1,0 +1,82 @@
+%table{ :width=>'100%' }
+  %tr
+    %td{ :valign=>'top' }
+      %h3 League Logo
+      .contentBoxContent.topRowFixHeight
+        .centeringDiv{:style => "text-align: center; vertical-align: middle"}
+          = image_tag @league.avatar_photo_url
+      %label
+        Choose a photo to use for your league logo
+        %br/
+        %em (100x100 or 234x60 only)
+        %br/
+      = file_field :avatar, :uploaded_data, :size => "20"
+      %br
+      %br
+      
+    %td
+      %div
+        %b League Name
+        %br/
+        = f.text_field :name 
+        
+      %div
+        %b Address Line One
+        %br/
+        = f.text_field :address1
+      
+      %div
+        %b Address Line Two
+        %br/
+        = f.text_field :address2
+        
+      %table{:cellspacing => 4}
+        %tr
+          %td City
+          %td State
+          %td Zip/Postal Code
+        %tr
+          %td
+            = f.text_field :city, :size => 25
+          %td  
+            =collection_select("league","state_id",State.all,"id","name",{ :prompt => '--', :selected => @league.state_name })
+          %td
+            = f.text_field :zip, :size => 12
+            
+      %div
+        %b Description
+        %br/
+        = f.text_area :description, :rows => 3, :cols => 45
+      
+      %div
+        %b Phone
+        %br/
+        = f.text_field :phone, :size => 14
+      
+      %div
+        %b Contact E-mail address
+        %br/
+        = f.text_field :email, :size => 24
+
+      %div
+        %b Roster Invite Message
+        %br/
+        = f.text_area :motd, :rows => 3, :cols => 45
+
+      %div
+        %b Asset Page Header League Only Message
+        %br/
+        = f.text_area :pre_clip_msg, :rows => 3, :cols => 45
+
+      %div
+        %b Post Clip Creation League Only Message
+        %br/
+        = f.text_area :post_clip_msg, :rows => 3, :cols => 45
+
+      %div
+        %b Page Description, Facebook Share Message
+        %br/
+        = f.text_area :fb_share_msg, :rows => 3, :cols => 45
+
+
+

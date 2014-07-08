@@ -1,0 +1,13 @@
+-# options[:value] = name if model.attributes[:field.to_s].nil?
+
+- options[:onfocus] = "if(this.value == '#{name}') this.value = '';"
+- options[:onblur] = "if(!this.value) this.value = '#{name}';"
+
+
+
+.gsField{:style=>'color: black'}
+  - if use_tag
+    = text_field_tag model, field, options
+  - else
+    - modelname = model.class.to_s.downcase #.pluralize
+    = text_field modelname, field, options

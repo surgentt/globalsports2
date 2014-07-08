@@ -1,0 +1,23 @@
+#headerBand0
+  - unless request.ssl?
+    .adContainer
+      .adPanel728x90
+        -#= render :partial => "shared/ad_panel", :locals => {:ad_size => '728x90'}
+        %a{ :href=>'http://www.networksolutions.com/affiliate-program/web-hosting.jsp?siteid=519&channelid=P99C519S512N0B2A1D687E0000V100' }
+          %img{ :src=>'/images/ads/7676.jpg' }
+  = render :partial => 'shared/login_container'
+
+#headerBand1
+  -# site_logo = @site_logo || "/images/gs_logo_small.png"
+  =link_to(image_tag(@site_logo), '/')
+
+  %span
+    %a{:href => '/info/membership', :class => "button#{'_selected' if params[:permalink] == 'membership' || (params[:controller] == 'users' && params[:action] == 'register')}" } Membership
+
+  %span
+    %a{:href => '/info/about', :class => "button#{'_selected' if params[:permalink] == 'about'}" } About Us
+
+  %span
+    %a{:href => '/', :class => "button#{'_selected' if params[:controller] == 'base' && params[:action] == 'site_index'}" } Home
+
+#thinSpacerBand

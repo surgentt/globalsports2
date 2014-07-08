@@ -1,0 +1,101 @@
+- @skip_profile_nav = true
+
+= javascript_include_tag 'contests'
+= stylesheet_link_tag 'contests'
+
+%script
+  = "gs.contests.contest_id = #{@contest.id}"
+
+.profileContentArea.listingPage.contest
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        = @contest.title
+      Admin
+  .listings
+    .padded
+
+      - @associated_emails = []
+      - @unregistered_emails = []
+      - @inactive_emails = []
+
+      %table.contest-admin
+
+        %tr
+          %th Team
+          %th Associates
+          %th Not Registered
+          %th Not Tagging
+
+        - @teams.each() do |team|
+          %tr
+            %td{ :valign=>'top' }
+              %a{ :href=>"javascript:gs.contests.open_detail(#{team.id})" }
+                = team.name
+                = team.id
+
+            %td{ :valign=>'top' }
+              - entries = @associated_users[team.id]
+              %a{ :href=>"javascript:gs.contests.open_detail(#{team.id})" }
+                %b= entries.size() if entries.size() > 0
+              .div{ :id=>"associated-#{team.id}", :style=>'display: none'}
+                %br
+                - entries.each() do |re|
+                  = "#{h re.firstname} #{h re.lastname} &lt;#{h re.email}&gt;"
+                  - @associated_emails << re.email if re.email
+                  %br
+                - if entries.size() > 0
+                  %form{ :action=>'/messages/new' }
+                    %input{ :type=>'hidden', :name=>'to_emails', :value=>entries.collect(&:email).join(',')}
+                    %input{ :type=>'submit',  :value=>'Mail Team Associates >>' }
+
+            %td{ :valign=>'top' }
+              - entries = @unregistered_roster_entries[team.id]
+              %a{ :href=>"javascript:gs.contests.open_detail(#{team.id})" }
+                %b= entries.size() if entries.size() > 0
+              .div{ :id=>"unregistered-#{team.id}", :style=>'display: none'}
+                %br
+                - entries.each() do |re|
+                  = "#{h re.firstname} #{h re.lastname} &lt;#{h re.email}&gt;"
+                  - @unregistered_emails << re.email if re.email
+                  %br
+                - if entries.size() > 0
+                  %form{ :action=>'/messages/new' }
+                    %input{ :type=>'hidden', :name=>'to_emails', :value=>entries.collect(&:email).join(',')}
+                    %input{ :type=>'submit',  :value=>'Mail Team Unregistered >>' }
+
+            %td{ :valign=>'top' }
+              - users = @inactive_users[team.id]
+              %a{ :href=>"javascript:gs.contests.open_detail(#{team.id})" }
+                %b= users.size() if users.size() > 0
+              .div{ :id=>"inactive-#{team.id}", :style=>'display: none' }
+                %br
+                - users.each() do |u|
+                  - if u
+                    = "#{h u.firstname} #{h u.lastname} &lt;#{h u.email}&gt;"
+                    - @inactive_emails << u.email if u.email
+                  %br
+                - if users.size() > 0
+                  %form{ :action=>'/messages/new' }
+                    %input{ :type=>'hidden', :name=>'to_emails', :value=>users.collect(&:email).join(',')}
+                    %input{ :type=>'submit',  :value=>'Mail Team Inactives >>' }
+
+        %tr
+          %td{ :valign=>'top' }
+          %td{ :valign=>'top' }
+            %form{ :action=>'/messages/new' }
+              %input{ :type=>'hidden', :name=>'to_emails', :value=>@associated_emails.join(',')}
+              %input{ :type=>'submit',  :value=>'Mail All Associated >>' }
+          %td{ :valign=>'top' }
+            %form{ :action=>'/messages/new' }
+              %input{ :type=>'hidden', :name=>'to_emails', :value=>@unregistered_emails.join(',')}
+              %input{ :type=>'submit',  :value=>'Mail All Unregistered >>' }
+          %td{ :valign=>'top' }
+            %form{ :action=>'/messages/new' }
+              %input{ :type=>'hidden', :name=>'to_emails', :value=>@inactive_emails.join(',')}
+              %input{ :type=>'submit', :value=>'Mail All Inactive >>' }
+      %br
+      %br
+
+
+

@@ -1,0 +1,33 @@
+%h2
+  = @team_sport.team.name
+  = @team_sport.name
+  Team
+
+%br
+%br
+Users that are not assigned to this team cannot view these videos. To remove a video click the delete button (this will make the video visible to all GS members).
+%br
+%br
+
+.team-sport-videos
+  %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '350px'}
+    -#%thead
+      %tr.yellowHeader
+        %th.padded.contentHeader
+        %th.padded.contentHeader
+        %th.padded.contentHeader
+    %tbody
+      - for item in @access_group.access_items
+        -video=item.item
+        - dockey = (video.thumbnail_dockey || video.dockey) rescue nil
+        - if dockey
+          %tr{ :id=>"access_item_#{item.id}" }
+            %td
+              - if !video.nil?
+                %a{ :href=>video_path(video) }
+                  %img{ :src=>@vidavee.file_thumbnail_medium(dockey), :style=>'padding: 3px 0 0 3px;' }
+            %td{ :style=>'padding: 6px;' }
+              = h (video.nil? ? 'Video Missing' : video.title )
+            %td
+              = link_to_remote 'X', {:url => {:controller=>:access_groups, :action=>:remove_video, :id=>item.id}, :confirm => 'Are you sure?', :method=>:delete}, :complete => evaluate_remote_response
+

@@ -1,0 +1,108 @@
+.mainContentArea{
+  background-color: #0B1226;
+}
+
+.series_header{
+  background-color: #020202;
+  color:gold;
+  font-size: 166%;
+  font-weight: bold;
+  padding: 3px;
+}
+
+.series_video_player {
+  background-color: #0B1226;
+  xfloat: left;
+  xpadding-top: 18px;
+  xposition: absolute;
+  xleft: 290px;
+  xpadding-left: 200px;
+}
+
+
+.series_video_list_view {
+  height: 190px;
+  width: 990px;
+  overflow: scroll;
+  background-color: grey;
+  color: black;
+}
+
+.series_video_list {
+  height: 130px;
+  xwidth: 9999px;
+
+  padding:6px;
+
+  font-size: 100%;
+}
+
+.series_video_spacer {
+  xfloat: left;
+  xwidth: 200px;
+  height: 600px;
+  xpadding-top: 18px;
+  xpadding-left: 18px;
+
+  font-size: 100%;
+}
+
+.series_video_list .game {
+  xfloat: left;
+  padding: 6px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  font-size: 100%;
+}
+
+.series_video_list .game.selected {
+  background-color: gold;
+}
+
+.series_video_list .game .title {
+  font-weight: bold;
+  font-style: italic;
+
+}
+
+.series_video_list .game .time {
+  xfont-weight: bold;
+  font-style: italic;
+  xfont-size: 100%;
+}
+
+.series_video_list .game a.select_me {
+  color: black;
+  xfont-weight: bold;
+  font-size: 100%;
+  text-decoration: none;
+}
+
+.share a{
+  padding-left: 18px;
+  font-style: italic;
+  font-size: 120%;
+  text-decoration: none;
+}
+
+object#homeFlash {
+  float: none;
+}
+
+.invite {
+  float: right;
+  xposition: absolute;
+  xright: 160px;
+  xtop: 32px
+
+  width: 160px;
+  padding-right: 16px;
+  text-align: right;
+
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.relative {
+  position: relative;
+}

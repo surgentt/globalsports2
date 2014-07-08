@@ -1,0 +1,17 @@
+- @section = 'forums'
+- @page_title = @forum.name
+
+.forumContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        .boxDescription
+          = _('Forum Details')
+      .contentBoxContent      
+        - form_for :forum, :url  => forum_path(@forum), :html => { :class => "MainForm", :method => :put } do |f|
+          %p= link_to _('Delete this forum'), forum_path(@forum), :method => :delete, :confirm => "Are you sure you want to permanently delete this forum?", :class => 'genericButton'
+          = render :partial => "form", :object => f
+          %p= submit_tag _('Save Forum'), :or => link_to(_('Cancel'), forums_path)
+      
+      

@@ -1,0 +1,18 @@
+- @section = 'promotions'
+- @page_title = _('NEW PROMOTION')
+
+.forumContentArea
+  .listingPage
+    .profilePageHeader
+      %h2.columnDescriptor
+        %span
+          =link_to 'PROMOTIONS', promotions_path    
+  .listings
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        .boxDescription
+          = _('Promotion Details')
+      .contentBoxContent      
+        - form_for :promotion, :url => promotions_path, :html => {:class => "xMainForm"} do |f|
+          = render :partial => "form", :object => f
+          %p= submit_tag _('Create'), :or => link_to(_('Cancel'), promotions_path)

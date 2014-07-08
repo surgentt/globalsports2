@@ -1,0 +1,89 @@
+
+table.gamex th {
+  font-size: 130%;
+  padding: 5px;
+}
+table.gamex td {
+	border-bottom: 1px solid #989B9B;
+	border-right: 1px solid #989B9B;
+	padding:5px;
+}
+
+
+.gamex .row0 {
+	background-color: #BDC1C0;
+}
+
+.gamex .row1 {
+}
+
+
+.gamexButton{
+	position: relative;
+	float: left;
+	background-image: url(../images/blueButton.png);
+	width: 175px;
+	height: 39px;
+	left: 0px;
+}
+
+.gamexButton a{
+	text-decoration: none;
+	font-weight: normal;
+	color: #fff;
+	font-size: 160%;
+	vertical-align: middle;
+	padding-top: 20px;
+       	padding-left: 20px;
+}
+
+.gamex-tips {
+  float:right;
+  width: 200px;
+
+}
+
+.gamex-league-avatar {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 300px;
+}
+
+.gamex-league-avatar img {
+  float: right;
+}
+
+.gamex-upload-box {
+  background-color: transparent;
+ 	padding-left: 20px;
+
+  width: 400px;
+
+  position: relative;
+}
+
+.gamexlistings {
+  width: 770px;
+  position: relative;
+}
+
+.gamex-tips #sidebar {
+  width: 176px;
+}
+
+.gamex-tips #sidebar .menutitle {
+  background-image: url(../images/gamex_sidebar_title.png);
+}
+
+.gamex-tips #sidebar .menuitem {
+  background-image: url(../images/gamex_sidebar.png);
+  height: auto;
+  background-repeat: repeat;
+  padding-right: 8px;
+}
+
+.gamex-tips #sidebar .menuitem-last {
+  background-image: url(../images/gamex_sidebar_curve.png);
+}
+

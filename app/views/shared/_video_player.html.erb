@@ -1,0 +1,17 @@
+<%- height ||= '100%' %>
+<%- width ||= '100%' %>
+<%- player_name ||= '/players/clipmaker.swf' %>
+<%- fvars ||= { :p1 => @vidavee.file_flv_const(session[:vidavee],dockey) } %>
+<%- flashVars = fvars.inject([]) { |s,(k,v)| s << "#{k}: encodeURIComponent('#{v}')"}.join(",") %>
+<%- params ||= {} %>
+<%- params['wmode']='opaque' %>
+<%- params['bgcolor']='#0c1329' %>
+<%- params['quality']='high' %>
+<%- paramsLine = params.inject([]) { |s,(k,v)| s << "#{k}: encodeURIComponent('#{v}')"}.join(",") %>
+<script type="text/javascript">
+  var flashvars = { <%= flashVars %> };
+  var params = { <%= paramsLine %>};
+  var attributes = {};
+  swfobject.embedSWF('<%=player_name-%>','<%=target-%>','<%=width-%>','<%=height%>',"9.0.28","/gs/scripts/swfobject/expressInstall.swf", flashvars, params, attributes);
+</script>
+

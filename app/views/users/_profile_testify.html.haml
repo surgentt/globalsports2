@@ -1,0 +1,20 @@
+.contentBox.tanBackground
+  .contentBoxHeader.yellowHeader
+    %h2.boxDescription
+      = _('My Scoreboard')
+  .contentBoxContent.sportsWall
+    .profileFeature
+      .profileInfo
+        .commentPost
+          = render :partial => 'users/profile_comment_form', :locals => {:commentable => @user}
+
+        #newest_comment
+        = render :partial => 'comments/comment', :collection => @comments
+
+      .clearDiv.moreLinkArea
+        %span.moreLink
+          = link_to 'see all messages &raquo;', comments_url(@user.class.to_s, @user.to_param, :sw => true)
+
+            
+            
+            

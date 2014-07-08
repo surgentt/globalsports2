@@ -1,0 +1,16 @@
+
+aaron:
+  app_id: 5577151025
+  secret: 6dabf740335163fa070b830b9bfccd2f
+  api_key: 5577151025
+
+qa:
+  app_id: 145272465550122
+  secret: 7fc22316266f5fea0c4d1b3ce5f0b945
+  api_key: 145272465550122
+
+production:
+  app_id: 247391401938758
+  secret: 9884e6626ba0e89b3417f349c723ffd7
+  api_key: 247391401938758
+

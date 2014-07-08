@@ -1,0 +1,49 @@
+%style
+  :plain
+    .shoppingCart{
+      padding: 16px;
+      font-size: 118%;
+    }
+
+.shoppingCart
+  %p
+    Thank you for your purchase. You have purchased the following
+    = "game#{(@billing.purchases.size > 1) ? 's' : ''}"
+    on DVD:
+  %p
+
+  %br
+
+  - for purchase in @billing.purchases
+    %a{ :href=>video_asset_path(purchase.item) }><
+      %img{ :src=>purchase.item.thumbnail, :align=>'middle' }
+    \&nbsp;
+    = purchase.item.title
+    %br
+    %br
+
+  %p
+    These will be mailed to the following address. Please allow 3-4 weeks for delivery. If this address is not correct, please contact&nbsp;
+    %a{ :href=>"mailto:admin@globalsports.net" }><
+      admin@globalsports.net
+    &nbsp;immediately with corrections.
+
+  %blockquote{ :style=>'padding-left: 16px;' }
+    %br
+    = @billing.firstname
+    = @billing.lastname
+    %br
+    = @billing.address1
+    %br
+    = @billing.address2
+    %br
+    = @billing.city
+    ,
+    = @billing.state.name
+    %br
+    = @billing.zip
+  %p
+    %br
+    Thank you, and enjoy your games!
+    %br
+    \- The Global Sports Team

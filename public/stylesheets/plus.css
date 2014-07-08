@@ -1,0 +1,1965 @@
+a, a:visited, a:hover, a:active {
+  outline: none;
+}
+
+/* notice warning flash_message */
+#flash_notice, #flash_error, #flash_info {
+  background-color: #ffffff;
+  border: 0px;
+}
+
+#flash_error, .warningBox {
+   color: red;
+   font-size: 125%;
+   background-color: #ffe3e3;
+   border: 1px solid red;
+}
+
+#flash_info {
+  background-color: #e2e4a7;
+  border: 2px solid #68a34e;
+}
+/* re-using flash_info color scheme */
+#reg_team_error, #reg_league_error {
+  width: 280px; 
+  margin-left: 10px; 
+  position: absolute;
+}
+#reg_team_error h3, #reg_league_error h3 {
+  text-align: center;
+}
+
+/* forms */
+
+.landingContentArea, 
+.mainContentArea{
+	background-color: #ffffff;
+}
+/*
+.landingContentArea input[type='text'],
+.landingContentArea input[type='password'],
+.landingContentArea select,
+.landingContentArea textarea,
+ */
+.mainContentArea input[type='text'],
+.mainContentArea input[type='password'],
+.mainContentArea select,
+.mainContentArea textarea {
+  xbackground-color: #feb;
+  border: 1px solid black;
+  margin-bottom: 4px;
+}
+
+.landingContentArea input[type='text']:focus, .landingContentArea input[type='password']:focus
+.mainContentArea input[type='text']:focus, .mainContentArea input[type='password']:focus { 
+  border: 1px solid darkblue;
+}
+
+.landingContentArea label
+.mainConentArea label { 
+  font-weight: bold;
+  color: black;
+  text-align: left;
+}
+
+.fieldWithErrors input[type='text'] {
+	border: 1px solid red;
+}
+
+.RegistrationContent .bothCols {
+  width: 715px;
+}
+
+.RegistrationContent .bothCols .contentBox {
+  width: auto;
+  height: auto;
+  padding-right: 20px;
+}
+
+.RegistrationContent h1 {
+  font-size: 15pt;
+  width: 715px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 5px;
+  border-left-width: 0px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-bottom-color: #000000;
+}
+
+.RegistrationContent .mainCol1 .contentBox, .RegistrationContent .mainCol2 .contentBox{
+	width: 325px;
+	height: auto;
+	padding-right: 10px;
+	margin-right: 20px;
+}
+.RegistrationContent .contentBox{
+	margin-left: 0px;	
+	height: auto;
+	background-color: #262626;
+}
+.RegistrationContent .contentBoxContent{
+	height: auto;
+}
+
+.RegistrationContent hr {
+	border: 1px solid black;
+	margin-bottom: 15px;
+}
+
+.RegistrationContent .section-head {
+	font-weight: bold;
+	font-size: 150%;
+}
+
+.registration {
+  color: #7F7F7F;
+}
+
+.mainCol1 .contentBox.registration {
+  padding-left: 132px;
+}
+
+.mainCol2 .contentBox.registration {
+  color: #7F7F7F;
+  xpadding-left: 132px;
+}
+
+#registerMe {
+  margin-top:32px;
+  color: gold;
+	font-weight: bold;
+	font-size: 150%;
+}
+
+#registerOut {
+
+}
+
+/*
+label.required:before{
+	content: '*';
+}
+*/
+
+.field-block label{
+}
+
+.field-block input {
+	margin-right: 3px;
+}
+
+
+/* end forms */
+
+table.unstyled {
+  border: 1px solid black;
+  margin: 5px;
+}
+
+table.unstyled thead tr {
+  background-color: #99ccff;
+  border: 0px;
+}
+
+table.unstyled tbody tr:hover {
+  background-color: #ccffff
+}
+
+table.unstyled td {
+  padding: 3px;
+}
+
+table.unstyled td.numeric {
+  text-align: right;
+}
+  
+.mainContentArea .video_thumbnail {
+  display: inline;
+  margin: 5px;
+}
+
+.mainContentArea .videoPlayer {
+  float: right;
+  width: 550px;
+  height: 375px;
+}
+
+
+.pageContentArea {
+  background-color: #ffffff;
+}
+
+.pageContentArea .withSidebar {
+  padding-top:20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  float: left;
+}
+
+.pageContent {
+}
+
+.pageContent h1, .pageContent h2 {
+  margin-bottom: 10px;
+}
+
+/* widening listings container from 801 */
+.listings{
+  width:811px;
+}
+
+
+input[type='button'].submit {
+  color: #c7c7c7;
+  background-color: #363636;
+  padding: 3px 1em 3px 1em;
+  cursor: pointer;
+  margin: 1em 0;
+  width: auto;
+  font-weight: bold;
+  border: 0px;
+}
+
+input[type='button'] {
+  color: #c7c7c7;
+  background-color: #363636;
+  padding: 3px 1em 3px 1em;
+  cursor: pointer;
+  margin: 1em 0;
+  width: auto;
+  font-weight: bold;
+  xborder: 0px;
+}
+
+input[type='submit'] {
+  color: #c7c7c7;
+  background-color: #363636;
+  padding: 3px 1em 3px 1em;
+  cursor: pointer;
+  margin: 1em 0;
+  width: auto;
+  font-weight: bold;
+}
+
+input[type='submit']:hover {
+   background-color: #363636;
+   color: #c7c7c7;
+}
+
+
+/* will-paginate apple.com store style pagination styles */
+.apple_pagination {
+  background: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 1em; }
+.apple_pagination a, .apple_pagination span {
+    padding: .2em .3em; }
+.apple_pagination span.disabled {
+    color: #AAA; }
+.apple_pagination span.current {
+    font-weight: bold;
+    background: transparent url(../images/apple-circle.gif) no-repeat 50% 50%; }
+.apple_pagination a {
+    text-decoration: none;
+    color: black; }
+.apple_pagination a:hover, .apple_pagination a:focus {
+      text-decoration: underline; }
+      
+.warning, #errorExplanation, .errorExplanation{
+	padding: 1em 1em 1em 1em;
+	border: 1px solid #fc0;
+	background: #fff3c5;
+	color: #6b5e2b;
+}
+#errorExplanation, .errorExplanation {
+  xmargin-top: 1em;
+  margin-bottom: 1em;
+}
+.errorExplanation ul, .errorExplanation ol, .errorExplanation p {
+  padding-top: 1em;
+}
+
+
+.headerLogin {
+	height: 100px;
+	margin-right: 7px;
+	margin-top: 7px;
+	float: right;
+}
+
+/* Tighten up the width of the video quickfind selects, until we
+   can come up with something better */
+#videoFindSeason {
+  width: 84px; /*7em;*/
+  border:none;
+}
+#videoFindState {
+  width: 72px; /*6em;*/
+  border:none;
+}
+#videoFindSchool {
+  width: 110px; /*10em;*/
+  border:none;
+}
+#videoFindSport {
+  width: 96px; /*8em;*/
+  border:none;
+}
+
+#searchState {
+   width: 6em;
+}
+#searchCounty {
+   width: 8em;
+}
+#searchCity {
+  width: 10em;
+}
+
+#quickfind_counties,#quickfind_schools,#quickfind_sports,#quickfind_seasons{
+	display: inline;
+}
+
+/* Fix up to make photos in posts wrap in text */
+.entry-content img {
+  float: left;
+  padding-right: 2em;
+}
+
+/* Work around a tellart bug */
+object#homeFlash {
+	float:right;
+	width: 588px;
+	height: 410px;
+	background-image: url(../gs/images/videoplayer_background.png);
+	background-repeat: no-repeat;
+        margin: 0;
+        padding: 0;
+}
+
+#flashArea {
+  margin-top: 5px;
+	float:left;
+	background-image: url(../gs/images/videoplayer_background.png);
+	background-repeat: no-repeat;
+}
+
+.playerContentArea {
+  background: #0C1329; /*#888d99;*//*#292e43;*/
+  width: 100%; /*800px; 816px;*/
+  xmargin-left: 10px;
+  xmargin-top: 10px;
+  height: 800px;
+  float: left;
+  position: relative;
+}
+
+.playerContentArea object {
+  left: 0;
+  top: 30px;
+  position: absolute;
+}
+
+
+#promote_reels {
+  float: right;
+}
+
+#promote_reels a {
+  font-weight: bold;
+  color: gold;
+  font-size: 130%;
+  text-decoration: none;
+}
+
+
+.leftNavColPlayer {
+  /*width: 130px;*/
+  /*height: 350px;*/
+  /*float: left;*/
+  /*padding: 10px;*/
+  margin: 0;
+  color: #cfcfcf;
+}
+
+.leftNavColPlayer a {
+	margin: 0px 0px 0px 10px;
+}
+
+.leftNavColPlayer div {
+	float: left;
+}
+
+.leftNavPlayer {
+  /* background: #888d99; */
+  margin: 10px 20px 0 20px;
+  /* width: 90%; */
+}
+
+.commentArea {
+  background:  #DBDBDB; /*#E2E4A7;*/
+  margin-right: 25px;
+}
+
+.commentForm {
+  margin-left: 10px;
+  margin-top: 0;
+}
+  
+
+fieldset.emphasized {
+  border: 2px solid #888d99;
+  margin: 25px 0 25px 10px;
+  padding: 10px;
+}
+
+fieldset.emphasized legend {
+  color: black;
+  font-size: 123.1%;
+}
+
+/* These FIT classes force images into the given size
+   without changing the aspect ratio, we just end up
+   with a view port into the real image */
+
+div.athleteFIT {
+  height: 65px;
+  width: 65px;
+  overflow: hidden;
+  display: inline;
+}
+
+div.featureFIT {
+  height: 65px;
+  width: 103px;
+  overflow: hidden;
+  display: inline;
+}
+
+div.favFIT {
+  height: 61px;
+  width: 81px;
+  overflow: hidden;
+  display: inline;
+}
+div.profileFIT {
+	width: 150px;
+  height: 10px;
+  overflow: hidden;
+  display: inline;
+}
+div.thumbFIT {
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  display: inline;
+}
+
+.loginFormPassword, .loginFormInput {
+  float: left;
+}
+
+/* make sure text next to video thumb stays to the right */
+.featureSummary .featureText {
+   width: 175px;
+   overflow: hidden;
+}
+
+.profileFeature .featureText {
+  width: 92px;
+  overflow: hidden;
+}
+
+.mainContentArea h3, .featureText .featureTitle {
+   font-size: 1.1em;
+   font-weight: bold;
+   color: #536338;
+}
+
+/*.featureText {
+  margin-right: 5px !important;
+}*/
+
+.featureText h3.featureTitle a, .featureText h3.featureTitle a:visited {
+   text-decoration: none;
+   color: #536338;
+}
+
+.featureText h3.featureTitle a:hover {
+  text-decoration: underline;
+}
+
+.featureText h3.featureTitle a:active {
+  text-decoration: none;
+}
+
+.mainContentArea h4 {
+   font-size: 1.0em;
+   font-weight: bold;
+}
+
+.mainContentArea h5 {
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.contentBoxContent form {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+
+.profileFeature a.genericButton:visited, .profileFeature a.genericButton {
+   color: #FFEF0A;
+}
+
+
+.msgHeader {
+  font-weight: bold;
+}
+
+.msgBody {
+   margin-top: 5px;
+   margin-bottom: 5px;
+}
+
+
+.homeFeatureLeft2 {
+	float: left;
+	width: 350px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.homeFeatureMiddle2 {
+	width: 315px;
+	padding: 0px;
+	margin: 0;
+	float: left;
+}
+.homeFeatureRight2 {
+	width: 289px;
+	float: right;
+	margin: 0;
+	padding: 0;
+}
+.homeFeatureMiddle2 img {
+	padding: 0px;
+	margin-top: 6px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 20px;
+	border: 1px solid #162A49;	
+}
+
+
+
+.homeFeatureMiddle2 img:hover {
+	border: 1px solid #2980CA;
+}
+
+/* tellart tried to hide h2 with an image. mega dumb imho */
+.homeFeature h3 {
+  color: yellow;
+  font-size: 166.1%;
+  margin-top: 10px;
+  padding-left: 18px;
+  height: 25px;
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.ArticlesWeek {
+	background-color: #bac4d0;
+	height: 65px;
+	width: 255px;
+	margin-left: 20px;
+	margin-top: 8px;
+}
+
+.prototip .gs { border: 1px solid #ccc; color: #fff; font: 11px Arial, Helvetica, sans-serif; }
+.prototip .gs .toolbar { background: #2e2e2e; color: #fff; font-weight: bold; }
+.prototip .gs .toolbar a.close:hover { background: url(close_hover_red.gif);}
+.prototip .gs .title { padding: 5px; }
+.prototip .gs .content { background: #fff; color: #666666; padding: 5px; text-align: left;}
+.prototip .gs .content hr { background-color: #fff; color: #fff; border: 0; border-top: 1px solid #ccc}
+.prototip .gs .content a { color: #464337; text-decoration: none;}
+.prototip .gs li {	list-style: none; }
+
+
+
+.accountContinue2 {
+	text-align: right;
+	margin-top: 20px;
+	margin-bottom: 35px;
+}
+
+.accountContinue2 input {
+}
+
+.searchResultsContent h2.columnDescriptor a {
+  color: #111528;
+  text-decoration: none;
+  padding-left: 10px;
+}
+
+.searchResultsContent h2.columnDescriptor a:visited {
+  color: #111528;
+}
+
+.searchResultsContent h2.columnDescriptor a:hover {
+  color: red;
+}
+.profileContentArea .toplink {
+  float: left;
+  margin: 10px 0px 10px 15px;
+}
+
+xinput[type='button'] {
+  color: #FFEF0A;
+  background-color: #444444;
+  border: 2px outset #666666;
+  margin: 3px 3px 3px 1px;
+}
+  
+.bg_1 {
+  background-image: url("/gs/images/bg/1.jpg");
+}
+.bg_2 {
+  background-image: url("/gs/images/bg/2.jpg");
+}
+.bg_3 {
+  background-image: url("/gs/images/bg/3.jpg");
+}
+.bg_4 {
+  background-image: url("/gs/images/bg/4.jpg");
+}
+.bg_5 {
+  background-image: url("/gs/images/bg/5.jpg");
+}
+.bg_6 {
+  background-image: url("/gs/images/bg/6.jpg");
+}
+.bg_7 {
+  background-image: url("/gs/images/bg/7.jpg");
+}
+.bg_8 {
+  background-image: url("/gs/images/bg/8.jpg");
+}
+.bg_9 {
+  background-image: url("/gs/images/bg/9.jpg");
+}
+.bg_10 {
+  background-image: url("/gs/images/bg/10.jpg");
+}
+.bg_11 {
+  background-image: url("/gs/images/bg/11.jpg");
+}
+.bg_12 {
+  background-image: url("/gs/images/bg/12.jpg");
+}
+.bg_13 {
+  background-image: url("/gs/images/bg/13.jpg");
+}
+.bg_14 {
+  background-image: url("/gs/images/bg/14.jpg");
+}
+.bg_15 {
+  background-image: url("/gs/images/bg/15.jpg");
+}
+.bg_16 {
+  background-image: url("/gs/images/bg/16.jpg");
+}
+.bg_17 {
+  background-image: url("/gs/images/bg/17.jpg");
+}
+.bg_18 {
+  background-image: url("/gs/images/bg/18.jpg");
+}
+.bg_19 {
+  background-image: url("/gs/images/bg/19.jpg");
+}
+.bg_20 {
+  background-image: url("/gs/images/bg/20.jpg");
+}
+.bg_21 {
+  background-image: url("/gs/images/bg/21.jpg");
+}
+.bg_22 {
+  background-image: url("/gs/images/bg/22.jpg");
+}
+.bg_23 {
+  background-image: url("/gs/images/bg/23.jpg");
+}
+.bg_24 {
+  background-image: url("/gs/images/bg/24.jpg");
+}
+.bg_25 {
+  background-image: url("/gs/images/bg/25.jpg");
+}
+.bg_26 {
+  background-image: url("/gs/images/bg/26.jpg");
+}
+.bg_27 {
+  background-image: url("/gs/images/bg/27.jpg");
+}
+.bg_28 {
+  background-image: url("/gs/images/bg/28.jpg");
+}
+.bg_29 {
+  background-image: url("/gs/images/bg/29.jpg");
+}
+.bg_30 {
+  background-image: url("/gs/images/bg/30.jpg");
+}
+
+.headerBrand {
+     height: 90px; 
+     width: 475px;
+     z-index: 105;
+     cursor: pointer;
+}
+
+.navlink {
+	display: block;
+	font-weight: bold;
+	padding-bottom: 3px;
+	padding-left: 10px;
+}
+
+
+/* Stop the jumping on selected mail items */
+.mailItem {
+    border: 2px solid white;
+}
+
+.mailItem .unread {
+    border: 2px solid #333333;
+}
+
+.profilePageHeader .friend_request a, .profilePageHeader .friend_request a:visited {
+	color: #676767;
+	font-size: 80%;
+	padding-left: 3px;
+}
+
+
+
+/* team league summary content */
+.contentBox.orgSummary{
+	background: white;
+}
+
+.contentBox.orgSummary .contentBoxHeader{
+	background: white;
+	font-size: 100%;
+	font-weight: bold;
+	color: #0081C0;
+	margin-bottom: 5px;
+	border: 0;
+	height: auto;
+}
+
+.contentBox.orgSummary .contentBoxHeader a{
+	color: red;
+	float:right;
+	color: #666666;
+	font-size: 90%;
+	padding-right: 15px;
+}
+
+.contentBoxHeader h2 {
+         font-size: 150%;
+}
+
+.contentBoxHeader h2.boxDescription {
+        font-size: 100%;
+}
+
+.contentBox.orgSummary .contentBoxContent{
+	font-weight: bold;
+}
+
+.contentBox.orgSummary .contentBoxContent p {
+	padding-bottom: 4px;
+}
+
+.contentBox.orgSummary .contentBoxContent .logo-60 img {
+	padding-top: 8px;
+}
+
+.contentBox.orgSummary .contentBoxContent .desc-100 {
+
+}
+.contentBox.orgSummary .contentBoxContent .logo-100 {
+	margin-right: 20px;
+}
+
+.rightContentItem .member-link {
+	color: #666666;
+	float:right;
+}
+
+.rightContentItem h2 a, .rightContentItem h2 a:visited {
+	font-size: 120%;
+	color: #0081C0;
+	margin-bottom: 5px;
+        text-decoration: none;
+}
+
+.rightContentItem h2 a:hover {
+  text-decoration: underline;
+}
+
+/* team landing mods */
+
+.orgHome {
+	padding-top:20px;
+	margin-left:20px;
+}
+
+.orgHome .logo-100 {
+	margin-right: 20px;
+}
+
+.orgText {
+	width: 50%;
+	padding-right: 20px;
+}
+
+.contentBox.orgPlayer, .contentBox.orgFeature, .contentBox.orgPhotos {
+  width: 600px;
+  margin-left: 10px;
+  margin-right: 0px;
+  margin-bottom: 16px;
+  background: none;
+}
+
+
+.contentBox.orgPlayer #flashArea {
+  margin-top: 5px;
+  margin-left: 10px;
+  float: none;
+  background:none;
+  height: 320px;
+  width: 568px;
+}
+
+/* these are a little wider for some reason */
+.contentBox.orgFeature, .contentBox.orgPhotos {
+  width: 600px;
+}
+.contentBox.orgFeature, .contentBox.orgPhotos {
+  margin-bottom: 0;
+}
+
+.tabSpacer {
+  height: 20px;
+  width: 585px;
+}
+.contentBox.orgPlayer {
+  height: 351px;
+  background: url(/images/org/videoBox_bg.png) no-repeat;
+  background-color: #FFFFFF;
+}
+.contentBox.orgPlayer .contentBoxHeader {
+  width: 585px;
+}
+.contentBox.orgPlayer .contentBoxHeader.darkblue, 
+.contentBox.orgPhotos .contentBoxHeader.darkblue, 
+.contentBox.orgFeature .contentBoxHeader.darkblue {
+  background: none;
+  color:#FFEF0A;
+}
+
+.contentBox.orgPlayer .contentBoxHeader .boxDescription,
+.contentBox.orgPhotos .contentBoxHeader .boxDescription,
+.contentBox.orgFeature .contentBoxHeader .boxDescription {
+  width: 387px;
+  float: left;
+}
+.contentBox.orgPlayer .contentBoxHeader .moreLink, 
+.contentBox.orgPhotos .contentBoxHeader .moreLink,
+.contentBox.orgFeature .contentBoxHeader .moreLink {
+  width: 150px;
+  text-align: right;
+  font-weight: normal;
+  float: right;
+}
+.contentBox.orgPlayer .contentBoxContent {
+  height: 350px;
+  overflow: inherit;
+}
+
+.contentBoxHeader.darkblue {
+	background: #141C35 url(/gs/images/content_box_header.png) repeat-x scroll left top;
+	border: 0;
+	color: white;
+	font-weight: bold;
+        height: 20px;
+}
+
+.contentBoxHeader.flatblue {
+	background-color: #141C35;
+	background-image: none;
+	border: 0;
+	color: white;
+	font-weight: bold;
+	height: 20px;
+}
+
+/* white photo gallery
+.orgPhotos .contentBoxHeader {
+	background-color: white;
+	border: 0;
+	color: black;
+	font-weight: bold;
+}
+
+
+.orgPhotos .contentBoxContent {
+	background-color: white;
+	border: 1px solid black;
+	border-right: 2px solid black;
+	border-bottom: 2px solid black;
+}
+*/
+/* override absolute heights from main.css */
+.contentBox.orgPhotos .contentBoxHeader, .contentBox.orgFeature .contentBoxHeader {
+  width: 585px;
+  height: 20px;
+  background-color: none;
+}
+.contentBox.orgPhotos, .contentBox.orgFeature {
+  position:relative;
+  height: 168px;
+  margin-bottom: 10px;
+  background: url(/images/org/galleryBox_bg.png) no-repeat;
+}
+.contentBox.orgPhotos .contentBoxContent, .contentBox.orgFeature .contentBoxContent {
+  position: relative;
+  height: 140px; 
+  overflow:hidden;
+  background: none;
+  width: 588px;
+  margin: 5px 5px 5px 3px;
+}
+.orgPhoto {
+  float:left;
+  height: 130px;
+  overflow: hidden;
+  line-height:normal;
+  margin-left: 3px;
+  margin-right: 3px;
+  width:100px;
+  text-align: center;
+}
+.orgPhotoArrow {
+  /* arrow is 20x35 */
+  width: 27px;
+  margin-top: 33px;
+  height: 35px;
+  text-align:center;
+  float:left;
+}
+.orgPhotoThumb {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  display: block;
+}
+.orgPhotoTitle {
+  width:100px;
+  height: 2.5em;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display:block;
+}
+
+.orgFeature .featureSummary {
+  position: inline;
+  width: 280px;
+  float:left;
+  border: 0;
+  border-right: 1px solid white;
+  margin: 20px 5px 10px 0px;
+}
+
+.orgFeature .featureSummary .featureText {
+  width: 180px;
+  margin-right: 0px;
+  margin-left: 5px;
+}
+.orgFeature .featureSummary .featureText .favorite-count {
+  font-weight: bold;
+}
+.one-liner {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.orgBoxTail {
+	margin-left: 20px;
+	color:#E2E4A7;
+	height: 22px;
+	background-color:#E2E4A7;
+	width:312px;
+	margin-bottom: 20px;
+}
+
+.orgBoxTail.wide {
+	width:587px;
+}
+
+.orgBoxTail .left {
+	width: 19px;
+	height: 22px;
+	background:#E2E4A7 url(/players/images/roundedcorner.png) repeat-x scroll left top;
+}
+
+.orgBoxTail .right {
+	width: 19px;
+	height: 22px;
+	background:#E2E4A7 url(/players/images/roundedcorner_right.png) repeat-x scroll left top;
+}
+
+
+/* team landing tabs */
+
+.orgTabs {
+	position: relative;	
+	height: 20px;
+	width: 300px;
+	background-color:white;
+	margin-left: 20px;
+}
+
+.orgTab {
+	color:white;
+	xbackground:#68A34E url(/gs/images/content_box_header.png) repeat-x scroll left top;
+	font-size:110%;
+	height:20px;
+	float: left;
+	margin-right:1px;
+}
+
+
+.orgTab .left {
+	float:left;
+	width: 3px;
+	height: 20px;
+	background:white url(/gs/images/tab_unselected_l.png) repeat-x scroll left top;
+        border-bottom: 2px solid #141C35;
+}
+
+.orgTab .content {
+	float:left;
+	padding-top: 2px;
+	padding-left:8px;
+	padding-right:8px;
+	height: 20px;
+	font-weight: normal;
+	font-size: 100%;
+	white-space: nowrap;
+        line-height: 20px;
+	background:#141C35 url(/gs/images/tab_unselected_m.png) repeat-x scroll left top;
+}
+
+.orgTab .right{
+	float:left;
+	width: 3px;
+	height: 20px;
+	background:white url(/gs/images/tab_unselected_r.png) repeat-x scroll left top;
+        border-bottom: 2px solid #141C35;
+}
+
+.orgTab.open .left {
+	background:white url(/gs/images/tab_selected_l.png) repeat-x scroll left top;
+        border-bottom: 2px solid #141C35;
+}
+
+.orgTab.open .content {
+	background:#141C35 url(/gs/images/tab_selected_m.png) repeat-x scroll left top;
+}
+
+.orgTab.open .right{
+	background:white url(/gs/images/tab_selected_r.png) repeat-x scroll left top;
+        border-bottom: 2px solid #141C35;
+}
+
+.orgTab a {
+	color:white;
+	text-decoration: none;
+}
+
+.orgTab.open a {
+	color:#FFEF0A;
+}
+
+.tabContent {
+  position: relative;
+  margin-bottom: 0px;
+  margin-left: 20px;
+  width: 320px;
+  background: url(/images/org/tabbedBox_bg.png) no-repeat;
+  height: 560px;
+  display: block;
+  overflow: hidden;
+}
+.tabContent.short {
+  background: url(/images/org/newsBox_bg.png) no-repeat;
+  height: 380px;
+}
+.tabContent .contentBox {
+  margin: 0px 10px 0px 2px;
+  width: 310px;
+  background: none;
+}
+.tabContent .contentBox .contentBoxHeader {
+  background: none;
+  height: 20px;
+}
+.tabBody .contentBoxContent {
+  height: 500px;
+  width: 305px;
+  overflow: hidden;
+  float:left;
+}
+.contentBox.tabBody.short .contentBoxContent {
+  height: 320px;
+}
+.contentBox.tabBody .flatblue {
+  background: none;
+}
+.tabBody>.moreLink {
+  height: 20px;
+  width: 300px;
+  text-align: right;
+  float: left;
+}
+.tabBody .contentBoxContent .featureSummary.news {
+  height: 7em;
+  overflow: hidden;
+}
+/* end - team league summary content */
+
+/* profile activity */
+.contentBoxContent.profileActivity{
+ height: 200px;
+}
+
+.profileActivity .activity-thumbnail {
+	float: left;
+	padding-right: 5px;
+}
+/* end - profile activity */
+
+/* Signup completed/weclome page */
+
+div.signupCompletedContent{
+	padding-top: 20px;
+	padding-left: 30px;
+}
+
+.signupCompletedContent h2 {
+	font-weight: bold;
+	font-size: 200%;
+	color: #0081C0;
+	margin-bottom: 20px;
+}
+
+.signupCompletedContent .registrationCompleteTitle{
+	color: #68A34E;
+	font-size: 120%;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+.signupCompletedContent .contentLeftBox{
+	margin-left: 20px;
+	width: 370px;
+	float: left;
+	margin-right: 60px;
+}
+.signupCompletedContent .contentRightBox{
+	width: 300px;
+  margin-right: 20px;
+	float: left;
+}
+
+.signupCompletedContent p{
+	margin-bottom: 15px;
+	text-align: justify;
+}
+.signupCompletedContent .startUsingTitle{
+	padding-top: 30px;
+	font-size: 160%;
+	margin-bottom: 15px;
+}
+.myProfileButton{
+	position: relative;
+	float: left;
+	background-image: url(../images/blueButton.png);
+	width: 175px;
+	height: 39px;
+	margin-bottom: 30px;
+	left: 140px;
+}
+
+.myProfileButton a{
+	text-decoration: none;
+	font-weight: normal;
+	color: #fff;
+	font-size: 170%;
+	vertical-align: middle;
+	padding-top: 20px;
+       	padding-left: 20px;
+}
+
+/* End Signup completed*/
+
+a.tag, a.tag:visited {
+  color: #676767;
+}
+
+a.btag, a.btag:visited {
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+
+.helptip, .helptip:visited {
+  color: #666666;
+  text-decoration: none;
+}
+
+.helptip:hover {
+  color: red;
+}
+
+.RegistrationContent .lightbox{
+  color: black !important;
+  font-size: 110% !important;
+}
+
+.edit-profile {
+	padding: 0 20px 10px 20px;
+}
+
+.edit-profile h3 {
+	padding-top: 8px;
+}
+
+.edit-profile-nav {
+	padding: 0 0 6px 10px;
+}
+
+.tall_listing_line {
+  margin: 3px 0 3px 0;
+  font-weight: bold;
+}
+
+
+/* fix to text in three column search results layout */
+.mainCol1 .contentBox, .mainCol2 .contentBox, .mainCol3 .contentBox {
+  height: auto !important;
+}
+
+.homeText h1 {
+  color: #0081c0 !important;
+}
+
+.homeText p {
+  text-align: justify;
+}
+
+#POInfo {
+ padding-left: 15px;	
+}
+
+tr.blogList, tr.leagueList {
+  background-color:  #DBDBDB; /*#E2E4A7;*/
+  border-bottom: 2px solid #ffffff; 
+}
+td.blogList, th.blogList, td.leagueList, th.leagueList { 
+  padding: 10px 5px 10px 5px; 
+  border-bottom: 2px solid #ffffff; 
+}
+td.numeric {
+  text-align: right;
+}
+
+/*
+ * SIDE BAR
+ */
+#sidebar {
+	width: 125px;	
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+#sidebar a {
+	color: #dbdbdb;
+	text-decoration: none;
+}
+#sidebar a:hover {
+  color: #ffffff;
+}
+#sidebar .menutitle {
+	/* padding+height=actual height */
+	height: 25px;
+  padding-top: 10px; 	
+	color: #dbdbdb;
+	font-size: 110%;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding-left: 18px;
+	background-image: url(../images/sidebar_menu_title.png);
+  background-repeat: no-repeat; 
+}
+
+#sidebar .menutitle.green {
+  background-image: url(../images/sidebar_menu_titl-green.png);
+}
+
+#sidebar .menuitem, #sidebar .menuitem-hilite, #sidebar .menuitem-last, #sidebar .menuitem-hilite-last {
+  /* padding+height=actual height */
+  height: 16px;
+  padding-top: 4px; 
+  color: #ffffff;
+  font-weight: bold;
+  padding-left: 18px;
+  background-image: url(../images/sidebar_menu_item.png);
+  background-repeat: no-repeat;
+}
+#sidebar .menuitem-hilite {
+  background-image: url(../images/sidebar_menu_item_btm.png);
+  background-repeat: no-repeat; 
+}
+
+#sidebar .menuitem-last {
+  height: 33px; 
+  background-image: url(../images/sidebar_menu_curve.png);
+	background-repeat: no-repeat;	
+}
+
+#sidebar .menuitem-hilite-last {
+  height: 33px; 
+  background-image: url(../images/sidebar_menu_btm_curve.png);
+	background-repeat: no-repeat;	
+}
+
+
+
+/*
+ * COMMENTS
+ */
+
+.commentContainer {
+    background-color:  #DBDBDB; /*#E2E4A7;*/
+    padding: 5px 25px 5px 25px;
+} 
+.commentPost {
+  background-color: #DBDBDB; /*#E2E4A7;*/
+  width: auto;
+  display: block;
+  height: auto;
+  margin-bottom: 10px;
+}
+.profileInfo .commentPost {
+	/* Override for profile info display */
+  margin-bottom: 0px;
+  border-bottom: 1px solid #ffffff;
+}
+.commentPoster {
+  float: left;
+	padding: 10px 10px 10px 15px;	
+  text-align: center;
+  width: auto;
+}
+.profileInfo .commentPoster {
+  /* Override for profile info display */
+  padding-left: 10px;
+}
+.profileInfo .commentPoster a img {
+	/* Override for profile info display */
+  width: 80px;  
+}
+.commentSummaryBox {
+  float: left;
+  width: 530px;
+  margin-bottom: 10px;
+}
+.profileInfo .commentSummaryBox {
+  width: 215px;
+}
+.commentHeading {
+	padding-top: 10px;
+  margin-bottom: 10px;
+}
+.commentSummaryBody {
+  background-color: #FFFFFF;
+  padding: 10px;
+}
+.commentSummaryBody p {
+  background-color: #FFFFFF;
+  margin-bottom: 5px;
+  display: block;
+}
+.commentActions {
+  float: right;
+  padding: 5px;
+  width: auto;
+}
+.profileInfo .commentActions {
+  float: clear; 
+}
+.commentActions li {
+  margin-bottom: 10px;
+}
+.featureItem, .featureSummary {
+  border-bottom: 1px solid #ffffff;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
+.profileFeature .featureItem {
+  margin-right: 0px;
+}
+.featureItemThumb {
+  float: left;
+  text-align: center;
+  width: auto;
+}
+.profileInfo .commentPoster {
+  /* Override for profile info display */
+  padding-left: 10px;
+}
+.featureItemThumb a img, .profileInfo .commentPoster a img {
+  /* Override for profile info display */
+  width: 50px;  
+}
+.featureItem .featureText {
+	/* override profileItem.featureText from main.css */
+  margin-top: 0px;
+	margin-right: 0px;
+	width: 125px;
+}
+.profileContentArea .topRowFixHeight .moreLinkArea {
+	position: relative;
+	top: 150px;
+}
+
+.profileFeature .clipItem {
+  float: left;
+  display: inline;
+  padding: 5px 5px 5px 5px;
+  width: 150px;
+}
+.profileFeature .clipItem .profileClipFIT {
+	 width: 140px;
+   height: 90px;
+	 overflow: hidden;
+	 display: block;
+}
+
+a img.framed,
+a.framed img, 
+.featureItemThumb a img, 
+.commentPoster a img,
+.forumPoster a img,
+.thumb a img
+{
+  border: 2px solid #333333;
+}
+
+a:hover img.framed, 
+a:hover.framed img, 
+.featureItemThumb a:hover img, 
+.commentPoster a:hover img,
+.forumPoster a:hover img,
+.thumb a:hover img
+{	
+  border: 2px solid #0066CC;
+}
+
+/* Allow for linking of main page heading */
+h2.columnDescriptor span {
+  text-transform: uppercase;	
+}
+
+h2.columnDescriptor span a {
+  color: #0081C0; 
+  text-decoration: none;
+}
+h2.columnDescriptor span a:hover {
+  text-decoration: underline;
+}
+
+/* Adding right margin to right-most 3rd column */ 
+.rightContentItem {
+  width: 250px;
+  margin: 10px 20px 0px 20px;
+}
+.mainCol3 .contentBox {
+  width: 238px;
+}
+
+/* restoring left padding for lists that are removed by the "body *" css */
+ul, ol {
+  padding-left: 30px;
+}
+
+/* Ratings */
+
+.inline-rating{
+	display:-moz-inline-block;
+	display:-moz-inline-box;
+	display:inline-block;
+	vertical-align: middle;
+}
+
+.star-rating,
+.star-rating a:hover,
+.star-rating a:active,
+.star-rating a:focus,
+.star-rating .current-rating{
+	background: url(/images/star2.gif) left -1000px repeat-x;
+}
+.star-rating{
+	position:relative;
+	width:115px;
+	height:24px;
+	overflow:hidden;
+	list-style:none;
+	margin:0;
+	padding:0;
+	background-position: left top;
+}
+.star-rating li{
+	display: inline;
+}
+.star-rating a,
+.star-rating .current-rating{
+	position:absolute;
+	top:0;
+	left:0;
+	text-indent:-1000em;
+	height:25px;
+	line-height:25px;
+	outline:none;
+	overflow:hidden;
+	border: none;
+	margin:0;
+	padding:0;
+}
+.star-rating a:hover,
+.star-rating a:active,
+.star-rating a:focus{
+	background-position: left bottom;
+}
+.star-rating a.stars-1{
+	width:20%;
+	z-index:6;
+}
+.star-rating a.stars-2{
+	width:40%;
+	z-index:5;
+}
+.star-rating a.stars-3{
+	width:60%;
+	z-index:4;
+}
+.star-rating a.stars-4{
+	width:80%;
+	z-index:3;
+}
+.star-rating a.stars-5{
+	width:100%;
+	z-index:2;
+}
+.star-rating .current-rating{
+	z-index:1;
+	background-position: left center;
+}
+/* end Ratings */
+
+/* Use text for top nav instead of images */
+.topNav .leftTopNav a {
+  color: #dbdbdb;
+  text-decoration: none;
+}
+.topNav .leftTopNav a:hover {
+  color: #ffffff;
+}
+.topNav .leftTopNav {    
+  color: #dbdbdb;
+  font-size: 110%;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h2.teamName {
+  font-size: 135%;
+}
+
+a.articleLink, a.articleLink:visited, a.articleLink:hover {
+	color: #444;
+}
+/*.tanBackground .moreLink a, .tanBackground .moreLink a:visited {
+  color: #666666;
+}
+*/
+
+
+.tutorialButton, .tutorialButton:visited, .tutorialButton:active  {
+  display: block;
+	text-decoration: none;
+
+	background-image: url('/images/tutorialButton.png');
+	background-position: left top;
+	background-repeat: no-repeat;
+ 
+	width: 117px;
+	height: 41px;
+	margin-left: 4px;
+	margin-top: 8px;
+	
+	color: white;
+	text-align: center;
+}
+
+.tutorialButton h3 {
+	padding-top: 6px;
+	color: yellow;
+}
+
+.sortableContentHeader {
+	background:#68A34E url(/gs/images/content_box_header.png) repeat-x scroll left top;
+	border-bottom:2px solid #B7BAA3;
+	font-size:110%;
+	height:18px;
+	padding-top:2px;
+}
+
+.sortableContentHeader a, .sortableContentHeader a:visited {
+	color: #FFEF0A;
+}
+
+
+a.admin-userreg-link-org{
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.admin-userreg-link-user{
+  text-decoration: none;
+}
+
+/* popups */
+
+#centerpoint {
+   top: 40%;
+   left: 50%;
+   position: absolute;
+   overflow: visible;
+}
+
+#dialog{}
+
+#dialog .closer{
+	float: right;
+}
+
+#dialog .closer a{
+  text-decoration: none;
+}
+
+#dialog .closer a:hover{
+  text-decoration: underline;
+}
+
+
+#dialog .popup{
+
+  position: relative;
+	margin-top: -100px;
+	margin-left: -300px;
+
+	background-color: #EBEAEB;
+	color: black;
+	text-align: left;
+	width: 570px;
+	font-size: 116%;
+	padding: 15px;
+
+  border: 2px solid #909090;
+}
+
+#dialog .popup h1{
+	font-size: 161.6%;
+  text-transform:uppercase;
+  color:#0081C0;
+}
+
+#loginPopup {
+    position: absolute;
+    left: -120px;
+    background: black;
+    width: 240px;
+    height: 110px;
+    border: 1px solid gold;
+    padding: 30px;
+
+}
+
+/* layout */
+
+.twoColumn {
+	width:801px;
+	padding: 0px 10px 0px 20px;
+	float:left;
+	background-color: #ffffff;
+	display:inline;
+}
+
+.twoColumn .bothCols {
+  width: 715px;
+}
+
+.twoColumn .bothCols .contentBox {
+  width: auto;
+  height: auto;
+  padding-right: 20px;
+}
+
+.twoColumn h1 {
+  font-size: 15pt;
+  width: 715px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 5px;
+  border-left-width: 0px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-bottom-color: #000000;
+}
+
+.twoColumn .mainCol1 .contentBox, .twoColumn .mainCol2 .contentBox{
+	width: 325px;
+	height: auto;
+	padding-right: 10px;
+	margin-right: 20px;
+}
+.twoColumn .contentBox{
+	margin-left: 0px;
+	height: auto;
+	background-color: white;
+}
+.twoColumn .contentBoxContent{
+	height: auto;
+}
+
+.twoColumn hr {
+	xborder: 1px solid black;
+	border-bottom: 2px solid #29305B;
+	margin-bottom: 15px;
+}
+
+.twoColumn .section-head {
+	font-weight: bold;
+	font-size: 150%;
+}
+
+
+
+/*  */
+
+.row-highlight.on {
+  
+}
+
+/*  */
+
+.new-contact-popup{
+  position: relative;
+	margin-top: -50px;
+	margin-left: -150px;
+
+	background-color: #EBEAEB;
+	color: black;
+	text-align: left;
+	width: 300px;
+	font-size: 116%;
+	padding: 15px;
+
+  border: 2px solid #909090;
+}
+
+.new-contact-popup h2{
+	font-size: 161.6%;
+  text-transform:uppercase;
+  color:#0081C0;
+}
+
+.new-contact-popup input[type="text"], .new-contact-popup select{
+	border: 0px;
+	border-left: 1px solid #909090;
+	border-top: 1px solid #909090;
+	padding: 2px;
+	font-size: 116%;
+	font-weight: bold;
+	background: white;
+}
+
+
+.team-coach-panel select {
+
+}
+
+.team-coach-panel input {
+
+}
+
+.team-coach-panel a {
+ padding-left: 5px;
+ text-decoration: none;
+ color: red;
+ font-weight:bold;
+}
+
+
+.ppv-action-purchase-video {
+  padding-top: 7px;
+}
+
+.ppv-action-purchase-video a {
+  border: 1px solid green;
+  background: green;
+  height: 25px;
+  padding: 8px 5px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ppvRegistrationContent hr {
+  background-color: #CCC;
+  margin: 8px 0px;
+  padding: 1px 0px 0px;
+  width: 100%;
+}
+
+.ppvRegistrationContent input[type="submit"] {
+  margin: 0;
+}
+
+.ppvHeaderBox {
+  width: 550px;
+  text-align: center;
+}
+
+.ppvContentBox {
+  width: 550px;
+  padding: 4px 16px 4px 16px;
+}
+
+.ppvContentBox th {
+  text-align: left;
+}
+
+
+
+
+.profilePageHeader .admin_panel {
+  width: 795px;
+  background: #eee;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+  margin-right: 20px;
+  padding: 3px;
+}
+
+.profilePageHeader .admin_panel input[type="submit"] {
+  margin: 0;
+}
+
+.profilePageHeader .admin_panel td {
+  vertical-align: top;
+}
+
+.profilePageHeader .admin_panel .menuitem {
+  padding: 3px;
+}
+
+.profilePageHeader .admin_panel a.closer {
+  float:right;
+  color: #999;
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+#new-file-asset-link {
+font-weight: bold;
+color: green;
+font-size: 180%;
+}
+
+#ups-flash{
+
+}
+
+#ups-flash .selector{
+  float:right;
+  text-align: right;
+}
+
+#ups-flash .selector .note{
+  font-size:-1;
+  color: grey
+}
+
+#ups-java{
+
+}
+
+#ups-java .selector{
+  float:right;
+  text-align: right;
+}
+
+#ups-java .selector .note{
+  font-size:-1;
+  color: grey
+}
+
+#ups-progress{
+  border: 1px solid black;
+  width: 100%;
+}
+
+#ups-progress .pad{
+  margin:1px;
+}
+
+#ups-progress .bar{
+  background-color:blue;
+  background-image: url(/images/progress.jpg);
+  height: 13px;
+  width: 0;
+  text-align:center;
+  color:black;
+}
+

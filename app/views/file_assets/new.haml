@@ -1,0 +1,60 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        FileAsset Upload
+
+  .listings
+
+    .box
+
+      = javascript_include_tag 'file_assets'
+
+      %form{ :action=>'javascript: gs.file_assets.submit_form()' }
+
+        = render :partial => 'uploader'
+
+        %br
+        %input{ :id=>'upload-button', :type=>'submit', :value=>'Upload!' }
+
+    .box
+      = link_to 'Index', file_assets_path
+
+-#.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        New FileAsset
+
+  .listings
+
+    - form_for(@file_asset) do |f|
+      = f.error_messages
+      %p
+        = f.label :name
+        %br
+        = f.text_field :name
+      %p
+        = f.label :location
+        %br
+        = f.text_field :location
+      %p
+        = f.label :status
+        %br
+        = f.text_field :status
+      %p
+        = f.label :last_block
+        %br
+        = f.text_field :last_block
+      %p
+        = f.label :block_count
+        %br
+        = f.text_field :block_count
+      %p
+        = f.label :md5
+        %br
+        = f.text_field :md5
+      %p
+        = f.submit "Create"
+
+    = link_to 'Back', file_assets_path

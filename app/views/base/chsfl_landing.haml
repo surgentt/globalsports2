@@ -1,0 +1,55 @@
+%style
+  :plain
+    #chfsl { background-color: black; color: white; }
+    #chfsl h1 { color: gold; }
+    #chfsl #welcome { float: right; border; width: 300px; padding: 22px; font-size: 111%; }
+    #chfsl #welcome br { height: 6px; padding: 6px;}
+    #chfsl #welcome p { line-height: 200%; }
+    #chfsl p { padding-top: 22px; }
+    #chfsl #video {  }
+    #chfsl #bottom { background-color: black; }
+    #chfsl #contest { text-align: right; float: right; width: 645px; padding-top: 16px; }
+    #chfsl #facepile { padding: 16px; float: left; }
+
+#chfsl
+  #top
+    #welcome
+
+      %h1
+        Welcome NSCHSAA Basketball
+
+      %p
+        Starting in January you can find your games here!  You can also create your own clips and highlight reels and share them on Facebook.  Make sure you are registered.  It's free!
+
+    #video
+      -# @game_dockey_string = '766DAB8FE3FC805C0738C39B62B968E2'
+
+
+      #llFlash
+        %h1
+          Problems Starting Video Player.
+        %p
+          To view video content you will need to have Adobe Flash player installed and JavaScript enabled on your browser.
+      - locals = {:target => 'llFlash', :player_name => '/players/main.swf', :fvars => {:dockeys => @game_dockey_string  }, :width=>'640px',:height=>'480px'}
+      = render :partial => 'shared/video_player', :locals => locals
+
+    .clear-div
+
+  #bottom
+    #facepile
+
+      <fb:fan profile_id="111330332304350" stream="false" connections="5" width="300" height="160"></fb:fan>
+
+
+      -#<fb:facepile href="http://www.facebook.com/pages/Global-Sports/111330332304350?ref=ts" width="200" max_rows="3" colorscheme="dark"></fb:facepile>
+      -#- share_url = "#{APP_URL}#{request.request_uri}"
+      -#<fb:like href="#{share_url}" send="true" layout="button_count" width="200" show_faces="true" colorscheme="dark"></fb:like>
+      -#%br
+      -#= render :partial => 'shared/facepile'
+
+    #contest
+      %img{ :src=>'/images/partners/chsfl.png', :style=>'float:right' }
+
+    .clearDiv
+
+

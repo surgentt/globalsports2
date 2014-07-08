@@ -1,0 +1,12 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .listingItem
+
+      = error_messages_for :team 
+      
+      - form_for(@team, :url => team_url(@team), :html => {:multipart => true}) do |f|
+        = render :partial => "form", :locals => { :f => f }
+        %p= f.submit "Create"
+          
+      = link_to 'Back', teams_path 

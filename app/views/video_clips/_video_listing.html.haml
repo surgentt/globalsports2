@@ -1,0 +1,40 @@
+.listingBox-2cols{:id => "video_clip_#{video_listing.id}"}
+  .frameTop
+  .col1
+    .listingBoxHeader
+      .title{:style => "width: 270px"}
+        = truncate(video_listing.title,40)
+    .thumb
+      = "<a href='#{user_video_clip_path(video_listing.user_id,video_listing)}'><img src='#{@vidavee.file_thumbnail_medium(video_listing.dockey)}' title='#{h(video_listing.title).gsub(/\'/,'')}' alt='Clip'/></a>"
+    .listingBoxContent
+      %p.one-liner
+        Created by:
+        = link_to h(video_listing.user.full_name), user_path(video_listing.user_id)
+        = video_listing.created_at.strftime("%m/%d/%y")
+
+      %p.summary{ :style => "height:3em" }
+        = truncate(video_listing.description,200)
+
+      %p.one-liner
+        - if VideoClip===video_listing && video_listing.video_asset_id
+          Clipped from:
+          - title = video_listing.video_asset.title
+          = link_to truncate(h(title),40),video_asset_path( video_listing.video_asset_id )
+
+    .clearDiv
+    .listingBoxFooter
+      .footerCol1
+        =render :partial => 'ratings/listing_stars', :locals => {:item => video_listing}
+      .footerCol2
+        %strong= "(#{video_listing.video_length})"
+        %strong= " | Views:"
+        = number_with_delimiter(video_listing.view_count)
+        %strong= " | " 
+        =render :partial => 'shared/favorite_count', :locals => {:item => video_listing}
+
+  .col2      
+    .listingBoxActions
+      = render :partial => 'shared/video_actions', :locals => { :video_listing => video_listing, :listing => true }
+
+  .clearDiv
+  .frameBtm

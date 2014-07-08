@@ -1,0 +1,118 @@
+%style
+  :plain
+    .shoppingCart{
+      padding: 16px;
+    }
+    .contentBoxHeader{
+      text-align: left;
+    }
+
+.shoppingCart
+  -#%table
+    %tr
+      %td
+        = link_to 'New Purchase', url_for({:controller=>'purchases',:action=>'new'}), :class => 'genericButton'
+      %td
+
+  %br/
+
+  %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+    %thead
+      %tr.yellowHeader
+        %th.padded.contentBoxHeader{ :width=>'120px' }
+        %th.padded.contentBoxHeader DVD Title
+        %th.padded.contentBoxHeader Cost
+        - if current_user.admin?
+          %th.padded.contentBoxHeader Paid
+          %th.padded.contentBoxHeader Item
+          %th.padded.contentBoxHeader Status
+        %th.padded.contentBoxHeader Remove
+
+    %tbody
+      - for purchase in @purchases
+        %tr.leagueList{ :id=>"purchase_#{purchase.id}" }
+          %td.leagueList
+            %a{ :href=>video_asset_path(purchase.item), :style=>'float:left' }><
+              %img{ :src=>purchase.item.thumbnail, :align=>'middle' }
+          %td.leagueList
+            %div{ :style=>'xfloat:left; xpadding-top:8px; padding-left: 6px;' }
+              =h purchase.description
+              - if purchase.billing
+                - count = purchase.billing.purchases.size
+                - if count > 1
+                  = link_to " (1 / #{count})", "?billing_id=#{purchase.billing.id}"
+                - if current_user.admin?
+                  %div{ :style=>'padding:6px' }
+                    = purchase.billing.firstname
+                    = purchase.billing.lastname
+                    %br
+                    = purchase.billing.address1
+                    = purchase.billing.address2
+                    %br
+                    = purchase.billing.city
+                    = purchase.billing.state.name
+                    = purchase.billing.zip
+                    %br
+                  = link_to purchase.id, edit_purchase_path(purchase), {:title => "edit"}
+
+          %td.leagueList= "$ #{'%.2f' % (purchase.cost / 100.0)}"
+          - if current_user.admin?
+            %td.leagueList=h purchase.paid
+            %td.leagueList=h "#{purchase.item_type} / #{purchase.item.id}"
+            %td.leagueList=h purchase.status
+          %td.leagueList
+            -# options = {:url => url_for(purchase), :confirm => 'Are you sure you want to remove this item from your cart?', :method => :delete} #, :complete => evaluate_remote_response}
+            -# options[:success]= visual_effect(:fade, "purchase_#{purchase.id}")
+            -#= link_to_remote image_tag('/images/listing_icons/delete.png', :mouseclick => '/images/listing_icons/sel-delete.png', :border=>0, :alt => 'Delete', :title => 'Delete'), options,  :class=>'listingButton'
+            - img = image_tag('/images/listing_icons/delete.png', :mouseclick => '/images/listing_icons/sel-delete.png', :border=>0, :alt => 'Delete', :title => 'Delete')
+            = link_to img, url_for(purchase), :method => :delete, :class=>'listingButton', :confirm => 'Are you sure you want to remove this item from your cart?'
+
+      - if !current_user.admin?
+        - if !@purchases.empty?
+          %tr.leagueList
+            %td.leagueList
+            %td.leagueList{ :align=>'right' } Shipping&nbsp;&nbsp;&nbsp;
+            %td.leagueList= "$ #{'%.2f' % (Purchase::COST_SHIPPING / 100.0)}"
+            - if current_user.admin?
+
+              %td.leagueList
+              %td.leagueList
+            %td.leagueList
+
+          %tr.leagueList
+            %td.leagueList
+            %td.leagueList
+              .total{ :style=>'float: right' } Total&nbsp;&nbsp;&nbsp;
+              .total{ :style=>'float: left' }
+                = @purchases.size
+                items in your shopping cart.
+            %td.leagueList= "$ #{'%.2f' % ( (@purchases.collect(&:cost).sum + Purchase::COST_SHIPPING) / 100.0)}"
+            - if current_user.admin?
+              %td.leagueList
+              %td.leagueList
+              %td.leagueList
+            %td.leagueList
+
+        - else
+          %tr.leagueList
+            %td.leagueList
+            %td.leagueList
+              %b
+                There are no items in your shopping cart.
+              %br
+              %br
+              If you find a video that you'd like to have on DVD, press the DVD icon above the video.
+              %br
+              %i
+                Not all videos are available for DVD purchase.
+
+            %td.leagueList
+            - if current_user.admin?
+              %td.leagueList
+              %td.leagueList
+              %td.leagueList
+            %td.leagueList
+
+
+  .apple_pagination
+    = will_paginate @purchases

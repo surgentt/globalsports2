@@ -1,0 +1,14 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .listingItem
+    
+      %h1 Purchase Info
+      
+      = error_messages_for :team
+      
+      - form_for (@purchase, :url => purchase_url(@purchase), :html => {:method => 'put', :multipart => true}) do |f|
+        = render :partial => "form", :locals => { :f => f }
+        %p= f.submit "Update"
+       
+          

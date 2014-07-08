@@ -1,0 +1,47 @@
+- ready = @video_clip && @video_clip.is_thumbnail_ready?
+- reload = @video_clip.nil? || !ready
+%html
+  %head
+    - if reload
+      %meta{ 'http-equiv'=>'refresh', :content=>'5' }
+    %style
+      :plain
+        .clipPanel{
+          color: white;
+          width: 140x;
+        }
+%body
+  = fb_connect_async_js
+  -#= '<div id="fb-root"></div>'
+  -#= '<script src="http://connect.facebook.net/en_US/all.js#appId=251993151486921&amp;xfbml=1"></script>'
+  .clipPanel
+    - if @video_clip
+
+      .facebook_links{ :xstyle=>'padding-left: 16px;' }
+        - @video_clip.share!
+        - share_url = "#{APP_URL}/shared_access/show?key=#{@video_clip.shared_access.key}"
+        = %Q|<fb:like href="#{share_url}" send="false" layout="button_count" width="450" show_faces="false" colorscheme="dark"></fb:like>|
+
+      - if ready
+        - src = "#{@vidavee.file_thumbnail_medium(@video_clip.dockey)}"
+        %a{ :href=>video_clip_path(@video_clip), :target=>'_top' }><
+          %img{ :src=>src, :width=>'120px', :height=>'90px', :style=>'padding-top: 3px;' }
+
+      - else # not ready
+        - src = "/images/video_processing.jpg"
+        %img{ :src=>src, :width=>'120px', :height=>'90px' }
+
+      %br
+      = @video_clip.title
+
+      - if current_user && @video_clip.video_asset.league && @video_clip.video_asset.league.post_clip_msg && @video_clip.video_asset.league == current_user.league
+
+        %span{ :style=>'font-weight:bold; color: gold; width: 200px;' }
+          %br
+          = @video_clip.video_asset.league.post_clip_msg
+
+
+    - else # clip not seen
+      - src = "/images/video_uploading.jpg"
+      %img{ :src=>src, :width=>'120px', :height=>'90px' }
+

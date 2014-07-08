@@ -1,0 +1,19 @@
+- return_to = params[:session_return_to] || request.request_uri
+-
+.loginContainer
+  .memberLink
+    %span
+      = fb_login_and_redirect(return_to, :perms=>::FACEBOOK_PERMISSIONS)
+      %img{ :src=>'/images/pixel.gif', :align=>'top', :height=>'22px', :width=>'1px'}
+    %span{ :style=>'float:right'}
+      =link_to 'Join Now', new_user_path(:session_return_to=>return_to) #register_path()
+  %form#login{ :action => '/sessions/create', :method => "post" }
+    %input{ :type=>'hidden', :name=>'session_return_to', :value=>return_to }
+    .emailField
+      %input#login{ :name => 'login', :class => 'loginFormEmail', :type => 'text', :value => 'email address', :onfocus => "if(this.value == 'email address') this.value = '';", :onblur => "if(!this.value) this.value = 'email address';"}
+    .passwordField
+      %input#password{ :name => 'password', :class => 'loginFormPassword', :type => 'text', :value => 'password', :onfocus => "if(this.value == 'password') {this.value = '';this.type = 'password';}", :onblur => "if(!this.value) {this.type = 'text';this.value = 'password';}"}
+    %input{ :class => 'loginFormSubmit', :src => '/images/loginBtn_go.png', :type => 'image', :onmousedown => "this.src = '/images/loginBtn_go_depress.png';", :onmouseup => "this.src = '/images/loginBtn_go.png';"}
+    .forgotPassword
+      = link_to image_tag("/images/loginForgot_pass.png", :mouseover=>"/images/loginForgot_pass_ro.png"), forgot_password_path()
+

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" height="50" name="flexUploader"
+	width="380" alpha="1" backgroundColor="#ffffff"  backgroundGradientAlphas="[1.0, 0.0]" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.*;
+            import mx.managers.*;
+            import mx.events.*;
+            import mx.utils.*;
+            import flash.events.*;
+            import flash.net.*;
+            import flash.external.*;
+            import mx.core.*;
+            
+            private var strUploadUrl:String;
+            private var refAddFiles:FileReferenceList;    
+            private var refUploadFile:FileReference;
+            private var arrUploadFiles:Array;
+            private var arrUploadFileNames:Array = new Array();
+            private var numCurrentUpload:Number = 0;   
+            private var arrFoundList:Array = new Array();
+            private var arrFilesToUpload:Array = new Array();
+            private var sUploadPath:String ='';
+            
+			private function init():void{	
+				arrUploadFiles = new Array();
+				
+				
+			}
+			
+			private function browseFiles():void {
+				arrUploadFiles.length = 0;
+				arrUploadFileNames.length =0;
+				arrUploadFiles.length=0;
+				numCurrentUpload=0;
+				progBar.setProgress(0, 0);
+                refAddFiles = new FileReferenceList();
+                refAddFiles.addEventListener(Event.SELECT, onSelectFile);
+                refAddFiles.browse();
+            }
+            
+			public function onSelectFile(event:Event):void
+			{
+			 var filesName:String="";
+                for (var i:Number = 0; i < arrUploadFiles.length; i++) {
+                    for (var j:Number = 0; j < refAddFiles.fileList.length; j++) {
+                        if (arrUploadFiles[i].name == refAddFiles.fileList[j].name) {
+                            arrFoundList.push(refAddFiles.fileList[j].name);
+                            refAddFiles.fileList.splice(j, 1);
+                            j--;
+                        }
+                    }
+                }
+                 if (refAddFiles.fileList.length >= 1) {                
+                    for (var k:Number = 0; k < refAddFiles.fileList.length; k++) {
+                    	arrUploadFiles.push(refAddFiles.fileList[k]);
+                    	arrUploadFileNames.push(refAddFiles.fileList[k].name);
+                    	filesName += refAddFiles.fileList[k].name + "; "
+                    }
+                 }
+                fileToUpload.text=filesName;
+                uploadBtn.enabled=true;
+			}
+			
+			public function informExternUploadComplete():void{
+				if(ExternalInterface.available){
+					try{
+						ExternalInterface.call("uploadComplete");	
+					}catch(error:Error){
+						Alert.show("Error trying to inform of Upload Completed");
+					}
+				}
+			}
+			private function doUpload():void {
+                if (arrFilesToUpload.length > 0) {
+                    
+                    var sendVars:URLVariables = new URLVariables();
+                    var sFileNameToUpload:String=arrFilesToUpload.pop().toString();
+                    
+                    sendVars.action = "upload";
+                    var request:URLRequest = new URLRequest();
+                    request.data = sendVars;
+                    request.url = "LargeUpload.pl";
+                    request.method = URLRequestMethod.POST;
+                    refUploadFile = new FileReference();
+                    
+                    refUploadFile = arrUploadFiles[arrUploadFileNames.indexOf(sFileNameToUpload)];
+                    refUploadFile.addEventListener(ProgressEvent.PROGRESS, onUploadProgress);
+                    refUploadFile.addEventListener(Event.COMPLETE, onUploadComplete);
+                    refUploadFile.upload(request, "file", false);
+                }
+            }
+            private function uploadFiles():void{
+            	arrFilesToUpload = StringUtil.trimArrayElements(fileToUpload.text,';').split(';');
+            	var s:String= arrFilesToUpload.pop();
+            	progBar.visible=true;
+            	doUpload();
+            }
+            private function arr():void{
+            	var s:String= arrFilesToUpload.pop();
+            	for (var i:Number = 0; i < arrFilesToUpload.length; i++) {
+            		Alert.show(arrFilesToUpload[i].toString().length);
+            	}
+            }
+            private function onUploadProgress(event:ProgressEvent):void {
+				var numPerc:Number = Math.round((event.bytesLoaded / event.bytesTotal) * 100);
+				updateProgBar(numPerc);
+			}
+			
+			
+			private function updateProgBar(numPerc:Number = 0):void {
+				var strLabel:String = (numCurrentUpload + 1) + "/" + arrUploadFiles.length;
+				strLabel = (numCurrentUpload + 1 <= arrUploadFiles.length && numPerc > 0 && numPerc < 100) ? numPerc + "% - " + strLabel : strLabel;
+				strLabel = (numCurrentUpload + 1 == arrUploadFiles.length && numPerc == 100) ? "Upload Complete - " + strLabel : strLabel;
+				strLabel = (arrUploadFiles.length == 0) ? "" : strLabel;
+				progBar.label = strLabel;
+				progBar.setProgress(numPerc, 100);
+				progBar.validateNow();
+			}
+			
+			
+			private function onUploadComplete(event:Event):void {
+				numCurrentUpload++;
+				
+				if (numCurrentUpload < arrUploadFiles.length) {
+					doUpload();
+				} else {
+					informExternUploadComplete();
+					fileToUpload.text='';
+					numCurrentUpload=0;
+					
+				}
+			}
+		]]>
+	</mx:Script>
+	
+	
+	<mx:Canvas id="cUpload" width="380" height="50"  backgroundAlpha="1.0" y="0">
+		<mx:ProgressBar id="progBar" mode="manual" label="" labelPlacement="center" width="370" y="26" x="4" visible="true"/>
+		<mx:Button x="235" y="3" label="Browse" id="browseBtn" click="browseFiles()"/>
+		<mx:Button x="308" y="3" label="Upload" id="uploadBtn" enabled="false" click="uploadFiles()"/>
+		<mx:TextInput x="4" y="2" width="225" id="fileToUpload"/>
+		
+	</mx:Canvas>
+	
+</mx:Application>

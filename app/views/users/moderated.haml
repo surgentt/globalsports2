@@ -1,0 +1,51 @@
+- @skip_profile_nav = true
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        - if current_user
+          = "#{current_user.full_name} &lt;#{current_user.email}&gt;"
+  .listings{ :style=>'width: 900px' }
+    .padded
+  
+      .padded
+    
+        %h2 Your Account is pending approval or disabled.
+   
+        %br
+        %br
+
+        If you have just registered a team or league, you will be notified when the account is approved.
+
+        %br
+        %br
+
+        %br
+        %br
+
+        %br
+        %br
+        
+      .clearDiv
+
+      -#%table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+        %thead
+          %tr.yellowHeader
+            %th.padded.contentBoxHeader ID
+            %th.padded.contentBoxHeader VIDEO
+            %th.padded.contentBoxHeader Cost
+            %th.padded.contentBoxHeader Expiration
+
+        %tbody
+          - for ppv in @videos
+            %tr.leagueList
+              %td.leagueList= ppv.id
+              %td.leagueList= "(#{ppv.video_id}) #{link_to((ppv.video.title rescue '-'), video_asset_path(ppv.video_id))}"
+              %td.leagueList= ppv.cost
+              %td.leagueList= ppv.expires
+
+      .clearDiv
+
+      - if @videos.respond_to?('total_pages')
+        .apple_pagination
+          = will_paginate @videos

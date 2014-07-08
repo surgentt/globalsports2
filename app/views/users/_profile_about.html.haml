@@ -1,0 +1,47 @@
+.contentBox.tanBackground
+  .contentBoxHeader.yellowHeader
+    %h2.boxDescription
+      About Me
+  .contentBoxContent
+    .profileFeature
+      .profileInfo
+        %span.profileSubHeading Gender:
+        = "#{@user.gender}"
+        %br/
+        %span.profileSubHeading Birthday:
+        ="#{@user.birthday.to_s(:readable)}"
+        %br/
+        - if @user.description
+          -#= truncate_words(@user.description,25)
+          = @user.description
+        %br/
+        %br/
+        %h2.profileHeading Blog:
+        %span.profileSubHeading
+          = link_to "#{@published_post_count} posts", user_posts_path(@user)
+        %br/
+        %br/
+        %h2.profileHeading Favorites:
+        %span.profileSubHeading Sports:
+        - if @user.moniker_hash["sports"]
+          = @user.moniker_hash["sports"].collect{|t| link_to( h(t), tag_url(t), :class => 'btag') }.join(', ')
+        %br/
+        %span.profileSubHeading Teams:
+        - if @user.moniker_hash["teams"]
+          = @user.moniker_hash["teams"].collect{|t| link_to( h(t), tag_url(t), :class => 'tag') }.join(', ')
+        %br/
+        %span.profileSubHeading Music:
+        - if @user.moniker_hash["music"]
+          = @user.moniker_hash["music"].collect{|t| link_to( h(t), tag_url(t), :class => 'tag') }.join(', ')
+        %br/
+        
+        - for mname in @user.moniker_hash.keys
+          - next if (mname == "music" || mname == "sports" || mname == "teams")
+          %span.profileSubHeading= "#{mname.capitalize}:"
+          = @user.moniker_hash[mname].collect{|t| link_to( h(t), tag_url(t), :class => 'tag') }.join(', ')
+          %br/
+    - if @user.avatar and (@is_current_user or @current_user.admin?)
+      .profileFeature.moreLinkArea
+        %span.moreLink
+          = link_to _('edit'), edit_user_path(@user)
+          

@@ -1,0 +1,49 @@
+.team-detail {
+  margin: 3px 16px;
+
+}
+
+.padded {
+
+  padding-left: 16px;
+
+}
+
+.hotcontent {
+
+}
+
+.hotcontent a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.teamlist {
+
+
+}
+
+.recent {
+
+
+}
+
+.winning {
+
+  
+}
+
+table.contest-admin {
+    width: 100%;   
+}
+
+table.contest-admin td {
+    background-color: #eee;
+    padding: 3px;
+}
+
+table.contest-admin a {
+    text-decoration: none;
+    font-weight: bold;
+    
+}

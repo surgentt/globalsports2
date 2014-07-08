@@ -1,0 +1,14 @@
+-# @purchases = Purchase.shopping_cart(current_user).paginate(:all, { :order => 'id desc', :page => params[:page] })
+- if current_user.admin?
+  - if params[:billing_id]
+    - @purchases = Billing.find(params[:billing_id]).purchases.paginate(:all, { :order => 'id desc', :page => params[:page] })
+  - else
+    - @purchases = Purchase.paginate(:all, { :order => 'id desc', :page => params[:page] })
+- else
+  - @purchases = Purchase.shopping_cart(current_user).paginate(:all, { :order => 'id desc', :page => params[:page] })
+
+= render :partial => 'listing'
+
+- if !@purchases.empty? && !current_user.admin?
+  = render :partial => 'checkout'
+

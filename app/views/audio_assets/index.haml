@@ -1,0 +1,33 @@
+-@skip_profile_nav=true
+-#= javascript_include_tag 'video_assets'
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+    %span
+      Audio Library
+  .playerContentArea
+
+
+    #flashSpot
+
+    - target= 'flashSpot'
+    - height = 740
+    - width = 900
+    - player_name = '/players/audiomaker.swf'
+    - fvars ||= {:allowFS => "true"}
+    - fvars[:dockey] = params['dockey'] if params['dockey']
+    - flashVars = fvars.inject([]) { |s,(k,v)| s << "#{k}: encodeURIComponent('#{v}')"}.join(",")
+    -# params ||= {}
+    - params = {:allowFullScreen=>"true"}
+    - params['wmode']='opaque'
+    - params['bgcolor']='#0c1329'
+    - params['quality']='high'
+    - paramsLine = params.inject([]) { |s,(k,v)| s << "#{k}: encodeURIComponent('#{v}')"}.join(",")
+    - alt = "'/gs/scripts/swfobject/expressInstall.swf'"
+    :javascript
+      var flashvars = { #{flashVars} };
+      var params = { #{paramsLine} };
+      var attributes = {};
+  
+      swfobject.embedSWF('#{player_name}','#{target}','#{width}','#{height}',"9.0.28",#{alt}, flashvars, params, attributes);
+

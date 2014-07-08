@@ -1,0 +1,19 @@
+- case ad_size
+- when '728x90'
+  %script
+    document.write('<scr' + 'ipt src=http://ad.doubleclick.net/adj/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=1;dcopt=ist;sz=728x90;ord=' + random_number + '?></scr' + 'ipt>');
+  %noscript
+    =link_to(image_tag("http://ad.doubleclick.net/ad/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=1;sz=728x90;ord='+random_number+'?", {:border => '0', :height => '90', :width => '728'}), "http://ad.doubleclick.net/jump/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=1;sz=728x90;ord='+random_number+'?")
+
+- when '160x600'
+  %script
+    document.write('<scr' + 'ipt src=http://ad.doubleclick.net/adj/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=2;sz=160x600;ord=' + random_number + '?></scr' + 'ipt>');
+  %noscript
+    =link_to(image_tag("http://ad.doubleclick.net/ad/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=2;sz=160x600;ord='+random_number+'?", {:border => '0', :height => '600', :width => '160'}), "http://ad.doubleclick.net/jump/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=2;sz=160x600;ord='+random_number+'?")
+
+- when '300x250'
+  %script
+    = "document.write('<scr' + 'ipt src=http://ad.doubleclick.net/adj/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=#{tile};sz=300x250;ord=' + random_number + '?></scr' + 'ipt>');"
+  %noscript
+    =link_to(image_tag("http://ad.doubleclick.net/ad/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=#{tile};sz=300x250;ord='+random_number+'?", {:border => '0', :height => '250', :width => '300'}), "http://ad.doubleclick.net/jump/globalsports.fsv/home;sect=home;fantasy=no;game=no;tile=#{tile};sz=300x250;ord='+random_number+'?")
+

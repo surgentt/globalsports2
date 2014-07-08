@@ -1,0 +1,35 @@
+.contentBox.tanBackground
+  .contentBoxHeader.yellowHeader
+    %h2.boxDescription
+      My Clips and Reels
+  .contentBoxContent
+    .profileFeature
+      - for v in @profile_clips_and_reels
+        .featureItem.clipItem
+        
+          - if v.class.to_s == "VideoClip"
+            - url = user_video_clip_path(v.user_id,v)
+            .profileClipFIT
+              -#= "<a href='#{url}'><img src='#{@vidavee.file_thumbnail_medium(v.dockey)}' title='#{h(v.title).gsub(/\'/,'')}' alt='Clip'/></a>"
+              %a{ :href=>url }
+                %img{ :src=>@vidavee.file_thumbnail_medium(v.dockey), :title=>h(v.title).gsub(/\'/,''), :alt=>'Clip' }
+            %h3
+              = link_to truncate(h(v.title),20),url
+          - else
+            - url = user_video_reel_path(v.user_id,v)
+            .profileClipFIT
+              -#= "<a href='#{url}'><img src='#{@vidavee.file_thumbnail_medium(v.thumbnail_dockey)}' title='#{h(v.title).gsub(/\'/,'')}' alt='Reel'/></a>"
+              %a{ :href=>url }
+                %img{ :src=>@vidavee.file_thumbnail_medium(v.thumbnail_dockey), :title=>h(v.title).gsub(/\'/,''), :alt=>'Reel' }
+            %h3
+              = link_to truncate(h(v.title),20),url
+        
+  .profileFeature.moreLinkArea
+    %span.moreLink
+      - unless @profile_clips_and_reels.empty?
+        = link_to _('more'), url_for({:controller => 'search', :action => 'my_videos', :user_id => @user.id})
+      - if @is_current_user
+        - unless @profile_clips_and_reels.empty?
+          |
+        = link_to _('edit'), url_for({:controller => 'search', :action => 'my_videos', :user_id => @user.id})
+          

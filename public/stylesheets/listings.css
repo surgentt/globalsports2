@@ -1,0 +1,509 @@
+.listingBox-2cols {
+  width: 390px;
+  margin: 5px 5px 5px 10px;
+  background-image: url(../images/listingBoxBg.jpg);
+  background-color: #C6C97C;
+  float: left;
+}
+.listingBox-2cols .frameTop {
+  height: 10px;
+  width: 390px;
+  background-image: url(../images/listingBoxTop.jpg);
+  background-repeat: repeat-y;
+}
+.listingBox-2cols .tabWrapper {
+  background-color: white;
+  float: none;
+  display:block;
+}
+.listingBox-2cols .listingTab {
+  width: 90px;
+  padding-left: 5px;
+  padding-right: 9px;
+  height: 20px;
+  background-image: url(../images/listingBoxTab.jpg);
+  background-repeat: no-repeat;
+  color: #555555;
+  font-weight: bold;
+  font-size: 110%;  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  line-height: 20px;
+  vertical-align: bottom;
+}
+.listingBox-2cols .frameBtm {
+  height: 10px;
+  width: 390px;
+  background-image: url(../images/listingBoxBottom.jpg);
+  background-repeat: repeat-y;
+  float: clear;
+}
+.listingBox-2cols .listingBoxHeader {
+  padding: 0px 10px 0px 10px;
+  float: clear;
+}
+.listingBox-2cols .listingBoxHeader .title {
+  font-weight: bold;
+  color: #000000;
+  font-size: 125%;
+  width: 330px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 22px;
+  line-height: 22px;
+}
+.listingBox-2cols .listingBoxHeader .title-2lines {
+  font-weight: bold;
+  color: #000000;
+  width: 330px;
+  height: 22px;
+  line-height: 11px;
+}
+.listingBox-2cols .col1 {
+  width: 350px;
+  float: left;
+}
+.listingBox-2cols .col2 {
+  width: 40px;
+  /* This is the key height property for the listing box... 
+   * Make sure to include the 10px each for the frameTop and frameBtm
+   * for the total height 170 = 150 + 10 + 10
+   * */
+  height: 160px;
+  float: left;
+}
+
+.listingBox-2cols .col1 .thumb,
+.listingBox-2cols .col1 .thumb-tall
+{
+  width: 120px;
+  height: 95px;
+  text-align: center; 
+  padding: 10px 5px 0px 10px;
+  float: left;
+  overflow: hidden;
+}
+/* use this when there is no listingBoxHeader */
+.listingBox-2cols .col1 .thumb-tall {
+  height: 110px;
+}
+
+.listingBox-2cols .col1 .listingBoxContent {
+  width: 205px;
+  height: 85px;
+  padding: 15px 5px 0px 5px;
+  float: left;
+}
+
+.listingBox-2cols .col1 .listingBoxFooter {
+  width: 330px;
+  padding: 10px 5px 0px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: clear;
+}
+.listingBox-2cols .col1 .listingBoxFooter .footerCol1 {
+  width: 125px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: left;
+}
+.listingBox-2cols .col1 .listingBoxFooter .footerCol2 {
+  width: 200px;
+  padding-left: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: left;
+}
+.listingBox-2cols .col1 .listingBoxContent {
+  color: #555555;
+  overflow: hidden;
+}
+.listingBox-2cols .col1 .listingBoxContent .summary {
+  margin: 10px 0px 10px 0px;
+  padding: 5px 0px 5px 0px;
+  width: 190px;
+  color: #555555;
+}
+
+.listingBox-2cols .col1 .listingBoxContent .title {
+  font-weight: bold;
+  color: #000000;
+  font-size: 110%;
+  width: 205px;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.listingBox-2cols .col1 .one-liner {
+  width: 205px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.listingBox-2cols .col2 .listingBoxActions {
+  width: 38px;
+}
+.listingBox-2cols .col2 .listingBoxActions a, 
+.listingButton {
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-position: left top;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  margin: 3px 7px 3px 7px;
+  text-align: center;
+  float: left;
+}
+
+.listingBox-2cols .favorite-count {
+  font-weight: bold
+}
+
+
+.listingNavTabs {
+  border-bottom: 1px solid #000000;
+  padding: 0px 10px 0px 10px;
+  margin-bottom: 5px;
+}
+.listingNavTab, .listingNavTab-sel {
+  width: 150px;
+  height: 25px;
+  margin-right: 5px;
+  padding: 0px 5px 0px 5px;
+  font-weight: bold;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  line-height: 25px;
+  vertical-align: bottom;
+  float: left;
+  border: 1px solid #000000;
+  border-bottom: 0px;
+  text-overflow: ellipsis;
+}
+.listingNavTab {
+  background-color: #ececec;
+  color: #000000;
+}
+.listingNavTab-sel {
+  background-color: #3e4559;
+  color: #FFFFFF;
+  font-weight: bold;
+  border-bottom: 2px solid #3e4559;
+}
+.listingNavTab a, .listingNavTab a:visited {
+  text-decoration: none;
+  color:#000000;
+}  
+.listingNavTab-sel a, .listingNavTab-sel a:visited {
+  text-decoration: none;
+  color: #FFFFFF;
+}  
+
+.mailContent{
+  width:805px;
+  padding: 20px 0px 10px 0px;
+  margin-left: 10px;
+  margin-bottom:10px;
+  float:left;
+  background-color: #ffffff;
+  display:inline;
+}
+
+.mailActions {
+  background-color: #FFFFFF;
+  width: auto;
+  display: block;
+  height: auto;
+  border-bottom: 1px solid #000000;
+  padding: 5px 5px 5px 5px;
+  margin-bottom: 10px;
+}
+.mailActions img {
+  margin-right: 10px;
+  float:left;
+}
+
+/* wrapper for new layout */
+.mailContent .mailItem {
+  background-color: #FFFFFF;
+  width: auto;
+  /*height: 65px;*/
+  display: block;
+  padding: 10px 10px 10px 10px;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 10px;  
+}
+.mailContent .unread {
+  background-color: #e9ecf5;
+}
+.mailContent .mailItem .mailSelect {
+  margin-top: 30px;
+  vertical-align: middle;
+  text-align: center;
+  float: left;
+}
+.mailPoster {
+  width: 200px;
+  float: left;
+  padding: 0px 5px 0px 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.mailPoster .mailPosterThumb {
+  width: 55px;
+  padding-right: 5px;
+  float: left;
+}
+.mailPoster .mailPosterThumb img {
+  border: 1px solid #000000;
+  margin: 1px 1px 1px 1px;
+}
+.mailPoster .mailPosterThumb a:hover img {
+  border: 2px solid #000000;
+  margin: 0px 0px 0px 0px;
+}
+.mailPoster .mailPosterName {
+  width: 130px;
+  padding-left: 5px;
+  font-size: 9pt;
+  float: left;
+  vertical-align: middle;
+  text-align: left;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.mailPoster .mailPosterName a {
+  text-decoration: none;
+}
+.mailPoster .mailPosterName a:hover {
+  text-decoration: underline;
+}
+.mailPoster .mailPosterName .mailPosterTeam {
+  font-size: 8pt;
+}
+.mailPoster a {
+  color: #333333;
+}
+.mailPoster a:hover {
+  color: #333333;
+  text-decoration: none;  
+}
+.mailPoster .mailPosterTeam a {
+  color: #666666;
+}
+.mailPoster a:hover {
+  color: #666666;
+  text-decoration: none;  
+}
+
+.mailContent .mailItem .mailPostDivider {
+  width: 10px;
+  float:left;
+  color: #E7E7E7;
+  font-size: 10pt;
+  padding: 0px 0px 0px 0px;
+  /*
+  height: 55px;
+  background-image: url(../images/messages/dots.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: center;
+  */
+}
+
+.mailContent .mailItem .mailPostListing {
+  width: 490px;
+  /*height: 55px;*/
+  padding-left: 10px;
+  float: left;
+  vertical-align: middle;
+}
+.mailContent .mailItem .mailPostListing .mailPostListingDate,
+.mailContent .mailItem .mailPostListing .mailPostListingSubject,
+.mailContent .mailItem .mailPostListing .mailPostListingBody {
+  width: 490px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  line-height: 150%;
+  background-color: inherit;
+  text-overflow: ellipsis;
+}
+.mailContent .mailItem .mailPostListing .mailPostListingDate {
+  font-weight: bold;
+}
+.mailContent .mailItem .mailPostListing .mailPostListingSubject {
+  font-size: 10pt;
+  color: #677cb2; 
+  font-weight: bold;
+}
+.mailContent .mailItem .mailPostListing .mailPostListingSubject a {
+  color: #677cb2;
+}
+.mailContent .mailItem .mailPostListing .mailPostListingSubject a:hover {
+  color: #677cb2;
+  text-decoration: underline;
+}
+
+.mailContent .mailItem .mailPostActions {
+  width: 17px;
+  float: right;
+}
+.mailContent .mailItem .mailPostActions a {  
+  width: 17px;
+  height: 17px;
+  margin: 3px 0px 3px 0px;
+  text-align: center;
+  float: right;
+}
+
+/* MESSAGE DISPLAY */
+.mailDetailTop {
+  background: transparent url(../images/messages/center_message.png);
+}
+.mailDetail {
+  background: transparent url(../images/messages/top_message.png) no-repeat top;
+  width: auto;
+  height: auto;
+  display: block;
+  padding: 0px 10px 10px 10px;
+}
+.mailDetailBottom {
+  height: 13px;
+  background-image: url(../images/messages/bottom_message.png);
+  background-position: top;
+  background-repeat: repeat-y;
+}
+.mailDetailContent {
+  width:545px;
+  padding: 10px 0px 0px 10px;
+  float:left;
+}
+.mailDetailContent .mailDetailDate {
+  margin-top: 5px;
+}
+.mailDetailContent .mailDetailDate,
+.mailDetailContent .mailDetailTo,
+.mailDetailContent .mailDetailSubject {
+  width: 465px;
+  float:left;
+  text-align: left;
+  line-height: 150%;
+}
+.mailDetailContent .mailDetailDate,
+.mailDetailContent .mailDetailTo {
+  font-weight: bold;
+}
+.mailDetailContent .mailDetailSubject {
+  font-size: 13px;
+  color: #677cb2; 
+  font-weight: bold;
+}
+.mailDetailContent .mailDetailBody .mailPostBody .mailPostSummaryBody {
+  background: transparent;
+  padding: 0px;
+  margin-top: 15px;
+}
+.mailDetailContent .mailDetailBody .mailPostBody .mailPostSummaryBody p {
+  background-color: transparent;
+}
+.mailDetailContent .mailDetailActions {
+  float:right;
+  width:80px;
+  height:30px;
+}
+.mailDetailContent .mailDetailActions a {
+  float:right;
+  margin:0px 0px 3px 1px;
+}
+li.autocomplete {
+  border-bottom: 1px solid #666666;
+}
+div.auto_complete .mailPoster {
+  float: none;
+  height: auto;
+  width:100%;
+  padding: 5px 5px 0px 5px;
+}
+div.auto_complete .mailPoster .mailPosterThumb {
+  width: 55px;
+}
+div.auto_complete .mailPoster .mailPosterName {
+  width: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+/* ########################## */
+/* Overload style for mail To: autocomplete
+/* ########################## */
+.mailContent  div.auto_complete {
+  width:100%;/*350px;*/
+  /*background: #fff;*/
+}
+.mailContent  div.auto_complete ul {
+  /*border:1px solid #888;*/
+  /*margin:0;*/
+  /*padding:0;*/
+  /*width:100%;*/
+  /*list-style-type:none;*/
+}
+.mailContent  div.auto_complete ul li,
+.to_group_popup.auto_complete ul li {
+  /*margin:0;*/
+  padding: 0px; /*3px;*/
+} 
+.mailContent  div.auto_complete ul li.selected,
+.to_group_popup.auto_complete ul li.selected {
+  background-color: #e9ecf5/*#ffb;*/
+}
+.mailContent  div.auto_complete ul strong.highlight,
+.to_group_popup.auto_complete ul strong.highlight {
+  color: #000000;/*#800;*/
+  /*margin:0;*/
+  /*padding:0;*/
+}
+
+
+/*  */
+
+.to_group_popup.auto_complete {
+  position: relative;
+  text-align: left;
+  border: 1px solid #888;
+  background-color: #E7E7E7;
+  padding: 3px;
+  width: 380px;
+}
+.to_group_popup.auto_complete .closer {
+  padding: 5px;
+  font-weight: bold;
+  color: #000000;
+}
+.to_group_popup.auto_complete .scroller {
+  height: 350px;
+  background-color: #fff;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.to_group_popup.auto_complete ul {
+  border:none;
+}

@@ -1,0 +1,41 @@
+%html
+  %head
+    %title
+      = "#{AppConfig.community_name} - Video Uploaded by Coach #{@video.user.lastname}"
+    %style
+      /
+        p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: #000;
+        }
+        a:link, a:visited, a:active {
+        color: #03C;
+        }
+        div.container {
+        padding: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        background-color: #FFF;
+        }
+  %body
+    .container
+      %p
+        = "Hello #{@user.firstname},"
+
+      %p
+        = "Your latest game, #{@video.title}, has just been uploaded and is ready for viewing. Please"
+        - if @user.id
+          %a{ :href=>"#{APP_URL}#{video_asset_path(@video)}" }
+            click here
+          to watch it now, and create your own clips and game highlights.
+        - else
+          %a{ :href=>"#{APP_URL}/users/new?roster_invite_key=#{@roster_entry.reg_key}" }
+            click here
+          = "to register with Global Sports and watch it now. You'll have access to all games for this season, and be able to create your own clips and game-highlights."
+
+      %p
+        Thank you,
+        %br
+        \- The Global Sports Team
+

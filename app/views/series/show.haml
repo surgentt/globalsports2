@@ -1,0 +1,47 @@
+= stylesheet_link_tag 'series'
+
+.series_header
+  = @series.name
+.relative
+- if !current_user
+  -#.invite
+    Login to make Clips of this Game
+    %br
+    Registration is Free
+.series_video_list_view
+  %table.series_video_list
+    %tr
+      - @series.series_videos.each do |series_video|
+        %td{ :valign=>'top' }
+
+          - title = series_video.title#.gsub(' - ', '<br>')
+          - if series_video.id == @series_video_id.to_i
+            .game.selected
+              -#= "#{series_video.id} - #{series_video.title}"
+              %center
+                %img{ :src=>series_video.thumbnail }
+                .title= title
+                %nobr
+                  .time= human_date_time(series_video.time)
+
+          - else
+            .game
+              - if series_video.title && !series_video.title.empty?
+                %a.select_me{ :href=>"/series/#{@series.id}?series_video_id=#{series_video.id}" }
+                  %center
+                    %img{ :src=>series_video.thumbnail }
+                    -#= "#{series_video.id} - #{series_video.title}"
+                    .title= title
+                    %nobr
+                      .time= series_video.time ? human_date_time(series_video.time) : ''
+  -#.clearDiv
+
+-#%center
+.series_video_player
+  -#- src = "http://#{@video.series.host_key}.sportzcast.tv?id=#{@video.media_id}"
+  -#%IFRAME{ :SRC=>src, :WIDTH=>640, :HEIGHT=>480 }
+  -#= render :partial => "series/player", :locals => { :series_video => @video }
+  = render :partial => "series/clipper", :locals => { :series_video => @video }
+
+
+-#.series_video_spacer

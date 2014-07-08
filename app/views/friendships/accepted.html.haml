@@ -1,0 +1,45 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        =link_to _('MY NETWORK'), accepted_user_friendships_path(@user.id)
+      = @user.full_name()
+  .listings
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        %h2.boxDescription
+          = _('Friends')
+      .contentBoxContent
+        .listingItem
+          - if current_user.admin? || @is_current_user
+            - if @pending_friendships_count > 0
+              = link_to "View all my friend requests (#{@pending_friendships_count})", pending_user_friendships_path(@user)
+            - else
+              You have no friend requests.    
+
+        - if current_user
+          - if @friendships.length > 0
+            .listingItem
+              .pagination
+                %span= pagination_info_for @pages
+                = pagination_links_for @pages, {:link_to_current_page => true} if @pages.length > 1
+    
+                %form{ :action => url_for({:controller => 'search', :action => "q"}), :method => 'get'}
+                  %input{ :type=>'hidden', :name => "search[category]", :value=>13 }
+                  %input{ :type=>'hidden', :name => "friend_id", :value=>current_user.id }
+                  %span.friendSearchColumn
+                    Search:
+                  %span.friendSearchWidgetColumn
+                    %label.verbalSemantic{ :for => "friendSearchTerms" }
+                      Search Terms
+                    %input#friendSearchTerms{ :name => "search[keyword]", :type => "text", :size => 30 }
+                    %input.submit{ :name => "submit", :src => "/gs/images/top_nav_search.gif", :type => "image", :value => "search", :alt => "Search" }/
+                    %br/
+          - else 
+            .listingItem
+              You have no friendships
+
+    - if current_user
+      - if @friendships.length > 0
+        = render :partial => "friendships/friendship", :collection => @friendships, :locals => {:owner => @user}
+        .clearDiv        

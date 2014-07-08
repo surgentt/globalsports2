@@ -1,0 +1,62 @@
+- show_tab ||= false
+
+.listingBox-2cols{:id => "post_#{post_listing.id}"}
+  - if show_tab
+    .tabWrapper
+      .listingTab
+        Blog
+    .clearDiv
+  .frameTop
+  .col1
+    .listingBoxHeader
+      - if post_listing.title.length > 45
+        .title-2lines
+          = truncate(post_listing.title,120)
+      - else 
+        .title
+          = post_listing.title
+    .thumb.thumb-tall
+      %a{:href=>"#{user_post_path(post_listing.user, post_listing)}", :class=>"photo", :rel=>"bookmark"}
+        =image_tag((post_listing.image_thumbnail_for_post || post_listing.user.avatar_photo_url(:thumb)), :alt=>"image")
+
+    .listingBoxContent
+      .title.one-liner
+        Author:
+        = link_to post_listing.user.full_name, user_path(post_listing.user)
+        = post_listing.published_at.strftime("%m/%d/%y")
+
+      -# restrict to 5 lines here (5em + 1em for padding)
+      %div{ :style => "height:6em;overflow:hidden" }
+        -if count_words(post_listing.post) > 20
+          = truncate_words(post_listing.post,20)
+          = link_to "more...", user_post_path(post_listing.user,post_listing)
+        -else
+          = post_listing.post
+
+    .clearDiv
+    .listingBoxFooter
+      .footerCol1
+        &nbsp;
+
+      .footerCol2
+        = link_to post_listing.comments.size > 0 ? "Comments: #{post_listing.comments.size}" : "Add Comment", user_post_path(post_listing.user,post_listing)+'#comments'
+        = " | "
+        =render :partial => 'shared/favorite_count', :locals => {:item => post_listing}
+ 
+  .col2
+    .listingBoxActions
+      -# Removed view button per Marcie's mockup 
+        =link_to image_tag('/images/listing_icons/view.png', :mouseclick => '/images/listing_icons/sel-view.png', :border=>0, :alt => 'Read', :title => 'Read'),user_post_path(post_listing.user,post_listing), :rel => 'bookmark', :class => 'listingButton'
+      = link_to image_tag('/images/listing_icons/profile.png', :mouseclick => '/images/listing_icons/sel-profile.png', :border=>0, :alt => 'User Profile', :title => 'User Profile'), user_path( post_listing.user_id ), :class => 'listingButton'
+      - if current_user.can_request_friendship_with(post_listing.user)
+        =link_to image_tag('/images/listing_icons/add.png', :mouseclick => '/images/listing_icons/sel-add.png', :border=>0, :alt => 'Request Friendship', :title => 'Request Friendship'),url_for({ :controller => 'friendships', :action => 'create', :user_id => current_user.id, :friend_id => post_listing.id}), {:method => :post, :class => 'listingButton'}
+      = render :partial => 'shared/favorite_listing', :locals => { :item => post_listing }
+
+      - if (current_user && (current_user.admin? || current_user.id == post_listing.user_id))
+        =link_to image_tag('/images/listing_icons/delete.png', :mouseclick => '/images/listing_icons/sel-delete.png', :border=>0, :alt => 'Delete', :title => 'Delete'), user_post_path(post_listing.user, post_listing), {:method => :delete, :confirm => 'Permanently delete this post?', :class => 'listingButton'}        
+      - else
+        = render :partial => 'shared/inappropriate_listing', :locals => { :item => post_listing }
+
+
+  .clearDiv
+  .frameBtm

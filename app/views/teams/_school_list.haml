@@ -1,0 +1,19 @@
+- column_split = ((@schools.size / 4.0)+0.5).round
+%table{:width => '100%'}
+  %tr
+    %td
+      - @schools[0..column_split-1].each do |school|
+        %p= link_to(school.name, "/teams/show_public/#{school.id}")
+    %td
+      - if @schools.size >= column_split
+        - @schools[column_split..2*column_split-1].each do |school|
+          %p= link_to(school.name, "/teams/show_public/#{school.id}")
+    %td
+      - if @schools.size >= 2*column_split
+        - @schools[2*column_split..3*column_split-1].each do |school|
+          %p= link_to(school.name, "/teams/show_public/#{school.id}")
+    %td
+      - if @schools.size >= 3*column_split
+        - @schools[3*column_split..@schools.size].each do |school|
+          %p= link_to(school.name, "/teams/show_public/#{school.id}")
+

@@ -1,0 +1,16 @@
+- @section = 'forums'
+- @page_title = _('NEW FORUM')
+
+.forumContentArea
+  .listingPage
+    .profilePageHeader
+  .listings
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        .boxDescription
+          = _('Forum Details')
+      .contentBoxContent      
+        - form_for :forum, :url => forums_path, :html => {:class => "MainForm"} do |f|
+          = render :partial => "form", :object => f
+          %p= submit_tag _('Create'), :or => link_to(_('Cancel'), forums_path)
+

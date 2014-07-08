@@ -1,0 +1,37 @@
+- @section = @category.name
+
+.forumContentArea.listingPage
+  .profilePageHeader
+  .forumContainer
+    .box
+      =link_to "New Post", new_user_post_path({:user_id => current_user, 'post[category_id]' => @category.id}), :class => 'genericButton'
+
+    -#
+      .box
+        =link_to "Recent", category_path(@category), {:class => (params[:popular] ? '' : 'active')}
+        =link_to "Popular", category_path(:popular => 'DESC'), {:class => (params[:popular] ? 'active' : '')}  
+    
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        %h2.boxDescription
+          Top Writers
+      .contentBoxContent
+        .listingItem
+          - @active_users.each do |user|
+            = render :partial => "users/sidebar_user", :locals => {:user => user} 
+        
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        %h2.boxDescription
+          ="Popular #{@category.name}"
+      .contentBoxContent
+        .listingItem        
+          %ul.list.page    
+            - @popular_posts.each do |post|
+              =render :partial => 'posts/sidebar_post', :locals => {:post => post}
+    
+    .forumContentBox
+      = render :partial => 'posts/post', :collection => @posts
+    
+      .apple_pagination
+        = will_paginate @posts

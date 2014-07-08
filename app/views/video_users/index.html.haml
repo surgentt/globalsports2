@@ -1,0 +1,19 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    -# if current_user.can_upload?
+    .box
+      = link_to 'Upload a new video', new_video_user_path, :class => 'genericButton'
+
+      - if @video_users.any?
+        = render :partial => '/shared/video_listing', :collection => @video_users, :locals => { :show_tab => false }
+        .clearDiv
+ 
+        - if @video_users.respond_to?('total_pages')
+          .apple_pagination
+            = will_paginate @video_users
+      - else
+        .box
+          You don't have any videos yet.
+    
+    

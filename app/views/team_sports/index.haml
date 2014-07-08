@@ -1,0 +1,86 @@
+
+= javascript_include_tag 'team_sports'
+= stylesheet_link_tag 'team_sports'
+
+- scope_select=Permission.scope_selector_string(@scope)
+- @hide_right_ad = true
+
+.profileContentArea.listingPage.team_sports
+  -#.profilePageHeader
+  .help
+    Video Help:
+    %a{ :href=>"javascript:gs.team_sports.help('roster')" }Creating your Roster
+    %a{ :href=>"javascript:gs.team_sports.help('communicate')"}Communicating with your Team
+  .listings
+    .padded
+
+      - first = true
+      - for team_sport in @team_sports
+        - panel_id = "team-sport-#{team_sport.id}"
+        .team-sport-summary{ :id=>panel_id }
+          .avatar
+            %img{ :src=>team_sport.avatar_photo_url(), :width=>64, :height=>64 }
+
+          .dock
+
+            .messager
+              - form_for (:team_sport, team_sport, :url => message_team_sports_path(:id=>team_sport.id)) do |f|
+                = image_submit_tag '/images/messages/compose.jpg', :class=>'compose', :border=>0, :alt=>'Compose', :title=>'Compose'
+                %span
+                  SEND MESSAGE
+
+                .clearDiv
+                = select_tag "recipient", options_for_select(['- Recipient List -']+team_sport.recipient_list())
+                = select_tag "message_type", options_for_select(['- Type -', ['Email',1], ['Text',2]])
+
+
+            %h1= link_to team_sport.name, edit_team_sport_path(team_sport, :scope_select=>scope_select), {:title => "edit"}
+            = "#{RosterEntry.roster(team_sport.access_group.id).size() rescue 0} Athletes |"
+            = link_to "#{team_sport.access_group.items.size() rescue 0} Restricted Videos", "javascript:gs.team_sports.show_videos('#{team_sport.id}')"  #"javascript:gs.ui.open_dialog('http://gsports.sonic/team_sports/videos/#{team_sport.id}')"
+            %br
+            Coaches:
+            - Permission.has_role(Permission::COACH).in_scope(team_sport).collect(&:blessed).each() do |coach|
+              - if !coach.nil?
+                = link_to coach.full_name, user_path(coach.id)
+            - if team_sport.roster.collect(&:user_id).include?(nil)
+              %br
+                %a{ :id=>"team_sports_resend_#{team_sport.id}", :href=>"javascript:gs.team_sports.resend(#{team_sport.id})" }><
+                  Resend Invites
+
+          .opener
+            %a{ :href=>"javascript:gs.team_sports.open_panel(#{team_sport.id})" }
+
+          .clearDiv
+          .roster
+          .buffer
+        .clearDiv
+        - if first
+          %script
+            = "gs.team_sports.open_panel(#{team_sport.id})"
+          - first = false;
+
+      -#
+        %table
+          %tr
+            %td
+              = link_to 'New Team Sport', url_for({:controller=>'team_sports',:action=>'new', :scope_select=>scope_select}), :class => 'genericButton'
+            %td
+
+        %br
+
+        %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+          %thead
+            %tr.yellowHeader
+              = sortable_table_header :class=>"padded sortableContentHeader", :name => "ID",     :sort => "team_sports.id"
+              = sortable_table_header :class=>"padded sortableContentHeader", :name => "Name",     :sort => "team_sports.name"
+              %th.padded.contentBoxHeader/
+
+          %tbody
+            - for team_sport in @team_sports
+              %tr.leagueList
+                %td.leagueList=h team_sport.id
+                %td.leagueList= link_to team_sport.name, edit_team_sport_path(team_sport, :scope_select=>scope_select), {:title => "edit"}
+
+
+        .apple_pagination
+          = will_paginate @team_sports

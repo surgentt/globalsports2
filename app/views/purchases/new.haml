@@ -1,0 +1,15 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .listingItem
+      %span{ :style=>'font-weight: bold; font-size:14pt;' } New Purchase
+      %br
+      %br
+      %br
+
+      = error_messages_for :purchase
+      
+      - form_for(@purchase, :url => purchase_url(@purchase), :html => {:multipart => true}) do |f|
+        = render :partial => "form", :locals => { :f => f }
+        %p= f.submit "Send Request"
+

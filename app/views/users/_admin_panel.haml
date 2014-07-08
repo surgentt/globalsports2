@@ -1,0 +1,32 @@
+- if current_user.admin?
+  .admin_panel{ :id=>'profile_admin_panel' }
+    %a.closer{ :href=>"javascript:$('profile_admin_panel').hide()" } x
+    %table
+      %tr
+        %td
+          -if @user && @user.id != current_user.id
+            .menuitem
+              = link_to( "Assume ID", assume_user_path(@user) )
+            .menuitem
+              = link_to( "Disable user", url_for({:controller => 'users', :action => 'disable', :id => @user}), {:method => :delete, :confirm => 'Are you sure you want to disable this user account?'} )
+            .menuitem
+              = link_to( "GameX Allow", url_for({:controller => 'gamex_users', :action => 'new', :'gamex_user[user_id]' => @user.id}) )
+        %td{ :width=>'16px' }
+        %td
+          %form{ :action=>"/#{@user.id}/test" }
+            %input{ :type=>'submit', :value=>'Test Access To'}
+            %select{ :name=>'test_type' }
+              %option=VideoAsset
+              %option=VideoClip
+              %option=VideoReel
+            ID:
+            %input{ :type=>'text', :name=>'test_id', :size=>'5'}
+          - if @user_test
+            - if @user_test[:target]
+              = "Access to: #{@user_test[:target].class}/#{@user_test[:target].id}: #{@user_test[:has_access]}"
+              - if @user_test[:reasons]
+                %ul
+                  - @user_test[:reasons].each() do |reason|
+                    %li= reason
+            - else
+              RecordNotFound

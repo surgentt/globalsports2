@@ -1,0 +1,121 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        =link_to _('PROFILE'), user_path(current_user.admin? ? @user : current_user)
+      Edit
+      = "#{current_user.admin? ? @user.full_name : current_user.full_name}"
+                    
+  .listings 
+      
+    = error_messages_for :user
+
+    - form_tag user_url(@user), :method => 'put', :multipart =>true do
+    
+      .contentBox.tanBackground
+        .contentBoxHeader.yellowHeader
+          %h2.boxDescription
+            About Me
+        .contentBoxContent.edit-profile
+        
+          %table{ :width=>'100%' }
+            %tr
+              %td{ :valign=>'top' }
+            
+                - unless @user.team_staff? or @user.league_staff? or @user.admin?
+                  %h3 School
+                  = text_field_with_auto_complete :user, :team_name, :autocomplete => "off", :value=>@user.team.name
+                  %br
+            
+                %h3 Profile Photo
+                .contentBoxContent.topRowFixHeight
+                  .centeringDiv{:style => "text-align: center; vertical-align: middle"}
+                    = image_tag @user.avatar_photo_url(:profile)
+                %label
+                  Choose a photo for your profile
+                  -# here or from your
+                    = link_to 'photo gallery', user_photos_path(@user)
+                = file_field :avatar, :uploaded_data, :size => "20"
+              
+                %br
+                %br
+                %table
+                  %tr
+                    %td
+                      %h3 Gender
+                    %td
+                      %label{ :display=>'relative' }
+                        = radio_button :user, :gender, User::MALE
+                        Male
+                    %td
+                      %label{ :display=>'relative' }
+                        = radio_button :user, :gender, User::FEMALE
+                        Female
+
+                %br
+                %h3
+                  Birthday:
+                  = date_select :user, :birthday, {:start_year => 1926, :end_year => Time.now.year - 12}
+
+              %td{ :valign=>'top'  }
+                %h3 About Me
+                = text_area :user, :description, :class => "rich_text_editor", :style => "width:40%"
+    
+
+      .contentBox.tanBackground
+        .contentBoxHeader.yellowHeader
+          %h2.boxDescription
+            My Favorites
+        .contentBoxContent.edit-profile
+          %table{ :width=>'100%' }
+            %tr 
+              %td{ :valign=>'top'}
+                - mh = @user.moniker_hash
+                %h3 Teams
+                = text_field_with_auto_complete :user, :moniker_teams_tag_list, {:autocomplete => "off"}, {:url => { :controller=>'tags', :action=>'auto_complete_for_tag_name'}, :tokens=>[','] }
+                %h3 Sports
+                = text_field_with_auto_complete :user, :moniker_sports_tag_list, {:autocomplete => "off"}, {:url => { :controller=>'tags', :action=>'auto_complete_for_tag_name'}, :tokens=>[','] }
+                %h3 Music
+                = text_field_with_auto_complete :user, :moniker_music_tag_list, {:autocomplete => "off"}, {:url => { :controller=>'tags', :action=>'auto_complete_for_tag_name'}, :tokens=>[','] } 
+        
+        
+              %td{ :valign=>'top' }
+                %h3 Movies
+                = text_field_with_auto_complete :user, :moniker_movies_tag_list, {:autocomplete => "off"}, {:url => { :controller=>'tags', :action=>'auto_complete_for_tag_name'}, :tokens=>[','] }
+        
+                %h3 Personal Tags
+                #user_tags
+                  = text_field_tag 'tag_list', @user.tags.collect{|t| t.name}.join(", "), {:autocomplete => "off"}
+                  #tag_list_auto_complete.auto_complete
+                  = auto_complete_field 'tag_list', {:url => { :controller => "tags", :action => 'auto_complete_for_tag_name'}, :tokens => [',']  }
+                  %br
+                  %label
+                    %em
+                      You could tag yourself
+                      - if @user.vendor?
+                        "custom, friendly, local"
+                      - else
+                        = AppConfig.meta_keywords.split(",")[0..3].join(", ")
+                      %br
+                      Tags are comma-separated keywords that describe you.
+                      %br
+                      You can browse all content and users on
+                      = AppConfig.community_name
+                      by looking at the
+                      = link_to "tags page", tags_path
+
+
+      -if current_user.admin?
+        .contentBox.tanBackground
+          .contentBoxHeader.yellowHeader
+            %h2.boxDescription
+              Admin
+          .contentBoxContent.edit-profile
+            %br
+            %label
+              = check_box :user, :enabled, {}, 1, nil
+              Enabled
+
+
+      %p{ :align=>'right' }
+        = submit_tag 'Save Changes'

@@ -1,0 +1,22 @@
+
+-# require local var series_video
+
+
+- if series_video.asset
+
+  #llFlash
+    %h1
+      Problems Starting Video Player.
+    %p
+      To view video content you will need to have Adobe Flash player installed and JavaScript enabled on your browser.
+  - locals = {:target => 'llFlash', :player_name => '/players/main.swf', :fvars => {:dockeys => series_video.asset.dockey }, :width=>'640px',:height=>'480px'}
+
+
+  = render :partial => 'shared/video_player', :locals => locals
+
+- else
+
+  - src = "http://#{series_video.series.host_key}.sportzcast.tv?id=#{series_video.media_id}"
+
+  %IFRAME{ :SRC=>src, :WIDTH=>640, :HEIGHT=>480 }
+  -#%IFRAME{ :SRC=>src, :WIDTH=>532, :HEIGHT=>400 }

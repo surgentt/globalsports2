@@ -1,0 +1,57 @@
+- @skip_profile_nav = true
+
+= javascript_include_tag 'contests'
+= stylesheet_link_tag 'contests'
+
+%script
+  = "gs.contests.contest_id = #{@contest.id}"
+
+.profileContentArea.listingPage.contest
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        = @contest.title
+  .listings
+    .padded
+      = @contest.header
+
+      %br
+      %br
+
+      -# %table.hotcontent{ :border=>1, :width=>'100%' }
+        %tr
+          %td.teamlist{ :valign=>'top' }
+            - @teams.each() do |team|
+              %a{ :href=>"javascript:gs.contests.open_panel(#{team.id})" }
+                = team.name
+              %br
+              .team-detail{ :id=>"team-#{team.id}" }
+          %td.recent{ :valign=>'top', :width=>200 }
+            %h2 Recent
+            - @recent.each() do |v|
+              %a{ :href=>video_path(v) }
+                %img{ :src=>@vidavee.file_thumbnail_medium(v.thumbnail_dockey || v.dockey) }
+                %br
+                = h (v.nil? ? 'Video Missing' : v.title )
+                (
+                = v.favorites.size
+                Votes )
+                %br
+                %br
+          %td.winning{ :valign=>'top', :width=>200 }
+            %h2 Top Scoring
+            - @top.each() do |v|
+              %a{ :href=>video_path(v) }
+                %img{ :src=>@vidavee.file_thumbnail_medium(v.thumbnail_dockey || v.dockey) }
+                %br
+                = h (v.nil? ? 'Video Missing' : v.title )
+                (
+                = v.favorites.size
+                Votes )
+                %br
+                %br
+
+      %br
+      %br
+
+      = @contest.footer

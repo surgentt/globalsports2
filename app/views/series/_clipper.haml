@@ -1,0 +1,21 @@
+-# require local var series_video
+
+
+- if series_video.asset
+
+  - @video_asset = series_video.asset
+  = render :partial => 'video_assets/show_player'
+
+- else
+
+  #centerBand
+    #homeWelcome{ :style=>'float:right' }
+      #header
+        Share Your Favorite Clips!
+      #content
+        This live game will soon be available on-demand!  When games go on-demand you can create clips (as easy as dragging left and right tabs) and share them on Facebook or via email!  Why not come back to create clip(s) from your favorite game moments and share them with your family, friends and fans?
+
+    - src = "http://#{series_video.series.host_key}.sportzcast.tv?id=#{series_video.media_id}"
+
+    %IFRAME{ :SRC=>src, :WIDTH=>640, :HEIGHT=>480 }
+    -#%IFRAME{ :SRC=>src, :WIDTH=>532, :HEIGHT=>400 }

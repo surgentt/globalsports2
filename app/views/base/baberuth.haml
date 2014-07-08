@@ -1,0 +1,142 @@
+#centerBand
+
+  #homeWelcome{ :style=>'float:right' }
+    #header
+      Welcome to GlobalSports and BabeRuth TV!
+    #content
+      Check back here during game-time to watch Babe Ruth, Cal-Ripken, and Babe-Ruth Softball games LIVE, for FREE!
+      %br
+      %br
+      You'll also be able to watch the games ON-DEMAND once they're over.
+      But don't just watch the games - you can create your own clips and highlight reels right here in your browser, so you can share the best moments with friends and family around the world.
+
+    %br
+    %br
+    .facebook_share{ :style=>'width:200px;' }
+      = facebook_share("#{APP_URL}#{request.request_uri}")
+  -##homeFlash
+    %h1
+      Problems Starting Video Player.
+    %p
+      To view video content you will need to have Adobe Flash player installed and JavaScript enabled on your browser.
+
+  - @game_dockey_string = '766DAB8FE3FC805C0738C39B62B968E2'
+
+
+  #llFlash
+    %h1
+      Problems Starting Video Player.
+    %p
+      To view video content you will need to have Adobe Flash player installed and JavaScript enabled on your browser.
+  - locals = {:target => 'llFlash', :player_name => '/players/main.swf', :fvars => {:dockeys => @game_dockey_string  }, :width=>'640px',:height=>'480px'}
+  = render :partial => 'shared/video_player', :locals => locals
+
+
+  -#= render :partial => 'shared/video_player', :locals => {:target => 'homeFlash', :player_name => '/players/main.swf', :fvars => {:dockeys => @game_dockey_string } }
+  -#= render :partial => "series/player", :locals => { :series_video => Series.find(2).feature() }
+
+  -#homeDivider
+
+
+.clearDiv
+
+#bottomBand{ :style=>'height: 375px;' }
+  %style
+    :plain
+      dt { padding-left: 8px }
+      dd { padding-left: 32px }
+      .textContainer .head, #bottomBand .panel .textContainer a.head {
+        color: gold;
+        font-size: 14pt;
+        font-weight: bold;
+        padding-bottom: 6px;
+      }
+      #bottomBand .panel .textContainer a {
+        font-size: 10pt;
+        line-height: 20px;
+        font-weight: normal;
+        color: white;
+      }
+
+  .panelContainer1
+    .panel
+      - series = Series.find_by_tag('BRCP') || Series.find(2)
+
+      %a{ :href=>series_path(series) }
+        %img{ :src=>"/images/partners/box_br.png" }
+
+      .textContainer
+        -#%a.head{ :href=>series_path(series) }= series.name
+        .head Babe Ruth Baseball
+        %dl
+          %dt
+            %a{ :href=>series_path(series) } Aug 19th to 26th
+          %dd
+            %a{ :href=>series_path(series) } 13 year old - Clifton Park, NY
+
+          - series = Series.find_by_tag('BRJM') || Series.find(2)
+          %dt
+            %a{ :href=>series_path(series) } Aug 20th to 27th
+          %dd
+            %a{ :href=>series_path(series) } 13-15 - Jamestown, NY
+
+
+      -#%img{ :src=>"/images/partners/box_br.png" }
+      -#.textContainer
+      -#  .head Babe Ruth Baseball
+      -#  %dl
+      -#    %dt Aug 19th to 26th
+      -#    %dd 13 year old - Clifton Park, NY
+      -#    %dt Aug 20th to 27th
+      -#    -#%dd 14 year old - Glen Allen, VA
+      -#    %dd 13-15 - Jamestown, NY
+
+      -#.actionButton
+        =link_to(image_tag("/images/link_find.png", :mouseover=>"/images/link_find_ro.png"), url_for({:controller => 'teams', :action => 'find_my_school'}))
+
+  .panelContainer2
+    .panel
+      - series = Series.find_by_tag('CRWinVA') || Series.find(2)
+      %a{ :href=>series_path(series) }
+        %img{ :src=>"/images/partners/box_br_cr.png" }
+      -# story = @articles_of_the_week[0] if @articles_of_the_week && @articles_of_the_week.size > 0
+      .textContainer
+        %a.head{ :href=>series_path(series) }= series.name
+        -#.head Cal Ripken Baseball
+        %dl
+          %dt
+            %a{ :href=>series_path(series) } Aug 13th to 20th
+          %dd
+            %a{ :href=>series_path(series) } 10 year old - Winchester, VA
+          -#%dt Aug 13th to 21st
+          -#%dd Major / 70 - Aberdeen, MD
+
+  .panelContainer3
+    .panel
+      - series = Series.find_by_tag('BRSB') || Series.find(2)
+      %a{ :href=>series_path(series) }
+        %img{ :src=>"/images/partners/box_br_ws.png" }
+      .textContainer
+        %a.head{ :href=>series_path(series) }= series.name
+        -#Babe Ruth Softball
+        %dl
+          %dt
+            %a{ :href=>series_path(series) } Aug 4th to 9th
+          %dd
+            %a{ :href=>series_path(series) } 12 U - Andalusia, AL
+
+      -#.actionButton
+        =link_to(image_tag("/images/link_join.png", :mouseover=>"/images/link_join_ro.png"), '/register')
+
+-#
+  .multiAdContainer
+  .adContainer1
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 4}
+  .adContainer2
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 5}
+  .adContainer3
+    .adPanel300x250
+      = render :partial => "shared/ad_panel", :locals => {:ad_size => '300x250', :tile => 6}
+

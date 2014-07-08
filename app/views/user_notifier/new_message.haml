@@ -1,0 +1,61 @@
+%html
+  %head
+    %title
+      = "[#{AppConfig.community_name}] #{@title}"
+    %style
+      /
+        p {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: #000;
+        }
+        a:link, a:visited, a:active {
+        color: #03C;
+        }
+        div.container {
+        padding: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        background-color: #FFF;
+        }
+  %body
+    .container
+      %p
+
+        From:
+        = "#{@sent_message.sender.full_name}"
+        %br/
+        Date:
+        - human_date = @sent_message.created_at.in_time_zone(TimeZone.new('Eastern Time (US & Canada)')).strftime("%B %e, %Y %I:%M %p %Z")
+        = human_date
+        %br/
+        Subject:
+        = h @sent_message.message_thread.title
+        %br/
+        %hr
+        %div{ :style => "padding:20px 20px 20px 20px" }
+          = "#{@sent_message.body}"
+          %br/
+
+      %p
+
+        %a{ :href=>"#{@url}#reply" }
+          .div{ :style=>"position:relative;" }
+            .div{ :style=>"position:absolute; top: 0; left 0;" }
+              %img{ :src=>"http://gsports.sonic/images/messages/button_reply_ro.png", :alt=>"Reply", :title=>"Reply" }
+            .div{ :style=>"position:absolute; top: 0; left 0;" }
+              ="[ Reply ]"
+
+        %hr
+
+      %p
+
+        If you don't want to receive e-mails like this one from
+        = AppConfig.community_name
+        , you can
+        %a{ :href=>"#{APP_URL}/users/edit_account" }
+          change your e-mail preferences
+        on the "Edit Account" screen on
+        %a{ :href=>APP_URL }
+          = AppConfig.community_name
+

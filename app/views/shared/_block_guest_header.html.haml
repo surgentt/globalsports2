@@ -1,0 +1,65 @@
+.util
+%form#login{ :action => sessions_path, :method => "post" }
+  .headerHome
+    %a.headerLink{ :href => '/' }
+      %h1.headerBrand{:style => 'height: 100px; width: 625px; z-index: 105;'}
+        Global Sports | Full game video, your highlight reels and more
+    .loginBox
+      %label{:for => "login"} USERNAME
+      = text_field_tag 'login', nil, :class => 'loginFormInput'
+      -#%br/
+      %label{:for => "password"} PASSWORD
+      -#%br/
+      = password_field_tag 'password', nil, :class => 'loginFormPassword'
+      %input#loginButton.submit{ :name => "submit", :src => "/gs/images/top_nav_login.gif", :type => "image", :value => "Login", :alt => "Login" }/
+      %br/
+      %span.loginHelp
+        %a{ :href => url_for(:controller => 'users', :action => 'register')  }
+          signup &raquo;
+        |
+        %a{ :href => forgot_password_path }
+          password help &raquo;
+    .clearDiv
+
+.topNav
+  %ul.leftTopNav
+    %li
+      %span#gnavAboutGlobalSports.ROLLOVERIMAGE
+        %a{ :href => "/info/about" }
+          %span
+            About Global Sports
+    %li.divider
+      %span#gnavMembership.ROLLOVERIMAGE
+        %a{ :href =>  '/info/membership' }
+          %span
+            Membership
+    %li.divider
+      %span#gnavRegistration.ROLLOVERIMAGE
+        %a{ :href => url_for(:controller => 'users', :action => 'register')  }
+          %span
+            Registration
+            
+  - form_tag url_for({:controller => 'search', :action => 'teamfind'}), :method => :get, :id=>'teamFind', :class=>'rightTopNav' do
+    %div
+      %h2
+        Search for My School
+      =collection_select("teamfind","id",@quickfind_states,"id","name", {:prompt => "-State-", :selected => "-State-"}, {:id => 'searchState', :name => 'state', :onchange=>"#{remote_function(:url=>{:controller=>'search',:action=>'update_teamfind_cities'},:with=>"'state='+value")}" } )
+      
+      -# #teamfind_counties
+      -#  = render :partial => '/search/teamfind_counties', :object => @quickfind_counties
+      
+      #teamfind_cities
+        = render :partial => '/search/teamfind_cities', :object => @quickfind_cities
+      
+      
+      %input.submit{ :name => nil, :type => "image", :src => "/gs/images/top_nav_search.gif", :value => "search", :alt => "Search" }/
+
+      
+      
+      
+      
+      
+      
+      
+      
+      

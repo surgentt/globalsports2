@@ -1,0 +1,6 @@
+--- 
+log_file: log/mongrel.log
+port: "8000"
+environment: aaron
+pid_file: tmp/pids/mongrel.pid
+servers: 3

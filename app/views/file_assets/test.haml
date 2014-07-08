@@ -1,0 +1,15 @@
+= javascript_include_tag 'file_assets'
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        FileAsset Upload
+
+  .listings
+
+    %object#uploadie{ :height => "80", :classid => "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000", :codebase => "http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0", :align => "middle", :width => "500" }
+      %param{ :name => "allowScriptAccess", :value => "always" }
+      %param{ :name => "movie", :value => "/flash/uploadie/uploadie.swf" }
+      %param{ :name => "quality", :value => "high" }
+      %param{ :name => "bgcolor", :value => "#ffffff" }
+      %embed{ :name => "uploadie", :bgcolor => "#ffffff", :src => "/flash/uploadie/uploadie.swf", :type => "application/x-shockwave-flash", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :allowscriptaccess => "sameDomain", :height => "80", :quality => "high", :align => "middle", :width => "500" }

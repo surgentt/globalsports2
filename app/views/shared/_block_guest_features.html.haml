@@ -1,0 +1,38 @@
+.homeFeature
+  /
+    Left Col
+  .homeFeatureLeft2
+    %h3
+      Athletes of the Week
+      
+    - if @athletes_of_the_week && @athletes_of_the_week.size > 0
+      =render :partial => "shared/block_featured_athlete", :locals => {:story => @athletes_of_the_week[0]}
+    - if @athletes_of_the_week && @athletes_of_the_week.size > 1
+      =render :partial => "shared/block_featured_athlete", :locals => {:story => @athletes_of_the_week[1]}
+
+  .homeFeatureMiddle2
+    %h3
+      Become a Member
+    %a{ :href => "/register" }
+      %img{ :src => "/gs/images/Home_Athletes_Coaches_Family.png", :height => "28", :alt => "Athletes, Coaches, Family & Fans", :width => "288" }/
+    %br/
+    %a{ :href => "/register?as=#{Role[:team].id}" }
+      %img{ :src => "/gs/images/Home_Schools_Clubs.png", :height => "28", :alt => "Schools & Clubs", :width => "288" }/
+    %br/
+    %a{ :href => "/register?as=#{Role[:league].id}" }
+      %img{ :src => "/gs/images/Home_Leagues_Conferences.png", :height => "28", :alt => "Leagues and Conferences", :width => "288" }/
+    %br/
+    %a{ :href => "/register?as=#{Role[:scout].id}" }
+      %img{ :src => "/gs/images/Home_recruiters_scouts.png", :height => "28", :alt => "Recruiters and Scouts", :width => "288" }/
+  /
+    end middle col
+  /
+    right col
+  .homeFeatureRight2
+    %h3
+      Featured Articles
+      
+    - if @articles_of_the_week && @articles_of_the_week.size > 0
+      =render :partial => "shared/block_featured_article", :locals => {:story => @articles_of_the_week[0]}
+    - if @articles_of_the_week && @articles_of_the_week.size > 1
+      =render :partial => "shared/block_featured_article", :locals => {:story => @articles_of_the_week[1]}

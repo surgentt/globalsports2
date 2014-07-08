@@ -1,0 +1,15 @@
+.video_thumbnail{:id => "video_clip_#{video_clip.id}"}
+  = "<a href='#{user_video_clip_path(video_clip.user_id,video_clip)}'><img src='#{@vidavee.file_thumbnail_medium(video_clip.dockey)}' title='#{h(video_clip.title).gsub(/\'/,'')}' alt='Clip'/></a>"
+  %br
+  = h video_clip.title
+  %br
+  = "#{h video_clip.description} - #{h video_clip.video_length}"
+  %br
+  - skip_controls ||= false
+  - unless skip_controls
+    = link_to 'Parent Video', video_asset_path(video_clip.video_asset_id)
+    -if current_user && current_user.can_edit?(video_clip)
+      %br
+      = link_to 'Edit', edit_video_clip_path(video_clip)
+      |
+      = link_to_remote 'Destroy', {:url => url_for(video_clip), :confirm => 'Are you sure?', :method => :delete}

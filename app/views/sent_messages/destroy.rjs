@@ -1,0 +1,1 @@
+page.visual_effect :drop_out, "message_#{@sent_message.id}", :duration => 1

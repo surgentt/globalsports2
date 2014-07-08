@@ -1,0 +1,105 @@
+
+= hidden_field_tag :scope_select, Permission.scope_selector_string(@scope)
+
+%br
+%p
+%div
+  %b Name
+  %br/
+  = f.text_field :name
+  
+%br
+%p
+%div
+  %b Target Site URL
+  %br/
+  = f.text_field :allow_url
+
+%br
+%p
+%b Frame
+%table
+  %tr
+    %td.field-block
+      %div
+        %b Width
+        %br/
+        = f.text_field :frame_width, :size=>5
+
+    %td.field-block
+      %div
+        %b Height
+        %br/
+        = f.text_field :frame_height, :size=>5
+
+%br
+%p
+%b Player
+%table
+  %tr
+    %td.field-block
+      %div
+        %b Width
+        %br/
+        = f.text_field :width, :size=>5
+  
+    %td.field-block
+      %div
+        %b Height
+        %br/
+        = f.text_field :height, :size=>5
+  
+    %td.field-block
+      %div
+        %b Auto Play
+        %br/
+        = f.check_box :autoplay
+
+        
+
+%br
+%p
+%b Thumbnails
+%table
+  %tr
+    %td.field-block
+      %div
+        %b Width
+        %br/
+        = f.text_field :thumb_width, :size=>5
+
+    %td.field-block
+      %div
+        %b Height
+        %br/
+        = f.text_field :thumb_height, :size=>5
+
+    %td.field-block
+      %div
+        %b Position
+        %br/
+        = f.select( :layout, Channel.layout_map, {}, {:onchange =>"javascript:channelsUpdateRowCol(this)"} )
+
+    - rowcol = (@channel && (@channel.layout.to_i < 2)) ? 'Row' : 'Col'
+    =@channel.layout.to_i
+
+    %td.field-block
+      %div
+        %b
+          %span{ :id=>'ThumbCount' }= "#{rowcol}s"
+        %br/
+        = f.text_field :thumb_count, :size=>4
+
+    %td.field-block
+      %div
+        %b
+          %span{ :id=>'ThumbSpan' }= "Per #{rowcol}"
+        %br/
+        = f.text_field :thumb_span, :size=>4
+
+
+%br
+
+
+
+

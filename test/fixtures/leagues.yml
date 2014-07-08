@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Northeast Regional
+  city: Columbia
+  state: maryland
+  description: We are Northeast Regional
+  active: true
+  avatar: library_pic
+
+two:
+  name: SouthWest Regional
+  city: Freedonia
+  state: michigan
+  description: We are Southwest Regional
+  active: false
+  avatar: another_pic

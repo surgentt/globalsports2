@@ -1,0 +1,33 @@
+- @section = (params[:metro_area_id] ? 'metro_area' : 'users')
+
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .box
+
+      %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+        %thead
+          %tr.yellowHeader
+            %td.padded.contentBoxHeader.la
+              Date
+            %td.padded.contentBoxHeader.numeric
+              Price 
+            %td.padded.contentBoxHeader.numeric
+              Credit Card 
+            %td.padded.contentBoxHeader.numeric
+              Authorization Reference Number 
+        %tbody
+          = render :partial => "membership/billing_history", :collection => @billings 
+        
+          - if @member && @member.canceled?
+            %tr.forumList
+              %td.forumList
+                - if @member.membership_cancellation
+                  =@member.membership_cancellation.created_at.to_date
+              %td.forumList.numeric{ :style => "color:red" }
+                CANCELED                
+              %td.forumList{ :colspan => 2 }
+                - if @member.membership_cancellation
+                  =@member.membership_cancellation.reason
+      
+      %br.clear

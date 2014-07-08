@@ -1,0 +1,13 @@
+Found
+= @chsfl_users.length
+CHSFL users out of
+= @all_users.length
+users total
+%br
+= @since_sep.length
+of them have joined since Sep 1, 2011
+%br
+%p
+  - @chsfl_users.each do |u|
+    = u.email + ', '
+

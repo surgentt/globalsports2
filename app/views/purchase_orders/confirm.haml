@@ -1,0 +1,118 @@
+- renewal = current_user && !current_user.memberships.nil? && !current_user.memberships.empty?
+
+.RegContent
+  -# Do not show the sidebar if there is a logged in user. They will have the "MY TOOLS" menu displayed here
+  - unless current_user
+    .SideBar
+      %h1
+        = renewal ? 'Account Renewal' : 'Registration'      
+    
+      - if !renewal
+        %p
+          This is the last step of the registration process.
+
+  .RegistrationContent
+    - if !renewal
+      .RegistrationTrail
+        PART 1: ACCOUNT TYPE &raquo; PART 2: USER INFORMATION &raquo; 
+        %span.RegistrationComplete
+          PART 3: BILLING INFORMATION
+    
+    .AccountType
+      %br
+      
+      %h2
+        - if @cost > 0
+          = "The cost for this membership is #{number_to_currency(@cost)} per month"
+      %br
+
+      - if @promotion
+        %p
+          - if @promotion.html_content
+            = @promotion.html_content
+          - else
+            = "The promotion code '#{@promotion.promo_code}' has been applied" 
+        %br
+        %br
+
+
+      .mainCol1
+
+        - form_for @po, {:html => { :target => '_blank' } } do |f|
+
+          = error_messages_for :po, :object_name => 'Purchase Order'
+
+          %b
+            Representative: 
+          = @po.rep_name
+          %br
+
+          %b
+            Purchase Order, or Check #: 
+          = @po.po_number
+
+          %br
+          %br
+
+          = f.hidden_field :user_id
+          = f.hidden_field :rep_name
+          = f.hidden_field :po_number
+          
+          = hidden_field_tag :confirm, :yes
+          = hidden_field_tag :print, :yes
+          
+          %fieldset.inline
+            %input#tos{:name=>'tos', :type=>'checkbox', :value=>'yes', :checked=>false}
+            %label{:for => "tos"}
+              I have read and agree to the
+              =link_to("#{AppConfig.community_name} Terms of Service", '/info/terms', {:target => "_blank"})
+  
+          %fieldset.inline
+            %input#suba{ :name=>'suba', :type=>'checkbox', :value=>'yes', :checked=>false}
+            %label{:for => "suba"}
+              I have read and agree to the
+              =link_to("#{AppConfig.community_name} Subscriber Agreement", "/info/subscriber_#{@po.user.role.name}", {:target => "_blank"})
+              
+          %fieldset.inline
+            %input#po{ :name=>'po', :type=>'checkbox', :value=>'yes', :checked=>false}
+            %label{:for => "po"}
+              I agree to be bound by this purchase order
+          
+          %br
+          = submit_tag('Print Purchase Order', :onclick => "if ($$('#po')[0].checked && $$('#tos')[0].checked && $$('#suba')[0].checked) { $('proceedButton').show(); return true; } else { alert('You must agree to the Terms of Service, Subscriber Agreement, and Purchase Order'); return false; }")
+
+          %br
+          %br
+
+        #proceedButton{:style => 'display:none'}
+          %p
+            The purchase order should be open in another tab or window
+            for you to print. If your pop-up blocker intercepted it, please
+            reconfigure it to allow popups from
+            = APP_URL
+            and press the "Print Purchase Order" button again.
+            %br
+            %br
+          %p
+            Once your purchase order has been approved by the site administrator
+            you will receive a welcome email and be able to enter the site.
+            %br
+            %br
+          %p
+            %b
+              Thank You!
+            %br
+            %br
+
+          -# .stuffOnHold
+            - case @po.user.role_id
+            - when Role[:team].id
+              .myProfileButton
+                = link_to 'Enter the Site', edit_team_path(@po.user.team)
+            - when Role[:league].id
+              .myProfileButton
+                = link_to 'Enter the Site', edit_league_path(@po.user.league)
+          %p
+            %br
+            %br
+            %br

@@ -1,0 +1,16 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+      
+  .listings
+    .listingItem
+      =link_to "New Reel", new_video_reel_path, {:class => 'genericButton'}
+    - if @video_reels.any?
+      = render :partial => 'shared/video_listing', :collection => @video_reels, :locals => { :show_tab => false }
+      .clearDiv
+        
+      - if @video_reels.respond_to?('total_pages')
+        .apple_pagination
+          = will_paginate @video_reels
+    -else
+      .box
+        You don't have any reels yet.

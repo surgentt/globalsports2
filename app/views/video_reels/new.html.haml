@@ -1,0 +1,15 @@
+- @hide_right_ad = true
+.profileContentArea
+  .profilePageHeader
+
+  -# ECKMAN: removing since the sidebar is always displayed
+    .toplink
+      = link_to "&laquo; back to my clips", user_video_clips_path(current_user)
+      = " / "
+      = link_to "my reels", user_video_reels_path(current_user)
+
+  - my_link = '/search/my_videos?user_id=' + current_user.id.to_s + '#reels'
+
+  .flashArea#flashArea
+  = render(:partial => 'shared/video_player', :locals => { :fvars => { :dockeys => "#{@user_clip_dockeys}"}, :target => 'flashArea', :player_name => '/players/reelmaker.swf', :height => 650, :width => 990})
+

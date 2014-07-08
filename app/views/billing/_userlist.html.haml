@@ -1,0 +1,10 @@
+%tr.forumList
+  %td.forumList
+    ="#{userlist.lastname},#{userlist.firstname}, #{userlist.minitial}"
+  %td.forumList
+    =userlist.created_at.to_date
+  %td.forumList
+    =userlist.enabled? ? "Y" : "N"
+  %td.forumList
+    - mem = userlist.current_membership
+    =mem.nil? ? "NA" : mem.name

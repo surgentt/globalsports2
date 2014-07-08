@@ -1,0 +1,24 @@
+- @render_gamex_menu = current_user && current_user.gamex? && !@video_asset.gamex_league_id.nil?
+-#.profileContentArea.listingPage
+  -#.profilePageHeader
+    -if @render_gamex_menu
+      %span
+        GameXchange
+      &gt; Watch Video
+      .gamexButton{ :style=>'float:right;margin-right:185px;' }
+        =link_to 'Download', "/video_assets/download/#{@video_asset.id}"  #@video_asset.download_url()
+    -#else
+      - if (!allowed && !@video_asset.is_restricted?)
+        -#You are watching a short preview of this video. For full access options, click "Purchase Video" below".
+      -else
+        %h2.columnDescriptor
+        %span
+          = link_to _('MY VIDEOS'), url_for({:controller => 'search', :action => 'my_videos', :user_id => (@user ? @user.id : nil)})
+        Player
+  .playerContentArea
+
+- if current_user && @video_asset.league && @video_asset.league.pre_clip_msg && @video_asset.league == current_user.league
+  %h1{ :style=>'color: gold; padding: 3px;' }
+    = @video_asset.league.pre_clip_msg
+
+= render :partial => 'video_assets/show_player'

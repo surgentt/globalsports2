@@ -1,0 +1,62 @@
+
+= javascript_include_tag 'reports'
+= stylesheet_link_tag 'reports'
+
+%script{ :type=>"text/javascript" }
+  var gs_reports_small_player = false
+  var gs_report_id =
+  = @report.id
+
+.profileContentArea
+  .profilePageHeader
+    -#%h2.columnDescriptor
+      %span
+        Report
+      = @report.name
+
+  .padded
+
+    .report-viewer
+
+      - form_for(@report, :url => report_url(@report), :html => {:multipart => true}) do |f|
+        -#= render :partial => "form", :locals => { :f => f }
+
+        .report-layout
+          %span{ :style=>'margin: 2px 2px 0pt 0pt; color: grey; float:right' }
+            %i= @report.type_name
+
+          %h1= @report.name
+
+          .clearDiv
+
+          #clip-strip-holder
+
+            #clip-strip
+              - @details.each() do |detail|
+                = render :partial=>'clip', :locals=>{ :video=>detail.video, :options=>{ :click_to_preview=>true, :panel_id_prefix=>'report'} }
+
+          #play-button{ :style=>'float: right' }
+            %a{ :href=>'javascript:gs_reports_play_all()', :class => 'listingButton' }
+              = image_tag('/images/listing_icons/play.png', :mouseclick => '/images/listing_icons/sel-play.png', :border=>0)
+            -#  %h2 Watch&nbsp;Report
+
+          %div{ :style=>'color: grey; margin-bottom: 8px;' }
+            %i= @report.created_at.strftime("%b %d, %Y") rescue ''
+            by
+            %i= @report.author.full_name
+
+          %div{ :style=>'color: grey; margin-bottom: 8px;' }
+            %i= @report.description
+
+          #report-player
+            = render :partial=>'player'
+          %br
+          %br
+          #report-detail
+            = render :partial=>'clip_detail'
+
+        .clearDiv
+
+
+%script{ :type=>"text/javascript" }
+  Event.observe(window, 'load', function(){ gs_reports_play_all() } );

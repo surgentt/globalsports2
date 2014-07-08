@@ -1,0 +1,9 @@
+
+%table
+  - (@hp/:link_stat).each do |link|
+    %tr
+      %td
+        = (link/:url).inner_html
+      %td
+        = (link/:like_count).inner_html
+

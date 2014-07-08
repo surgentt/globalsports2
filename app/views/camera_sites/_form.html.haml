@@ -1,0 +1,149 @@
+%style
+  :plain
+    .xcontentBox.BR { background: bottom right no-repeat url('/images/partners/brlws2011sm.gif') }
+    /*.xcontentBox.LL { background: bottom right no-repeat url('/images/partners/llsm.gif') }*/
+    .xcontentBox div, .xcontentBox td { font-size:11pt;  }
+    .xcontentBox input { border: 1px solid grey; padding:3px;  }
+
+.xcontentBox{ :class=>@camera_site.brand }
+
+  -#%h3 Camera Site Information
+  -#%hr
+
+  = f.hidden_field :brand
+
+  %table{ :width=>'100%' }
+    %tr
+      %td{ :valign=>'top' }
+
+        %table{ :width=>'100%' }
+          %tr
+            %td{ :valign=>'top' } League Name
+            %td{ :valign=>'top' }= f.text_field :league_name, :size => 32
+
+          %tr
+            %td &nbsp;
+
+          %tr
+            %td{ :valign=>'top' } Contact Name
+            %td{ :valign=>'top' }= f.text_field :contact_name, :size => 24
+
+          %tr
+            %td{ :valign=>'top' } Title
+            %td{ :valign=>'top' }= f.text_field :contact_title, :size => 24
+
+          %tr
+            %td{ :valign=>'top' } Phone
+            %td{ :valign=>'top' }= f.text_field :contact_phone, :size => 16
+
+          %tr
+            %td{ :valign=>'top' } Email
+            %td{ :valign=>'top' }= f.text_field :contact_email, :size => 32
+
+
+          %tr
+            %td &nbsp;
+
+          %tr
+            %td{ :colspan=>2, :style=>'font-style: italic; font-size: 66%; text-align: center; padding: 0 26px 0 26px' }
+              Please provide contact info for someone
+              %br
+              who can answer detailed questions about
+              %br
+              the network and power supply for the facility.
+
+
+          %tr
+            %td &nbsp;
+
+
+
+          %tr
+            %td{ :valign=>'top' } Technical Contact Name
+            %td{ :valign=>'top' }= f.text_field :tech_name, :size => 24
+
+          %tr
+            %td{ :valign=>'top' } Phone
+            %td{ :valign=>'top' }= f.text_field :tech_phone, :size => 16
+
+          %tr
+            %td{ :valign=>'top' } Email
+            %td{ :valign=>'top' }= f.text_field :tech_email, :size => 32
+
+
+      %td{ :valign=>'top' }
+
+        %table{ :width=>'100%' }
+
+          %tr
+            %td{ :valign=>'top' } Field Name
+            %td{ :valign=>'top' }= f.text_field :name, :size => 32
+
+          %tr
+            %td{ :valign=>'top' } Address
+            %td{ :valign=>'top' }= f.text_field :address, :size => 42
+
+          %tr
+            %td{ :valign=>'top' } County
+            %td{ :valign=>'top' }= f.text_field :county, :size => 12
+
+          %tr
+            %td{ :valign=>'top' } City
+            %td{ :valign=>'top' }= f.text_field :city, :size => 25
+          %tr
+            %td{ :valign=>'top' } State
+            - opts = { :prompt => '--' }
+            - opts[:selected] = @camera_site.state.name if @camera_site.state
+            %td{ :valign=>'top' }= collection_select("camera_site","state_id",State.all,"id","name", opts)
+          %tr
+            %td{ :valign=>'top' } Zip/Postal Code
+            %td{ :valign=>'top' }= f.text_field :zip, :size => 12
+
+    %tr
+      %td &nbsp;
+
+    %tr
+      %td{ :valign=>'top' }
+
+        %div
+          Number of Fields
+          %br/
+          = f.text_field :fields, :size => 3
+
+        %div
+          %br/
+          Year, Make and Model of Scoreboard
+          %br/
+          = f.text_field :scoreboard, :size => 48
+
+        %div
+          %br/
+          Type of Internet Access
+          %br/
+          - opts = { :prompt => '--' }
+          - opts[:selected] = @camera_site.network if @camera_site.network
+          - hopts = { :onchange=>"javascript: gs.live.network_select()", :id=>'camera_site_network_select' }
+          - networks = [ 'FIOS', 'Broadband', 'Cable', 'T1', 'DSL', 'None', 'Other' ]
+          = collection_select("camera_site","network",networks,"to_s","to_s", opts, hopts)
+          = f.text_field :network, :style=>'display:none'
+
+        %div
+          %br/
+          Distance from Network Access to Backstop
+          %br/
+          = f.text_field :network_dist, :size => 12
+
+        %div
+          %br/
+          Distance from 110V 15AMP Dedicated Power to Backstop
+          %br/
+          = f.text_field :power_dist, :size => 12
+
+
+        %div
+          %br/
+          Other Notes or Comments
+          %br/
+          = f.text_area :notes , :rows => 3, :cols => 45
+
+

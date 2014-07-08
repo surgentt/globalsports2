@@ -1,0 +1,13 @@
+#!/bin/bash
+
+RAILS_ROOT=${RAILS_ROOT:-`dirname $0`/..}
+export RAILS_ENV=${RAILS_ENV:-"production"}
+PATH=/usr/local/bin:/bin:/usr/bin:${PATH}
+LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+
+cd ${RAILS_ROOT}
+
+./script/push_new_audio
+./script/push_saving_user_videos
+./script/push_saving_videos
+./script/vidavee_status_check

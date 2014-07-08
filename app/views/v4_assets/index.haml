@@ -1,0 +1,24 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    .listings
+
+      %h1
+        Listing v4_assets
+      .box
+
+        %table
+          %tr
+          - for v4_asset in @v4_assets
+            %tr
+              %td
+                = link_to " #{v4_asset.name} ", v4_asset
+              %td{ :width=>30 }
+              %td
+                = link_to 'Edit', edit_v4_asset_path(v4_asset)
+              %td
+                [
+                = link_to 'x', v4_asset, :confirm => 'Are you sure?', :method => :delete
+                ]
+
+        %br
+        %a.genericButton{ :href=>new_v4_asset_path } New v4_asset

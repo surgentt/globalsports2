@@ -1,0 +1,45 @@
+%form{ :action => url_for({:controller => 'search', :action => "q"}), :method => 'get'}
+  .topNav
+
+    %ul.leftTopNav
+      %li
+        -# %span#gnavMyNetwork.ROLLOVERIMAGE
+        %a{ :href => accepted_user_friendships_path(current_user.id) }
+          %span
+            My Network
+      %li.divider
+        -#% span#gnavMyVideos.ROLLOVERIMAGE
+        %a{ :href => url_for(:controller => 'search', :action => 'my_videos') }
+          %span
+            My Videos
+      %li.divider
+        -# %span#gnavMyProfile.ROLLOVERIMAGE
+        %a{ :href => user_path(current_user.id) }
+          %span
+            = _('My Profile')
+      -if current_user.gamex_users.size > 0
+        %li.divider
+          %a{ :href => url_for({:controller => 'gamex', :action => 'download'}) }
+            %span
+              = _('GameXchange')
+      -if current_user && current_user.admin?
+        %li.divider
+          %a{ :href => url_for({:controller => 'admin', :action => 'dashboard'}) }
+            %span
+              = _('Admin Panel')
+
+    .rightTopNav
+      %h2
+        Search Site
+      -#%label.verbalSemantic{ :for => "search[category]" }
+        Category
+      %select#searchCategory{ :name => "search[category]" }
+        - Search.top_nav_options.each do |id, text|
+          %option{ :value => id }
+            = text
+      %label{ :for => "searchTerms" }
+        -# this focus and value are to help select the field on IE
+        %input#searchTerms{ :name => "search[keyword]", :type => "text", :value => '                  ', :onfocus => 'this.select()'}
+      %input.submit{ :name => "submit", :src => "/gs/images/top_nav_search.gif", :type => "image", :value => "search", :alt => "Search", :style=>'border: 0' }
+
+

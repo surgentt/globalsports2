@@ -1,0 +1,70 @@
+- if params[:meta_only]
+  :javascript
+    gs.file_assets.mode = 'x';
+  #meta-only-upload
+    YOU ARE UPLOADING META DATA ONLY - U HAx0R
+
+- else
+  #ups-flash{ :style=>'display:none' }
+    .selector
+      Upload using
+      %a{ :href=>'javascript:gs.file_assets.pick_uploader("j");' }
+        Java
+      .note
+        (more reliable for large files)
+
+    - flash_file = "/players/gsups.swf?v=0.0.11"
+
+    -#%object{ :name => "gsupsf", :height => "50", :classid => "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000", :codebase => "http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0", :align => "middle", :width => "500" }
+      %param{ :name => "allowScriptAccess", :value => "always" }
+      %param{ :name => "movie", :value => flash_file }
+      %param{ :name => "quality", :value => "high" }
+      %param{ :name => "bgcolor", :value => "#ffffff" }
+      %embed{ :name => "gsupsf", :bgcolor => "#ffffff", :src => flash_file, :type => "application/x-shockwave-flash", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :allowscriptaccess => "sameDomain", :height => "50", :quality => "high", :align => "middle", :width => "500" }
+
+
+    .meow
+
+      #flashContent
+
+      - height = '50'
+      - width = '500'
+      - fvars = { }
+      - flashVars = fvars.inject([]) { |s,(k,v)| s << "#{k}: encodeURIComponent('#{v}')"}.join(",")
+      - params ||= {}
+      -# params['wmode']='opaque'
+      -# params['bgcolor']='#0c1329'
+      -# params['quality']='high'
+      - paramsLine = params.inject([]) { |s,(k,v)| s << "#{k}: encodeURIComponent('#{v}')"}.join(",")
+      :javascript
+        var flashvars = { #{flashVars} };
+        var params = { #{paramsLine} };
+        var attributes = {
+          'id':                 'gsupsf',
+          'name':               'gsupsf'
+        };
+        swfobject.embedSWF('#{flash_file}','flashContent','#{width}','#{height}',"9.0.28","/gs/scripts/swfobject/expressInstall.swf", flashvars, params, attributes);
+
+
+
+
+  #ups-java{ :style=>'display:none' }
+    .selector
+      Upload using
+      %a{ :href=>'javascript:gs.file_assets.pick_uploader("f");' }
+        Flash
+      .note
+        (faster for smaller files < 200mb)
+
+    %applet{ :name=>"gsups", :archive=>"/java/gs-ups.jar", :code=>"gs/Ups.class", :width=>500, :height=>50 }
+
+
+    -#%object{ :codetype=>"application/x-java-applet", :archive=>"/java/gs-ups.jar", :classid=>"java:gs/Ups.class", :width=>600, :height=>120, :name=>"gsups" }
+      %PARAM{ :name=>"cache_option", :value=>"No" }
+
+  #ups-progress{ :style=>'display:none' }
+    .pad
+      .bar
+
+  :javascript
+    gs.file_assets.pick_uploader();

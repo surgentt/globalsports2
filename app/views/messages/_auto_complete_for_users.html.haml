@@ -1,0 +1,121 @@
+- max = 5
+- count = 0
+%ul
+  - if @groups && !@groups.empty?
+    - @groups.each do |group|
+      -# break if count >= max
+      - count += 1
+      
+      -# NOTE: this logic is duplicated in _pop_group_choices
+      -# Expand groups for coaches
+      - if session[:mail_to_coach_group_ids] && session[:mail_to_coach_group_ids].include?(group.id)
+        - gid = group.encoded_recipient_ids.join(',') unless group.encoded_recipient_ids.nil?
+        - gname = group.recipient_display_array.join(', ') unless group.recipient_display_array.nil? 
+      - else
+        - gid = "g#{group.id}"
+        - gname = h(group.name)
+      
+      %li
+        .autocompleteid{:style => 'display:none'}
+          ="#{gid}"
+        .mailPoster
+          .mailPosterThumb
+            - sport = TeamSport.for_access_group_id(group.id).first
+            - if sport
+              =image_tag(sport.avatar_photo_url(:thumb), :alt=>"#{sport.name}", :width=>"50", :height=>"50")
+            - else
+              =image_tag(group.team.avatar_photo_url(:thumb), :alt=>"Team", :width=>"50", :height=>"50")
+          .mailPosterName
+            %br/
+            %span.autocompletename{ :style => 'display:none' }= gname
+            = h(group.name)
+            .mailPosterTeam
+              = "#{group.size} contacts"
+        .clearDiv
+
+  -if @friends && !@friends.empty?
+    - @friends.each do |user|
+      -# break if count >= max
+      - count += 1
+      %li
+        .autocompleteid{:style => 'display:none'}
+          ="u#{user.id}"
+        .mailPoster
+          .mailPosterThumb
+            =image_tag(user.avatar_photo_url(:thumb), :alt=>"Profile Picture", :width=>"50", :height=>"50")
+          .mailPosterName
+            %br/
+            %span.autocompletename= h(user.full_name)
+            - if user.team_name
+              .mailPosterTeam
+                = h(user.team_name)
+        .clearDiv
+
+  - if count < max && @roster_entries && !@roster_entries.empty?
+    - @roster_entries.each do |roster|
+      -# break if count >= max      
+      - count += 1
+      %li
+        .autocompleteid{:style => 'display:none'}
+          ="r#{roster.id}"
+        .mailPoster
+          .mailPosterThumb
+            - if roster.user_id
+              =image_tag(roster.user.avatar_photo_url(:thumb), :alt=>"Profile Picture", :width=>"50", :height=>"50")
+            - else
+              - sport = TeamSport.for_access_group_id(roster.access_group_id).first
+              - if sport
+                =image_tag(sport.avatar_photo_url(:thumb), :alt=>"#{sport.name}", :width=>"50", :height=>"50")
+              - else
+                =image_tag(roster.access_group.team.avatar_photo_url(:thumb), :alt=>"#{roster.access_group.team.name}", :width=>"50", :height=>"50")
+          .mailPosterName
+            %br/
+            %span.autocompletename= h(roster.full_name)
+            - if roster.access_group
+              .mailPosterTeam
+                = h(roster.access_group.name)
+        .clearDiv
+      
+  -if count < max && @users && !@users.empty?
+    - @users.each do |user|
+      -# break if count >= max
+      - count += 1
+      %li
+        .autocompleteid{:style => 'display:none'}
+          ="u#{user.id}"
+        .mailPoster
+          .mailPosterThumb
+            =image_tag(user.avatar_photo_url(:thumb), :alt=>"Profile Picture", :width=>"50", :height=>"50")
+          .mailPosterName
+            %br/
+            %span.autocompletename= h(user.full_name)
+            - if user.team_name
+              .mailPosterTeam
+                = h(user.team_name)
+        .clearDiv
+
+      
+  -# Reset count for emails and phones... they are small
+  - count = count / 2
+
+  - if count < max && @emails && !@emails.empty?
+    - @emails.each do |email|
+      -# break if count >= max
+      - count += 1
+      %li
+        .mailPoster
+          .mailPosterThumb &nbsp;
+          .mailPosterName
+            %span.autocompletename= h(email)
+        .clearDiv
+            
+  - if count < max && @phones && !@phones.empty?
+    - @phones.each do |phone|
+      -# break if count >= max
+      - count += 1
+      %li
+        .mailPoster
+          .mailPosterThumb &nbsp;
+          .mailPosterName
+            %span.autocompletename= h(Utilities::readable_phone(phone))
+        .clearDiv

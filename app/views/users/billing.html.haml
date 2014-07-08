@@ -1,0 +1,49 @@
+- skip_billing_addr = @billing_address.nil? || @billing_address.address1.blank?
+- renewal = current_user && !current_user.memberships.nil? && !current_user.memberships.empty?
+ 
+.RegContent
+  -# Do not show the sidebar if there is a logged in user. They will have the "MY TOOLS" menu displayed here
+  - unless current_user
+    .SideBar
+      %h1
+        = renewal ? 'Account Renewal' : 'Registration'      
+      
+      - if !renewal
+        %p
+          This is the last step of the registration process.
+          
+      - if @credit_card
+        - if @offer_PO
+          %p
+            = link_to 'Pay by check via Purchase Order?', new_purchase_order_path
+          %br
+      - else
+        %p
+          = link_to 'Pay by Credit Card?', url_for(:controller=>:users, :action=>:billing, :userid=>@user.id)
+        %br 
+  
+  .RegistrationContent
+    - if !renewal
+      .RegistrationTrail
+        PART 1: ACCOUNT TYPE &raquo; PART 2: USER INFORMATION &raquo; 
+        %span.RegistrationComplete
+          PART 3: BILLING INFORMATION
+        
+    .AccountType
+      %br/
+      
+      %h2
+        - if @cost > 0
+          = "The cost for this membership is #{number_to_currency(@cost)} per month"
+      %br/
+
+      - if @promotion
+        %p
+          - if @promotion.html_content
+            = @promotion.html_content
+          - else
+            = "The promotion code '#{@promotion.promo_code}' has been applied" 
+        %br/
+        
+      - if @credit_card
+        =render :partial => 'new_credit_card'

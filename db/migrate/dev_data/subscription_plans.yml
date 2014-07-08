@@ -1,0 +1,20 @@
+member:
+  id: 1
+  name: member
+  cost: 9.95
+  description: Athletes, Coaches, Parents, and Fans
+team:
+  id: 2
+  name: team
+  cost: 250.00
+  description: Schools and Private Clubs
+league:
+  id: 3
+  name: league
+  cost: 250.00
+  description: Leagues and Conferences
+scout:
+  id: 4
+  name: scout
+  cost: 250.00
+  description: Scouts and Recruiters  

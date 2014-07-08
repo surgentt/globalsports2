@@ -1,0 +1,69 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        Search Results
+      = current_user.full_name
+    %h3
+      = pluralize(@posts.total_entries, 'result')
+  
+  .listings
+    -#.contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        %h2.boxDescription
+          Search Results 
+      .contentBoxContent.friendSearchWidgetArea
+        %span.friendSearchColumn
+          Search:
+        %span.friendSearchWidgetColumn
+          %label.verbalSemantic{ :for => "friendSearchTerms" }
+            Search Terms
+          %input#friendSearchTerms{ :name => "terms", :type => "text" }/
+          %input.submit{ :name => "submit", :src => "/gs/images/top_nav_search.gif", :type => "image", :value => "search", :alt => "Search" }/
+          %br/
+        .clearDiv
+        %span.friendSearchColumn
+          Sort by:
+        %span.friendSearchWidgetColumn
+          %label.verbalSemantic{ :for => "friendFindSortBy" }
+            Sort by
+          %select#friendFindSortBy{ :name => "sortBy" }
+            %option{ :value => "" }
+              Recent Updates
+            %option{ :value => "" }
+              Option
+            %option{ :value => "" }
+              Option
+            %option{ :value => "" }
+              Option
+          %br/
+        .clearDiv
+        %span.friendSearchColumn
+          Show:
+        %span.friendSearchWidgetColumn
+          %label.verbalSemantic{ :for => "friendFindShowNet" }
+            Show Network
+          %select#friendFindShowNet{ :name => "sortBy" }
+            %option{ :value => "" }
+              Recent Updates
+            %option{ :value => "" }
+              Option
+            %option{ :value => "" }
+              Option
+            %option{ :value => "" }
+              Option
+          %br/
+    -#.clearDiv.moreLinkArea
+      %span.moreLink
+
+    - if @posts && @posts.any?
+      = render :partial => "posts/post_listing", :collection => @posts
+      .clearDiv
+      .apple_pagination
+        = will_paginate @posts
+    -else
+      .listingItem
+        There were no results from your search
+
+
+    

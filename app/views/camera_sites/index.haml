@@ -1,0 +1,34 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .padded
+
+      %table
+        %tr
+          %td
+            = link_to 'New Site', url_for({:controller=>'camera_sites',:action=>'new'}), :class => 'genericButton'
+          %td
+            
+      %br/
+      
+      %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+        %thead
+          %tr.yellowHeader
+            %th.padded.contentBoxHeader League Name
+            %th.padded.contentBoxHeader Contact Name
+            %th.padded.contentBoxHeader Field Name
+            %th.padded.contentBoxHeader State
+            %th.padded.contentBoxHeader/
+    
+        %tbody
+          - for site in @camera_sites
+            %tr.leagueList
+              %td.leagueList= link_to site.league_name, edit_camera_site_path(site), {:title => "edit"}
+              %td.leagueList=h site.contact_name
+              %td.leagueList=h site.name
+              %td.leagueList=h site.state.name
+              %td.leagueList=h site.zip
+              
+      .apple_pagination
+        = will_paginate @teams
+        

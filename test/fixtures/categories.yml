@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+how_to:
+  name: How To
+inspiration:
+  name: Inspiration
+questions:
+  name: Questions
+talk:
+  name: Talk
+news:
+  name: News
+aotw:  
+  name: <%= AthleteOfTheWeek.to_s.titleize %>

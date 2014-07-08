@@ -1,0 +1,29 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        =link_to _('MY NETWORK'), accepted_user_friendships_path(@user.id)
+      = @user.full_name()
+
+  .listings
+          
+    .contentBox.tanBackground
+      .contentBoxHeader.yellowHeader
+        %h2.boxDescription
+          = _('Pending Friendships')
+
+    - if current_user.admin? || @is_current_user     
+      - if @friendships.length == 0
+        .padded
+          You have no pending friendships 
+      - else
+        -# Note: not currently paged...
+        - if @pages
+          .listingItem
+            .pagination
+              %span= pagination_info_for @pages
+              = pagination_links_for @pages, {:link_to_current_page => true} if @pages.length > 1
+    
+        .userList
+          = render :partial => "friendships/friendship", :collection => @friendships, :locals => {:owner => @user}
+          .clearDiv

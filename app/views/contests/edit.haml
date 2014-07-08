@@ -1,0 +1,37 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        Edit contest
+  .listings
+    .padded
+      - form_for(:contest, :url => contest_path(@contest), :html => { :method => :put }) do |f|
+        Title:
+        %p
+          = f.text_field :title
+        League ID:
+        %p
+          = f.text_field :league_id, :size=>5
+        Contest Tag:
+        %p
+          = f.text_field :tag_name, :size=>12
+        Sport:
+        %p
+          = f.text_field :sport, :size=>18
+        Begin:
+        %p
+          = f.date_select :begin
+        End:
+        %p
+          = f.date_select :end
+        Header:
+        %p
+          = f.text_area :header, :size => "103x15"
+        Footer:
+        %p
+          = f.text_area :footer, :size => "103x15"
+        %p
+          = submit_tag "Save"
+          or
+          = link_to 'cancel and go back to my contests', contests_path
+  %br.clear

@@ -1,0 +1,74 @@
+-# 2010-01-26 Upgraded Scriptaculous related scripts from http://github.com/madrobby/scriptaculous
+-#JME= javascript_include_tag "prototype", :plugin => "community_engine"
+-#JME= javascript_include_tag "effects", :plugin => "community_engine"	
+-#JME= javascript_include_tag "event-selectors", :plugin => "community_engine" 		
+-#JME= javascript_include_tag "glider", :plugin => "community_engine" 				
+-#JME= javascript_include_tag "controls", :plugin => "community_engine" unless current_page?({:controller => 'application', :action => 'index'})
+
+-#= javascript_include_tag "dragdrop", :plugin => "community_engine" #if @controller.controller_name.eql?('users') && %w(welcome_about edit update).include?(@controller.action_name)
+-#= javascript_include_tag "dragdrop"
+= javascript_include_tag "dragdropextra"
+
+= javascript_include_tag "application", :plugin => "community_engine"		
+= javascript_include_tag "rounder", :plugin => "community_engine"
+
+- if current_page?(:controller => 'photos', :action => 'new')
+  = javascript_include_tag 'swfupload' #, :plugin => "community_engine"
+  = javascript_include_tag 'uploader' #, :plugin => "community_engine"
+  
+- if @need_to_upload || current_page?({:controller => 'video_assets', :action => 'new'}) || current_page?({:controller => 'video_assets', :action => 'edit'}) || current_page?({:controller => 'video_users', :action => 'new'}) || current_page?({:controller => 'video_users', :action => 'edit'})
+  = javascript_include_tag 'video_form_helper'
+  = javascript_include_tag 'swfupload' #, :plugin => "community_engine"
+  = javascript_include_tag 'video_uploader'
+  = javascript_include_tag 'dhtmlxCombo/dhtmlxcommon'
+  = javascript_include_tag 'dhtmlxCombo/dhtmlxcombo'
+  = stylesheet_link_tag 'dhtmlxcombo'
+  %script
+    window.dhx_globalImgPath="/images/";  
+
+- if @include_calendar
+  = javascript_include_tag 'calendar_date_select/calendar_date_select'
+  = stylesheet_link_tag 'calendar_date_select/silver'
+  -#</script><script src="/javascripts/calendar_date_select/calendar_date_select.js?1251592264" type="text/javascript"></script>
+  -#<link href="/stylesheets/calendar_date_select/silver.css?1251592264" media="screen" rel="stylesheet" type="text/css" />
+  
+
+= stylesheet_link_tag 'screen'
+
+
+= stylesheet_link_tag 'plus'
+= stylesheet_link_tag 'listings'
+= javascript_include_tag '/gs/scripts/profile.js'
+= stylesheet_link_tag 'gamex'
+
+-# if current_page?({:controller => 'posts', :action => 'show' }) || current_page?({:controller => 'users', :action => 'new'})
+= javascript_include_tag 'lightbox', :plugin => "community_engine"
+= stylesheet_link_tag 'lightbox', :plugin => "community_engine"
+
+-# avoid asset server for tinymce
+-#= javascript_include_tiny_mce_if_used
+%script{ :src=>"/plugin_assets/community_engine/javascripts/#{RAILS_ENV == 'development' ? "tiny_mce/tiny_mce_src" : "tiny_mce/tiny_mce"}.js" }
+= tiny_mce if using_tiny_mce?
+
+- if forum_page?
+  = javascript_include_tag 'lowpro', :plugin => 'community_engine'  
+  = javascript_include_tag 'forum'
+  = stylesheet_link_tag 'targetted_forum'
+  -# unless @feed_icons.blank?
+    - @feed_icons.each do |feed|
+      = auto_discovery_link_tag :rss, feed[:url], :title => "Subscribe to '#{feed[:title]}'"
+      
+
+= javascript_include_tag 'application'
+
+%script{ :djconfig => "parseOnLoad: true", :type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/dojo/1.3/dojo/dojo.xd.js" }
+%script{ :type => "text/javascript" }
+  dojo.require("dijit.Dialog");
+
+-#%link{ :href => "http://ajax.googleapis.com/ajax/libs/dojo/1.3/dijit/themes/tundra/tundra.css", :rel => "stylesheet", :type => "text/css" }
+%link{ :href => "http://ajax.googleapis.com/ajax/libs/dojo/1.3/dijit/themes/soria/soria.css", :rel => "stylesheet", :type => "text/css" }
+
+-#= stylesheet_link_tag 'dojo/dijit.css'
+-#= stylesheet_link_tag 'dojo/tundra.css'
+
+= stylesheet_link_tag 'gsdojo'

@@ -1,0 +1,15 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .listingItem
+      %span{ :style=>'font-weight: bold; font-size:14pt;' } Tournament Venue Site Survey
+      %br
+      %br
+      %br
+
+      = error_messages_for :camera_site
+      
+      - form_for(@camera_site, :url => team_url(@camera_site), :html => {:multipart => true}) do |f|
+        = render :partial => "form", :locals => { :f => f }
+        %p= f.submit "Send Request"
+

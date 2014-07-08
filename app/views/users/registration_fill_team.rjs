@@ -1,0 +1,23 @@
+
+unless @requested_role
+  if params[:requested_role]
+    @requested_role = params[:requested_role].to_i
+  end
+end
+
+if @teams
+  @team = @teams.first
+  page.replace('reg_team_pick', :partial => 'users/registration_pick_team', :locals => {:teams => @teams, :team => @team})
+  unless @team.id
+    @team.name = ''
+  end
+end
+
+#if @team
+#  if @team.id
+#    @team_admin = @team.admin_user
+#  end
+#  page.replace('reg_team_info', :partial => 'users/registration_new_team', :locals => {:team => @team, :team_admin => @team_admin})
+#end
+
+

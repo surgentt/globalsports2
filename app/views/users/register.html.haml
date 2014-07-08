@@ -1,0 +1,41 @@
+#membershipBand
+  =image_tag('/images/title_membership.png')
+  .content
+    Global Sports has 2 distinct membership types. Figure out what type of member you are below. Basic membership is free and allows you to watch full-game video.
+#thinSpacerBand{ :style => 'height:10px;' }
+
+.RegContent
+  #memberBox
+    .memberBoxLeft
+    .memberBoxRight
+    .memberBoxContent
+      .memberBoxImage= image_tag('/images/member_fans.png', :alt => 'Athletes & Fans')
+      .memberBoxText
+        .memberBoxTitle
+          Athletes & Fans
+        .memberBoxDesc
+          End Users are athletes, students, fans, family, friends, or anyone else interested in sports. You're the real reason Global Sports is here; to give individuals the ability to watch full game video of sporting events. End Users have access to Global Sports' web-based platform to create, upload and share videos, photos, clips and reels, join groups and forums, or post blogs.
+      .memberBoxJoin
+        %form#AccountTypeAth{ :action => "/users/new", :method => "post" }
+          =hidden_field_tag('role', 0)
+          %input{ :type => "image", :src => "/images/member_join.png", :style => 'border: none;' }
+  #memberBox
+    .memberBoxLeft
+    .memberBoxRight
+    .memberBoxContent
+      .memberBoxImage= image_tag('/images/member_schools.png', :alt => 'Schools & Clubs')
+      .memberBoxText
+        .memberBoxTitle
+          Schools & Clubs
+        .memberBoxDesc
+          Schools and private athletic clubs control all of their online content and market the Global Sports program to students and parents, the PTA, booster and alumni organizations.
+          %br Members get:
+          %ul
+            %li A custom, branded homepage
+            %li Tailored messaging and content
+            %li Uploading content, content management
+      .memberBoxJoin
+        %form#AccountTypeSch{ :action => "/users/new", :method => "post" }
+          =hidden_field_tag('role', Role[:team].id)
+          %input{ :type => "image", :src => "/images/member_join.png", :style => 'border: none;' }
+

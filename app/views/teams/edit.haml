@@ -1,0 +1,17 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .listingItem
+    
+      %h1 Editing School Info
+      
+      = error_messages_for :team
+      
+      - form_for (@team, :url => team_url(@team), :html => {:method => 'put', :multipart => true}) do |f|
+        = render :partial => "form", :locals => { :f => f }
+        %p= f.submit "Update"
+       
+          
+      = link_to 'Show', team_path(@team) | 
+      = link_to 'Back', teams_path
+

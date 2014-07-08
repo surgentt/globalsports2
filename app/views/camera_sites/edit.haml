@@ -1,0 +1,17 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .listingItem
+    
+      %h1 Camera Site Info
+      
+      = error_messages_for :camera_site
+      
+      - form_for (@camera_site, :url => camera_site_url(@camera_site), :html => {:method => 'put', :multipart => true}) do |f|
+        = render :partial => "form", :locals => { :f => f }
+        %p= f.submit "Update"
+       
+          
+      = link_to 'Show', camera_site_path(@camera_site) |
+      = link_to 'Back', camera_sites_path
+

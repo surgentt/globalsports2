@@ -1,0 +1,26 @@
+- @section = (params[:metro_area_id] ? 'metro_area' : 'users')
+
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .box
+      %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+        %thead
+          %tr.yellowHeader
+            %td.padded.contentBoxHeader.la
+              Number(partial) 
+            %td.padded.contentBoxHeader.la
+              Expiration date (Month/year)
+            %td.padded.contentBoxHeader.la
+              Last Update
+        - if @member.credit_card
+          %tbody
+            %tr.forumList
+              %td.forumList
+                =cc_displayable_fill (@member.credit_card)
+              %td.forumList
+                ="#{@member.credit_card.month}/#{@member.credit_card.year}"
+              %td.forumList
+                = @member.credit_card.updated_at.to_date
+        
+      %br.clear

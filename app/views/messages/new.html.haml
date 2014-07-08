@@ -1,0 +1,200 @@
+- sms ||= @sms || params[:sms] || @message_thread.is_sms?
+- has_groups = session[:mail_to_coach_group_ids] || session[:mail_to_member_group_ids] 
+
+-# 
+  Function to parse out the value of the autocompleteid element <div class='autocompleteid'>u1234</div>
+  and append to the message_thread to_ids_choices hidden field.
+  This is used during form parsing to resolve users/rosters/groups whose names 
+  return multiple entries from the database 
+  ** IMPORTANT ** These are only CHOICES, they should be used to narrow down selections
+  that are first determined by querying by name. The reason is that these choices are 
+  not updated when a user removes recipients in the TO: field, so there may be extras...
+%script  
+  function msg_to_autocomplete_after_update(element,value) {
+  element.value = element.value + ', ';
+  var re = new RegExp('autocompleteid[^>]*>\\s*(\\S+)\\s*<','mg');
+  var match = new String(value.innerHTML.match(re));
+  if (match) {
+  var to_id = match.replace(re,'$1');
+  var input = $('message_thread_to_ids_choices')
+  if (input.value.length > 0) input.value += ','
+  input.value += to_id;
+  }
+  }
+  
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        MAILBOX
+      - if @shared_access
+        Sharing 
+        = truncate(@shared_access.item.title,60)
+      - elsif @message_thread && @message_thread.title
+        = "RE: #{truncate(@message_thread.title, 60)}"
+      - elsif sms
+        New Text Message
+      - else
+        New Message
+
+  .mailContent
+    = render :partial => 'messages/tab_heading', :locals => {:page => 'compose'}
+     
+    .forumContentBox
+      .forumBoxHeader
+
+        = error_messages_for :message_thread
+        = error_messages_for :sent_message
+            
+        - form_for(@message ||= Message.new, :html => {:id => "EditProfile"}) do |f|
+          -if sms
+            %input{:type=>'hidden',:name=>'sms',:value=>'true'}
+                        
+          -unless @message_thread.id
+            -fields_for @message_thread do |thread_f|
+              .mailComposeTo{ :style => 'float:left; width:190px; margin:10px; text-align:right' }
+                %div{ :style => 'width:190px;text-align:right;margin-top:20pt' }
+                  %label To:&nbsp;
+              %div{:style => "float:left; width:570px"}
+                %div{:style => "border: 1px solid #000000;"}
+                  %div{:style => "border-bottom: 1px solid #000000; padding: 3px; background-color: #cccccc; font-size: 10px; font-style: italic" }
+                    %div{:style => "float:left; width:450px"}
+                      You can type names,
+                      - if has_groups 
+                        group names,
+                      - unless sms 
+                        email addresses,
+                      or text/phone numbers below. Separate multiple recipients with commas.
+                    %div{:style => "float:right"}
+                      - if has_groups
+                        %script
+                          function to_group_select(gid,gname) {
+                          Element.update('dialog', '');
+                          var to_el = $('message_thread_to')
+                          to_el.value=to_el.value + gname + ', ';
+                          to_el.focus();
+                          
+                          var choices = $('message_thread_to_ids_choices')
+                          if (choices.value.length > 0) {
+                          choices.value = choices.value + ',' + gid;
+                          } else {
+                          choices.value = gid;
+                          }
+                          }
+                        =link_to_remote image_tag('/images/messages/groups.jpg', :border => 0, :style => 'border:none'), :url => "pop_group_choices"
+                      - else
+                        = image_tag('/images/messages/groups_in.jpg')
+                    .clearDiv
+                  %div{:style => "padding:3px"}
+                    = text_area_with_auto_complete :message_thread, :to, {:autocomplete => 'off', :style => 'width:100%;border:none', :rows => 2, :cols => 80, :class => 'mceNoEditor' },{:url => { :controller => 'messages', :action => 'auto_complete_for_friend_full_name'}, :tokens => [','], :select => 'autocompletename', :after_update_element => "msg_to_autocomplete_after_update" }
+                    =hidden_field :message_thread, :to_ids_choices
+              .clearDiv
+            .clearDiv80
+            
+            %div
+              &nbsp;
+              %br/
+              &nbsp;
+            .mailDetailTop
+              .mailDetail
+                .mailPoster
+                  .mailPosterThumb
+                    %a{:href=>"#{user_path(current_user)}", :class=>"photo"}
+                      =image_tag(current_user.avatar_photo_url(:thumb), :alt=>"Profile Picture", :width=>"50", :height=>"50")
+                  .mailPosterName
+                    %br/
+                    = link_to current_user.full_name, user_path(current_user)
+                    - if current_user.team_name
+                      .mailPosterTeam
+                        = link_to current_user.team_name, team_path(current_user.team_id)
+    
+                .mailDetailContent
+                  -fields_for @message_thread do |thread_f|
+                    = thread_f.hidden_field :id
+                    = thread_f.hidden_field :is_sms
+                    
+                    -if @message_thread.id
+                      %p
+                      %label
+                        To:&nbsp;
+                        = h(@message_thread.recipient_display_array(current_user).join(", "))
+                      %br/
+              
+                      -unless sms
+                        %p
+                          %br/
+                        %label
+                          Subject:&nbsp; 
+                          RE:
+                          = h(@message_thread.title)
+    
+                    -else
+                      -unless sms 
+                        %label
+                          Subject:&nbsp
+                        = thread_f.text_field :title, :style => 'width:80%'
+                        %br/
+                        
+                  %br/
+                  -fields_for @sent_message do |sent_f|
+                    %p
+                      %label Your Message:
+                    %br/
+                    - if sms
+                      = sent_f.text_area :body, :id => 'replybox', :rows => 6, :cols => 60, :style => 'width:530px;border:solid 1px black', :class => 'mceNoEditor', :onkeypress => "var max=160;var t = $('replybox'); if(t.value.length >= max) { t.value = t.value.substring(0,max); }"
+                    - else
+                      = sent_f.text_area :body, :id => 'replybox', :rows => 10, :cols => 60, :style => 'width:530px;border:solid 1px black'
+
+                    -if sms
+                      %br/
+                      %div{ :align => 'right' }
+                        %span{ :id => 'body_char_count' } 160
+                        characters remaining                        
+                      = remaining_char_count('replybox', 'body_char_count', 160)
+
+                    -if @shared_access
+                      = sent_f.hidden_field :shared_access_id
+                      =render :partial => 'messages/shared_item', :locals => {:body => nil}
+                  .clearDiv
+              .clearDiv
+            .mailDetailBottom
+
+            .mailComposeSend 
+              %br/
+              %p
+                %div{:style => 'float:right'}
+                  = image_submit_tag '/images/messages/send.jpg', :border => 0, :style => 'border:none', :onmousedown => "this.src='/images/messages/send_ro.jpg';$('sending').innerHTML='Sending messages... please wait';return true"
+                  -#, :onclick => "this.disabled='disabled';return true"
+                -unless sms
+                  -fields_for @sent_message do |sent_f|
+                    %div{:style => 'float:right; margin-right: 30px'}
+                      %table{ :cellpadding => 5 }
+                        %tr
+                          %td
+                            = sent_f.check_box :sms_notify
+                          %td
+                            %label
+                              %em &nbsp;Send notification by text message&nbsp;
+                .clearDiv
+                %div{:id => 'sending', :align => 'right', :style => "font-weight:bold" } &nbsp;
+        
+              %br/
+              %div{:align => 'right'}
+                %strong Note:
+                = "External phone and email recipients will see your email address: '#{current_user.email}'"
+
+%script
+  -# Focus on the to box
+   
+  - if @message_thread.id
+    -# Focus on the text box
+    $('replybox').focus();
+  - else
+    - m_to = @message_thread.to
+    - unless m_to && !m_to.blank?
+      $('message_thread_to').focus();
+    - else
+      - unless @message_thread.title
+        $('message_thread_title').focus();
+      - else 
+        $('replybox').focus();

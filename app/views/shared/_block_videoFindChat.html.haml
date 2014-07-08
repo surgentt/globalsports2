@@ -1,0 +1,80 @@
+.videoFindChat
+  - form_tag url_for({:controller => 'search', :action => 'quickfind'}), :method => :get, :id=>'videoFind' do
+    .videoFind
+      =collection_select("quickfind","id",@quickfind_states,"id","name", {:prompt => "-State-", :selected => "-State-"}, {:id => 'videoFindState', :name => 'state', :onchange=>"#{remote_function(:url=>{:controller=>'search',:action=>'quickfind_select_state'},:with=>"'state='+value")}" })
+      #quickfind_counties
+        = render :partial => '/search/quickfind_counties', :object => @quickfind_counties
+      #quickfind_schools
+        = render :partial => '/search/quickfind_schools', :object => @quickfind_schools
+      #quickfind_sports
+        = render :partial => '/search/quickfind_sports', :object => @quickfind_sports
+      #quickfind_seasons
+        = render :partial => '/search/quickfind_seasons', :object => @quickfind_seasons
+      %label{ :for => "videoFindSubmit" }
+        %input#videoFindSubmit.submit{ :name => nil, :src => "/gs/images/video_find_submit.gif", :type => "image", :value => "search", :alt => "Search", :style=>'border: 0' }
+  .chat
+    .chatHeader
+      %div
+        %span
+          CHAT
+    .chatTools
+      .chatAlert
+        %div
+          %span.chatNotify
+            %span.chatInfo
+              Coming Soon...
+            -#%a.popLink{ :href => "#" }
+    .chatToolLinks
+      =link_to "send invites", new_user_invitation_path(current_user)
+      |
+      =link_to "my account", edit_account_user_path(current_user.id), :id => 'user-menu'
+      |
+
+      = render :partial => 'shared/mailbox_with_count'
+
+-# #user-menu-tip
+  -if current_user.admin?
+    %ul
+      %li=link_to 'Admin', admin_dashboard_path               
+    %hr
+    
+  %ul
+    %li= link_to('Upload Video', new_video_asset_path) if (current_user.can_upload?)
+    %li= link_to('Manage Staff', staffs_path) if (current_user.team_admin? || current_user.league_admin?)
+    
+    %li= link_to 'Dashboard', "#{dashboard_user_path(current_user)}"
+    %li
+      %nobr
+        = link_to 'Profile', user_path(current_user)
+        = link_to '(edit)', edit_user_path(current_user)
+  
+    %li= link_to 'Account', edit_account_user_path(current_user)    
+  %hr
+  %ul
+    %li My...
+    %li= link_to '&nbsp;Videos', url_for(:controller => 'search', :action => 'my_video_assets')
+    %li= link_to '&nbsp;&nbsp;Clips', url_for(:controller => 'search', :action => 'my_video_clips')
+    %li= link_to '&nbsp;&nbsp;Reels', url_for(:controller => 'search', :action => 'my_video_reels')
+    %li= link_to '&nbsp;Friends', accepted_user_friendships_path(current_user)
+    %li= link_to '&nbsp;Photos', user_photos_path(current_user)
+    %li= link_to '&nbsp;Posts', manage_user_posts_path(current_user)
+    %li= link_to 'Forums', forums_path
+  %hr
+  %ul
+    =link_to 'Logout', logout_path
+
+-#%script{:type => "text/javascript"}
+  new Tip($('user-menu-tip'),
+  = "'#{user_menu_content}'"
+  {
+  hook:{target: 'bottomRight', tip: 'topRight'},
+  hideOn: false, 
+  hideAfter: 0.4,  
+  style: 'default',
+  offset: {y:2, x:12}
+  });
+
+
+
+
+

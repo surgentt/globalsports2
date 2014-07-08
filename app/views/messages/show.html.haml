@@ -1,0 +1,36 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+
+  %script
+    function hMessageAction(action) {
+    var f = document.forms['message_form'];
+    if(action=='unread') {
+    ="f.action='#{url_for(:controller => 'messages', :action=>'mark_unread', :id=>@message.id)}';"
+    f.method='post';   
+    f.submit();
+    } else if (action=='delete') {
+    if(window.confirm('Are you sure you want to permanently delete this thread?')) {
+    ="f.action='#{url_for(:controller => 'messages', :method => :delete, :id=>@message.id)}';"
+    f.method='delete';
+    f.submit();
+    }
+    }
+    return false;
+    }
+    
+  -form_for :message, :url => message_path(@message), :method => "delete", :html => {:name => "message_form"} do |f| 
+    .mailContent
+      = render :partial => 'messages/tab_heading', :locals => {:page => 'view'}
+
+      %span.profileSubHeading From:
+      = "#{@message.sender.full_name}"
+      %br/
+      %span.profileSubHeading Date:
+      = human_date_time(@message.created_at)
+      %br/
+      %span.profileSubHeading Subject:
+      = h @message.title
+      %br/
+      %div{ :style => "padding:20px 20px 20px 20px" }
+        = "#{@message.body}"
+        %br/

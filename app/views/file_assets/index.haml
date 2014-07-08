@@ -1,0 +1,78 @@
+%style
+  \.row-0 td { padding: 6px; background-color: #eee; }
+  \.row-1 td { padding: 6px; background-color: white; }
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        FileAssets
+
+  .listings
+
+    .padded
+      
+      = link_to 'New file_asset', new_file_asset_path
+
+    .padded
+
+      %table{ :border=>1, :cellpadding=>6, :cellspacing=>0, :width=>'100%'}
+        %tr
+          %th
+            Name
+          -#%th
+            Location
+          %th
+            Status
+          %th
+            Blocks
+          %th
+            Size
+          %th
+            Time
+          %th
+            Md5
+          %th
+            Agent
+          %th
+            User
+          %th
+            X
+        - c = 0
+        - for file_asset in @file_assets
+          - row_id = "file_asset-#{file_asset.id}"
+          %tr{ :id=>row_id, :class=>"row-#{c % 2}" }
+            - c += 1
+            %td
+              %a{ :href=>file_asset_path(file_asset) }
+                = h file_asset.name[0,16] rescue ''
+            -#%td
+              = h file_asset.location
+            %td
+              = h file_asset.status
+            %td
+              = h file_asset.last_block
+              \/
+              = h file_asset.block_count
+            %td
+              = byte_count_to_string file_asset.size
+              -#%br
+              -#= " (#{file_asset.size})"
+            %td
+              = time_span_to_string(file_asset.created_at, file_asset.updated_at)
+              -#%br
+              -#= " (#{file_asset.updated_at - file_asset.created_at})"
+            %td
+              = h file_asset.md5[0,6] + '...' + file_asset.md5[-6,6] rescue ''
+            %td
+              = h file_asset.agent
+            %td
+              - if file_asset.user
+                %a{ :href=>user_path(file_asset.user) }= file_asset.user.full_name()
+            -#%td
+              = link_to 'Edit', edit_file_asset_path(file_asset)
+            %td
+              \[
+              -#= link_to 'X', file_asset, :confirm => 'Are you sure?', :method => :delete
+              = link_to_remote('X', :confirm => 'Are you sure you want to delete this record?', :update => "file_asset-#{file_asset.id}", :url => "file_assets/destroy/#{file_asset.id}")
+              \]
+

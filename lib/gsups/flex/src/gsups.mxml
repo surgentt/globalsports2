@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="600" minHeight="100" width="600" height="100"
+			   
+			   creationComplete="setup();"
+			   
+	>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Button x="20" y="20" label="Select Video" id="selectButton" click="selectFile()"/>
+	<s:Label x="122" y="27" text="Select a file to upload..." id="consoleLabel" width="298"/>
+	<!-- mx:ProgressBar visible="false" x="20" y="59" width="400" id="progressBar"/ -->
+	
+	
+	<fx:Script>
+		
+		private var version:String					= Version.string;
+		private var agent:String					= 'F '+version;
+		
+		
+		private var CALL_JS_LOG:String 				= "gs.file_assets.log";
+		private var CALL_JS_FILE_READY:String 		= "gs.file_assets.ready_to_upload";
+		private var CALL_JS_UPLOAD_COMPLETE:String 	= "gs.file_assets.upload_complete";
+		private var CALL_JS_NOTE_PROGRESS:String	= "gs.file_assets.note_progress";
+		
+		private var FILE_UPLOAD_URL:String			= "/file_assets/upload";
+			
+		private var file:FileReference;
+		//private const FILE_TYPES:Array 				= [new FileFilter("Video File","*.mp4;*.mpg;*.avi;*.wmv")];
+		private const FILE_TYPES:Array 				= [new FileFilter("Video File","*.3g2;*.3gp;*.3gp2;*.3gpp;*.asf;*.avi;*.avs;*.dv;*.flc;*.fli;*.flv;*.gvi;*.m1v;*.m2v;*.m4e;*.m4u;*.m4v;*.mjp;*.mkv;*.moov;*.mov;*.movie;*.mp4;*.mpe;*.mpeg;*.mpg;*.mpv2;*.qt;*.rm;*.ts;*.vfw;*.vob;*.wm;*.wmv")];
+		
+		private var retries:int						= 3;
+		
+		private var asset_type:String;
+		private var asset_id:int;
+		
+		// flex UI
+		
+		public function setup():void {
+			this.log("setting up");
+			
+			//Watch.setConsole(this.log);
+			
+			////progressBar.mode = ProgressBarMode.MANUAL;
+			
+			ExternalInterface.addCallback("setTarget", this.setTarget);
+			ExternalInterface.addCallback("setAgent", this.setAgent);
+			ExternalInterface.addCallback("uploadFile", this.uploadFile);
+			
+			
+			this.log("Version: "+this.version);
+			
+			//this.console("Version: "+this.version);
+		}
+		
+		
+		private function console(s:String):void
+		{
+			consoleLabel.text = s;
+		}
+		
+		private function log(s:String):void
+		{
+			trace(s)
+			ExternalInterface.call( CALL_JS_LOG, s );
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////
+		// JS Exposed Methods
+		////////////////////////////////////////////////////////////////////////
+		
+		
+		
+		private function setTarget(asset_type:String, asset_id:int):String
+		{
+			this.log('setTarget()');
+			
+			this.asset_type = asset_type;
+			this.asset_id   = asset_id;
+			
+			return this.asset_type + '/' + this.asset_id;
+		}
+		
+		private function setAgent(agent_str:String):void
+		{
+			this.log('setAgent()');
+
+			this.agent = 'F '+ this.version + ' ' + agent_str;
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////
+		// UI Driven Flow
+		////////////////////////////////////////////////////////////////////////
+		
+		
+		
+		//private function selectFile(event:MouseEvent):void
+		private function selectFile():void
+		{			
+			this.log('selectFile()');
+			file = new FileReference();
+			file.addEventListener(Event.SELECT, onFileSelect);
+			file.addEventListener(Event.CANCEL, onCancel);
+			file.browse(FILE_TYPES);
+		}
+		
+		
+		private function onCancel(e:Event):void
+		{
+			this.log('aww!');
+			file = null;
+		}
+		
+		
+		private function onFileSelect(e:Event):void
+		{
+			this.log('onFileSelect()');
+			
+			selectButton.enabled = false;
+			
+			//progressBar.indeterminate = false; 
+			//progressBar.visible = false; //true;
+			
+      this.console("Ready to uploaded "+file.name)
+
+			//file = arrUploadFiles[arrUploadFileNames.indexOf(sFileNameToUpload)];
+			
+			file.addEventListener(ProgressEvent.PROGRESS, 	onUploadProgress);
+			file.addEventListener(Event.COMPLETE, 			onUploadComplete);
+			file.addEventListener(IOErrorEvent.IO_ERROR, 	onUploadError);
+			
+			//uploadFile();
+			
+			ExternalInterface.call( CALL_JS_FILE_READY, file.name, 1 );
+		}
+			
+		private function uploadFile():void
+		{
+			var request:URLRequest  = new URLRequest(FILE_UPLOAD_URL);
+			request.method = URLRequestMethod.POST;
+			
+			var params:URLVariables = new URLVariables();
+			params.asset_type = this.asset_type;
+			params.asset_id	  = this.asset_id;
+			params.agent	  = this.agent;
+			
+			request.data = params;
+			
+			file.upload(request);
+		}
+		
+		private function onUploadProgress(event:ProgressEvent):void {
+			var pfile:FileReference = FileReference(event.target);
+			
+			this.log("progressHandler name=" + file.name + " bytesLoaded=" + event.bytesLoaded + " bytesTotal=" + event.bytesTotal);
+			
+			//var percent:int = (99 * event.bytesLoaded / event.bytesTotal);
+
+			//this.console("Uploaded "+percent+"% of "+file.name)
+			this.console("Uploading "+file.name)
+			
+			ExternalInterface.call( CALL_JS_NOTE_PROGRESS, event.bytesLoaded, event.bytesTotal );
+			
+			////theProgress.mode = ProgressBarMode.MANUAL;
+			////progressBar.setProgress(event.bytesLoaded, event.bytesTotal)
+			//progressBar.setProgress(percent, 100)
+		}
+		
+		
+		
+		private function onUploadComplete(e:Event):void
+		{
+			this.log('onUploadComplete()');
+			
+			//progressBar.visible = false;
+			this.console("Uploaded "+file.name)
+			
+			ExternalInterface.call( CALL_JS_UPLOAD_COMPLETE, file.name );
+			
+			//file = null;
+		}
+		
+		private function onUploadError(e:IOErrorEvent):void
+		{
+			this.log("Error loading file : " + e.text);
+			if(this.retries-- > 0){
+				uploadFile();
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</fx:Script>
+	
+	
+</s:Application>
+

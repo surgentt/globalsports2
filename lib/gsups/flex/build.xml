@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="gsups" basedir="." default="build">
+
+    <!-- taskdef resource="flexTasks.tasks" classpath="${basedir}/flexTasks/lib/flexTasks.jar" / -->
+    
+    <property name="FLEX_HOME" value="/opt/flex"/>
+    <property name="APP_ROOT" value="src"/>
+    <property name="DEPLOY_DIR" value="./bin"/>
+    
+    <property name="APP_NAME" value="gsups"/>
+	    
+	  <property name="install"    location="../../../public/players/"/>
+	  
+    
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+    
+    <target name="build">
+    
+        <mxmlc 
+            file="${APP_ROOT}/${APP_NAME}.mxml" 
+            output="${DEPLOY_DIR}/${APP_NAME}.swf"
+            actionscript-file-encoding="UTF-8"
+            keep-generated-actionscript="true"
+            incremental="true"
+        >
+            <!-- Get default compiler options. -->
+            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+
+            <!-- List of path elements that form the roots of ActionScript
+            class hierarchies. -->
+            <source-path path-element="${FLEX_HOME}/frameworks"/>
+
+            <!-- List of SWC files or directories that contain SWC files. -->
+            <compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
+                <include name="libs" />
+                <include name="../bundles/{locale}" />
+            </compiler.library-path>
+
+            <!-- Set size of output SWF file. -->
+            <default-size width="500" height="100" />
+        </mxmlc>
+        
+    </target>
+	
+	  <target name="oinstall" depends="build"
+	      description="install to gsports rails dir" >
+	      <copy file="${DEPLOY_DIR}/${APP_NAME}.swf" tofile="${install}/${APP_NAME}.swf"/>
+	  </target>
+
+    <target name="install" 
+        description="install to gsports rails dir" >
+
+        <buildnumber file="lib/version"/>
+        <filter token="build.number" value="${build.number}"/>
+        <copy file="lib/Version.as" tofile="src/Version.as" filtering="on" overwrite="true" />
+        
+        <ant target="build"/>
+	      <copy file="${DEPLOY_DIR}/${APP_NAME}.swf" tofile="${install}/${APP_NAME}.swf"/>
+    </target>
+
+
+
+    <target name="clean">
+        <delete dir="${APP_ROOT}/generated"/>
+        <delete>
+            <fileset dir="${DEPLOY_DIR}" includes="${APP_NAME}.swf"/>
+        </delete>
+    </target>
+    
+    
+</project>

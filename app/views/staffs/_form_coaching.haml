@@ -1,0 +1,26 @@
+.contentBox{ :id=>'coach-info', :xstyle=>'display: none' }
+  %h3 COACHING INFORMATION
+  %hr
+
+  If this person is a coach, select the sport(s) he/she coaches below. Coaches can manage their team rosters and send group messages to athletes and other coaches.
+
+  %br
+  %br
+  Select Sport:
+  #coaching-roles
+    -# TODO list current roles
+
+  %br
+
+  = link_to 'Add Sport', 'javascript:gs.team.add_coach()' #, :class => 'genericButton'
+
+%script
+  -# sport_list = @quickfind_sports.collect(&:sport).to_json
+  - sport_list = (@quickfind_sports.collect(&:sport) + TeamSport.find(:all).collect(&:name)).delete_if(){|s| s.nil? }.uniq.to_json
+  = "eval('gs.team.sport_list = #{sport_list}')"
+  - if @staff.id
+    - @scopes = @staff.user.scopes_for(Permission::COACH)
+    - @scopes.each() do |scope|
+      = "gs.team.add_coach('#{scope.name}')"
+    - if @scopes.empty?
+      = "gs.team.add_coach()"

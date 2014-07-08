@@ -1,0 +1,26 @@
+%style
+  :plain
+.contentBox
+
+  %table{ :width=>'100%' }
+
+    %tr
+      %td{ :valign=>'top' } Item
+      %td{ :valign=>'top' }
+        = f.text_field :item_type, :size => 24
+        = f.text_field :item_id, :size => 5
+
+    %tr
+      %td{ :valign=>'top' } Description
+      %td{ :valign=>'top' }= f.text_field :description, :size => 16
+
+    %tr
+      %td{ :valign=>'top' } Cost * 100
+      %td{ :valign=>'top' }= f.text_field :cost, :size => 8
+
+    %tr
+      %td{ :valign=>'top' } Status
+      %td{ :valign=>'top' }= f.text_field :status, :size => 8
+
+
+

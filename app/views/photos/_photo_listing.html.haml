@@ -1,0 +1,56 @@
+- show_tab ||= false
+
+.listingBox-2cols{:id => "photo_item_#{photo_listing.id}"}
+  - if show_tab
+    .tabWrapper
+      .listingTab
+        Photo 
+    .clearDiv
+  .frameTop
+  .col1
+    .listingBoxHeader
+      - if photo_listing.display_name.length > 45
+        .title-2lines
+          = truncate(photo_listing.display_name,120)
+      - else
+        .title
+          = photo_listing.display_name
+    .thumb.thumb-tall
+      = link_to image_tag( photo_listing.public_filename(:thumb)), user_photo_path(@user, photo_listing)
+    .listingBoxContent
+      %div
+        Owner:
+        = link_to photo_listing.user.full_name, user_path(photo_listing.user)
+      %div
+        Uploaded: 
+        = photo_listing.created_at.to_s(:readable)
+
+      -# Removed tags per Marcie's mockups
+        %div
+          = truncate_words(h(photo_listing.description),35)
+          %br/
+          = photo_listing.tags.collect{|t| link_to( h(t.name), tag_url(t.name), :class => 'tag') }.join(", ")
+
+    .clearDiv
+    .listingBoxFooter
+      .footerCol1
+        &nbsp;
+
+      .footerCol2
+        = link_to photo_listing.comments.size > 0 ? "Comments: #{photo_listing.comments.size}" : "Add Comment", user_photo_path(photo_listing.user,photo_listing)+'#comments'
+        = " | "
+        =render :partial => 'shared/favorite_count', :locals => {:item => photo_listing}
+
+  .col2
+    .listingBoxActions
+      = link_to image_tag('/images/listing_icons/profile.png', :mouseclick => '/images/listing_icons/sel-profile.png', :border=>0, :alt => 'User Profile', :title => 'User Profile'), user_path( photo_listing.user_id ), :class => 'listingButton'
+      = render :partial => 'shared/favorite_listing', :locals => { :item => photo_listing }
+
+      - if (current_user && (current_user.admin? || current_user.id == photo_listing.user_id))
+        = link_to image_tag('/images/listing_icons/edit.png', :mouseclick => '/images/listing_icons/sel-edit.png', :border=>0, :alt => 'Edit', :title => 'Edit'), edit_user_photo_path(photo_listing.user_id,photo_listing), :class => 'listingButton'
+        = link_to_remote image_tag('/images/listing_icons/delete.png', :mouseclick => '/images/listing_icons/sel-delete.png', :border=>0, :alt => 'Delete', :title => 'Delete'), {:url => user_photo_path(photo_listing.user_id,photo_listing), :confirm => 'Are you sure?', :method => :delete},  :class=>'listingButton'
+      - else
+        = render :partial => 'shared/inappropriate_listing', :locals => { :item => photo_listing }
+
+  .clearDiv
+  .frameBtm

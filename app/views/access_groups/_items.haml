@@ -1,0 +1,47 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        %a{ :href=>access_groups_path() }
+          Access Groups
+      Videos for 
+      = @access_group.name
+  .listings
+    .padded
+
+      %table{:border => 0, :cellspacing => 0, :cellpadding => 0, :width => '100%'}
+        -#%thead
+          %tr.yellowHeader
+            %th.padded.contentHeader
+            %th.padded.contentHeader
+            %th.padded.contentHeader
+        %tbody
+          - for access_item in @access_group.access_items
+            -item=access_item.item
+            - if !item.nil?
+              %tr.leagueList{ :id=>"access_item_#{access_item.id}" }
+
+                - case item.class.to_s
+                - when /^Video.*/
+                  %td.leagueList
+                    %a{ :href=>video_path(item) }
+                      %img{ :src=>@vidavee.file_thumbnail_medium(item.thumbnail_dockey || item.dockey) }
+                  %td.leagueList
+                    = h (item.nil? ? 'Video Missing' : item.title )
+                - when 'Report'
+                  %td.leagueList
+                    %a{ :href=>report_path(item) }= "Report: #{item.name}"
+                  %td.leagueList
+                    = h item.description
+                - else
+                  %td.leagueList
+                    ="#{item.class.to_s}: #{item.id}"
+                  %td.leagueList
+
+                %td.leagueList
+                  = link_to_remote 'Remove', {:url => {:controller=>:access_groups, :action=>:remove_video, :id=>access_item.id}, :confirm => 'Are you sure?', :method=>:delete}, :class=>'genericButton', :complete => evaluate_remote_response
+
+        
+        
+        -# =render :partial => 'shared/video_listing', :collection => @video_assets, :locals => { :skip_controls => false, :show_tab => true }
+

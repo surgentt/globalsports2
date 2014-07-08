@@ -1,0 +1,15 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    - if @video_clips.any?
+      = render :partial => 'shared/video_listing', :collection => @video_clips, :locals => { :show_tab => false }
+      .clearDiv
+    
+      - if @video_clips.respond_to?('total_pages')
+        .apple_pagination
+          = will_paginate @video_clips
+          
+    -else
+      .box
+        You don't have any video clips yet.
+    

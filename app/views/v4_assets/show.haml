@@ -1,0 +1,14 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        V4Asset
+  .listings
+
+    .box
+
+      %IFRAME{ :SRC=>"http://hofstra2.sportzcast.tv?id=#{@v4_asset.media_id}", :WIDTH=>532, :HEIGHT=>400 }
+      
+= link_to 'Edit', edit_v4_asset_path(@v4_asset)
+|
+= link_to 'Back', v4_assets_path

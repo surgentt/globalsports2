@@ -1,0 +1,36 @@
+<h1>Editing file_asset</h1>
+
+<% form_for(@file_asset) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :blocks_written %><br />
+    <%= f.text_field :blocks_written %>
+  </p>
+  <p>
+    <%= f.label :total_blocks %><br />
+    <%= f.text_field :total_blocks %>
+  </p>
+  <p>
+    <%= f.label :md5 %><br />
+    <%= f.text_field :md5 %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @file_asset %> |
+<%= link_to 'Back', file_assets_path %>

@@ -1,0 +1,20 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  description: MyString
+  user: quentin
+  video_length: 1:35
+  view_count: 1
+  dockey: abcdef1234568
+  thumbnail_dockey: aabbccddeeff112233
+  
+
+two:
+  title: MyString
+  description: MyString
+  user: quentin
+  video_length: 1:53
+  view_count: 0
+  dockey: 998877abcdef1234568
+  thumbnail_dockey: aabbccddeeff112233

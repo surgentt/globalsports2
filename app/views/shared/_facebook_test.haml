@@ -1,0 +1,83 @@
+
+- if true
+
+  = fb_connect_async_js
+
+  -#.debug{ :style=>'color:white'}
+
+
+
+    - if current_facebook_user
+      = "Welcome #{current_facebook_user.first_name} #{current_facebook_user.last_name}!"
+      or
+      = "Hello #{fb_name(current_facebook_user, :useyou => false)}!" # link to facebook profile
+      -#= fb_logout_link("Logout", '/logout') # request.url)
+      %br
+      = h current_facebook_user.inspect
+    -# else
+      -# you must explicitly request permissions for facebook user fields.
+      -# here we instruct facebook to ask the user for permission for our website
+      -# to access the user's facebook email and birthday
+      = fb_login_and_redirect('<your URL here>', :perms => 'email,user_birthday')
+
+
+
+- else
+
+  #fb-root
+  = javascript_include_tag 'http://connect.facebook.net/en_US/all.js'
+  :javascript
+    FB.init({
+      appId:'#{::FB_APP_ID}', cookie:true,
+      status:true, xfbml:true
+    });
+
+    //FB.login(function(response) {
+    //if (response.session) {
+      //window.location.reload();
+    //} else {
+
+    //}
+    //});
+
+
+  -#=%(<fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream"></fb:login-button>)
+
+  - perms = "email,user_birthday,status_update,publish_stream"
+  - onlogin = "gs.fb_login()"
+  - onlogout = "gs.fb_logout()"
+  -#%fb:login-button{ :autologoutlink=>"true", :perms=>perms, :onlogin=>onlogin }
+
+  %br
+
+  = fb_login_and_redirect('/', :perms=>perms)
+  -#= fb_login(:perms=>perms) { 'gs.fb_login()' }
+
+  %br
+
+  = fb_logout_link('X', '/logout')
+
+  %br
+
+  .debug{ :style=>'color:white'}
+    - if @facebook_user
+      = @facebook_user.uid
+      *
+      = @facebook_user.user ? @facebook_user.user.full_name : 'unknown'
+    - else
+      nobody
+
+
+    %br
+    -#= fb_connect_async_js
+    %br
+    = h current_facebook_user.inspect
+    %br
+    = " #{current_facebook_user.id} #{current_facebook_user.first_name.inspect} #{current_facebook_user.last_name.inspect} "
+
+    %br
+    = fb_name(current_facebook_user).inspect
+
+    %br
+    = fb_profile_pic(current_facebook_user.id).inspect
+

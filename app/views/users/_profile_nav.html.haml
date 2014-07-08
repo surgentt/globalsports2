@@ -1,0 +1,130 @@
+- if current_user
+
+  -if @render_gamex_tips 
+    = render :partial => ( 'gamex/sidebar' )
+
+  .leftNavCol
+  
+    -if @render_gamex_menu and current_user.gamex_users.size > 0
+      #sidebar
+        .menutitle.green
+          = _('GAMEXCHANGE')
+        .menuitem
+          = link_to 'Upload', new_video_asset_path('gamex_user[id]' => '')
+        .menuitem
+          = link_to 'Download', '/gamex/download'
+        .menuitem
+          = link_to 'History', '/gamex/history'
+        .menuitem-last
+          = link_to 'Help', 'http://files.globalsports.net/gamexchange/helpcenter/home/index.php', :target => '_blank'
+
+  
+    #sidebar
+      .menutitle
+        = _('My Tools')
+      -#.menuitem
+        =link_to _('Dashboard'), dashboard_user_path(current_user)
+      .menuitem
+        =link_to _('Profile'), user_path(current_user.id)  
+      .menuitem
+        =link_to _('Favorites'), user_favorites_path(current_user.id)
+      .menuitem
+        =link_to _('Friends'), accepted_user_friendships_path(current_user.id)
+      .menuitem
+        =link_to _('Photos'), user_photos_path(current_user.id)
+      .menuitem
+        =link_to _('Video Clips'), user_video_clips_path(current_user.id)
+      .menuitem
+        =link_to _('Video Reels'), user_video_reels_path(current_user.id)
+      .menuitem
+        =link_to _('Forums'), forums_path
+      .menuitem
+        =link_to _('Blog'), user_posts_path(current_user.id)
+  
+      - if current_user.admin?
+        -if @user && @user.id != current_user.id
+          .menuitem
+            = link_to( "Assume ID", assume_user_path(@user) )
+          .menuitem
+            = link_to( "Disable user", url_for({:controller => 'users', :action => 'disable', :id => @user}), {:method => :delete, :confirm => 'Are you sure you want to disable this user account?'} )
+          .menuitem
+            = link_to( "GameX Allow", url_for({:controller => 'gamex_users', :action => 'new', :'gamex_user[user_id]' => @user.id}) )
+          
+        .menuitem
+          = link_to('Admin Panel', url_for({:controller => 'admin', :action => 'dashboard'}))
+                
+      - if @user && current_user.can_grant_access?(@user)    
+        .menuitem
+          = link_to 'Grant Access', add_user_to_access_group_path(@user)
+        - access = get_access(@user)
+        -# if access
+          .menuitem
+            = link_to 'Granted Access', users_access_group_path(access)
+          
+      - if current_user.can_grant_access?()
+        .menuitem
+          = link_to "Access Groups", access_groups_path
+      
+      -if !@render_gamex_menu
+        - if current_user && current_user.can_upload?
+          .menuitem
+            = link_to 'Upload Video', user_video_assets_path(current_user)
+        - else 
+          .menuitem
+            = link_to 'Upload Video', user_video_users_path(current_user)
+        
+      -if current_user.team_staff? || current_user.league_staff?
+        .menuitem
+          = link_to 'Upload Image', new_user_photo_path(current_user)
+      
+      -if current_user.team_staff?
+        .menuitem
+          = link_to 'Team Page', team_path(current_user.team)
+        .menuitem
+          = link_to 'Edit Team Info', edit_team_path(current_user.team)
+        
+      -if current_user.can_publish?
+        .menuitem
+          = link_to 'Channels', channels_path()
+        
+      -if current_user.league_staff?
+        .menuitem
+          = link_to 'League Page', league_path(current_user.league)
+        .menuitem
+          = link_to 'Edit League Info', edit_league_path(current_user.league)
+        
+      -if current_user.can_manage_staff? #team_admin? || current_user.league_admin?
+        .menuitem
+          = link_to 'Staff Accounts', staffs_path
+  
+      -if !@render_gamex_menu && current_user.gamex_users.size > 0
+        .menuitem
+          = link_to 'GameXchange', '/gamex/download'
+
+      - if current_user.can?(Permission::REPORT)
+        .menuitem
+          = link_to 'Reports', reports_url()
+
+      - if current_user.can?(Permission::COACH)
+        .menuitem
+          = link_to 'Manage My Teams', team_sports_url()
+
+      .menuitem-hilite
+        =link_to _('Edit Profile'), edit_user_path(current_user)
+      .menuitem-hilite
+        =link_to _('Edit Account'), edit_account_user_path(current_user)
+      .menuitem-hilite-last
+        =link_to _('Manage Blog'), manage_user_posts_path(current_user)
+
+    %a.tutorialButton{ :href => '/info/cliptutorial' }
+      %h3 Clip Creator
+      Tutorial
+    
+    %a.tutorialButton{ :href => '/info/reeltutorial' }
+      %h3 Reel Maker
+      Tutorial
+      
+      
+      
+      
+      

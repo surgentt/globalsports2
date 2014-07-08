@@ -1,0 +1,21 @@
+admin:
+  name: admin
+moderator:
+  name: moderator
+member:
+  name: member
+team:
+  name: team
+  subscription_plan: :basic
+league:
+  name: league
+  subscription_plan: :member
+scout:
+  name: scout
+  subscription_plan: :scout
+team_staff:
+  name: team_staff
+league_staff:
+  name: league_staff
+scout_staff:
+  name: scout_staff

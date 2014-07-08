@@ -1,0 +1,24 @@
+aaron:
+  key: GS-development-encryption-key
+  salt: gs-development-salt
+
+development:
+  key: GS-development-encryption-key
+  salt: gs-development-salt
+
+test:
+  key: GS-test-encryption-key
+  salt: gs-test-salt
+
+qa:
+  key: key
+  salt: salt
+  
+qa2:
+  key: key
+  salt: salt
+  
+production:
+  key: gs_escargot37&bananna45%lemon12
+  salt: gs^&hiphopopottamus##vs@@ryhmenocerous**
+

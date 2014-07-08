@@ -1,0 +1,25 @@
+
+%div{ :style=>'float: left' }
+  %div
+    .section Title
+    = f.text_field :name
+
+  %br/
+  %div
+    .section Report Type
+    %div{ :style=>'margin-left: 8px; color: #646464' }
+      - Report::TypeKeyList.each() do |key|
+        %label
+          = f.radio_button :report_type, key
+          = Report::Types[key]
+        %br
+
+%div{ :style=>'float: left; margin-left: 20px;' }
+  %div
+    .section Description
+    = f.text_area :description, :rows=>5, :cols=>35
+
+.clearDiv
+
+
+

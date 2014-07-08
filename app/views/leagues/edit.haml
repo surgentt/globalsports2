@@ -1,0 +1,14 @@
+.profileContentArea.listingPage
+  .profilePageHeader
+  .listings
+    .listingItem
+
+      = error_messages_for :league
+      
+      - form_for (@league, :url => league_url(@league), :html => {:method => 'put', :multipart => true}) do |f|
+        = render :partial => "form", :locals => { :f => f }
+        %p= f.submit "Update"
+        
+      = link_to 'Show', league_path(@league)
+      = link_to 'Back', leagues_path
+

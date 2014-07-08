@@ -1,0 +1,40 @@
+- load_features()
+
+- @section = @user.eql?(current_user) ? 'my_profile' : 'users'
+- @sidebar_left = true
+
+.profileContentArea
+  .profilePageHeader
+    -if current_user && current_user.id != @user.id
+      %div{ :style => "float:right; margin-right: 20px" }
+        =render :partial => "shared/inappropriate_item", :locals => {:item, @user}
+    %h2.columnDescriptor
+      %span= "#{@user.full_name}'s PROFILE"
+      = @user.full_name
+      - if current_user && current_user.can_request_friendship_with(@user)
+        &nbsp; &nbsp;
+        = add_friend_link(@user)
+
+    -#=render :partial => "users/admin_panel"
+
+  .mainCol1
+    =render :partial => "users/profile_photo"
+
+    =render :partial => "users/profile_about"
+  
+    =render :partial => "users/profile_friends"
+
+  .mainCol2
+    =render :partial => "users/profile_myfiles"
+                
+    =render :partial => "users/profile_favs"
+
+  .mainCol3
+    =render :partial => "users/profile_info"
+
+    =render :partial => "users/profile_clips_reels"
+                
+    =render :partial => "users/profile_videos"
+                
+    =render :partial => "users/profile_testify"
+

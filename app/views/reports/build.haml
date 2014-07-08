@@ -1,0 +1,146 @@
+- @skip_profile_nav = true
+
+= javascript_include_tag '/TafelTree/Tree.js'
+= stylesheet_link_tag '/TafelTree/tree.css'
+= javascript_include_tag 'reports'
+= stylesheet_link_tag 'reports'
+-#= javascript_include_tag 'tooltip'
+-#= javascript_include_tag 'cordinc_tooltip.js'
+
+%script{ :type=>"text/javascript" }
+  var tree_struct =
+  = @tree_detail.to_json
+  var gs_report_id =
+  = @report.id
+
+.profileContentArea
+  .profilePageHeader
+    %h2.columnDescriptor
+      %span
+        Build Report
+      = @report.name
+
+  .padded
+
+    = error_messages_for :report
+
+    .report-builder
+
+      -#- form_for(@report, :url => report_url(@report), :html => {:multipart => true}) do |f|
+        -#= render :partial => "form", :locals => { :f => f }
+
+
+      .report-video-browser
+        %div{ :style=>"border-bottom: 1px solid #b3b3b3;" }
+          %h1 Video Library
+        %p
+        #tree-view
+
+        - if @browser_reject
+          %h2 Browser Out of Date
+          %br
+          A more current browser is required to run the Report Builder.
+          %br
+          %br
+          Please consdier
+          %a{ :href=>"http://www.mozilla.com/firefox/" } FireFox
+        -else
+          %div{ :style=>"border-bottom: 1px solid #b3b3b3;" }
+            %h2 Videos in this Library
+          -#%label
+            = check_box_tag 'show_clips', 'yes', true
+            Show Clips
+          -#%label
+            = check_box_tag 'show_reels', 'yes', true
+            Show Reels
+
+          %p
+          #clip-window
+
+
+          = link_to '', "javascript:gs_reports_add_all(#{@report.id})", {:class => 'add-all-button'}
+
+
+      .report-layout
+        #report-type{ :style=>'margin: 2px 2px 0pt 0pt; color: grey; float:right' }
+          = edit_inplace(@report, 'report_type', :value=>Report::Types[@report.report_type]) do |options|
+            %select{ :id=>options[:input_id], :name=>options[:input_name] }
+              - Report::TypeKeyList.each() do |key|
+                %option{ :value=>key, :selected=>(@report.report_type==key) }
+                  = Report::Types[key]
+          -#%i= @report.type_name
+
+
+        %br{ :clear=>'right' }
+
+        #clip-strip-holder
+          .drag-label Drag clips here to add to Report
+
+          #clip-strip-decoy
+            -(1..5).each() do |i|
+              -dropper_id = "clip-dropper-#{i}"
+              %div{ :id=>dropper_id, :class=>'clip-dropper' }
+                %table
+                  %tr
+                    %td{ :align=>'center', :valign=>'center' }= i
+                %br
+          #clip-strip
+            - @details.each() do |detail|
+              = render :partial=>'clip', :locals=>{ :video=>detail.video, :options=>{ :click_to_preview=>true, :panel_id_prefix=>'report'} }
+
+        .report-stage
+          = edit_inplace(@report, 'name', :class=>'h1')
+          -#= render :partial=>'shared/inplace_edit', :locals=>{ :model=>@report, :attr=>'name', :css_class=>'h1' }
+
+          #play-button{ :style=>'float: right' }
+            %a{ :href=>'javascript:gs_reports_play_all()', :class => 'listingButton' }
+              = image_tag('/images/listing_icons/play.png', :mouseclick => '/images/listing_icons/sel-play.png', :border=>0)
+
+
+          %div{ :style=>'color: grey; margin-bottom: 8px;' }
+            %i= @report.created_at.strftime("%b %d, %Y") rescue ''
+            by
+            %i= @report.author.full_name
+
+          %div{ :style=>'color: grey; margin-bottom: 8px;' }
+            = edit_inplace(@report, 'description', {:class=>'desc', :rows=>3, :cols=>32} )
+            -#= render :partial=>'shared/inplace_edit', :locals=>{ :model=>@report, :attr=>'description', :css_class=>'desc' }
+            -#%i= @report.description
+
+          %script{ :type=>"text/javascript" }
+            Sortable.create('clip-strip', { tag: 'div'});
+            ="Droppables.add('clip-strip-decoy', { accept: 'report-dropper', hoverclass: 'clip-strip-hover', onDrop: function(dragName,dropName) {gs_reports_drop_clip(#{@report.id},dragName,dropName)}})"
+            var gs_reports_small_player = true
+
+          #report-player
+            - @small_player= true
+            = render :partial=>'player' #, :locals=>{ :options=>{:small_player=>true} }
+          %br
+          %br
+          #report-detail
+            = render :partial=>'clip_detail'
+
+
+      .clearDiv
+
+      .report-buttons{ :style=>'float: right' }
+        = link_to 'Save & Publish', "javascript:gs_reports_update(#{@report.id},true)", {:class => 'genericButton'}
+      .report-buttons{ :style=>'float: right' }
+        = link_to 'Save Draft', "javascript:gs_reports_update(#{@report.id},false)", {:class => 'genericButton', :style=>'margin-right:8px'}
+      -#.report-buttons{ :style=>'float: right' }
+        = link_to 'Preview', "javascript:gs_reports_play_all()", {:class => 'genericButton', :style=>'margin-right:8px'}
+
+      .clearDiv
+
+      -# alternative: http://soletme.free.fr/dragdrop/index.html
+
+
+      -#%p= f.submit "Update"
+
+      -#= link_to 'All Reports', reports_path(:scope_select=>Permission.scope_selector_string(@scope))
+
+      #tooltip
+
+%script{ :type=>"text/javascript" }
+  -#Event.observe(window, 'load', function() { setTimeout ( "gs_reports_play_all()", 2000 ); } );
+  Event.observe(window, 'load', function(){ gs_reports_play_all() } );

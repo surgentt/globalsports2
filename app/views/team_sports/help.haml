@@ -1,0 +1,25 @@
+%html
+  %head
+    %style
+      :plain
+        body{ background-color: #0C1329; color: white; }
+  %body
+    - case params[:section]
+
+
+    - when 'roster'
+      %h2
+        Training Video: Manage your Roster
+      %center
+      - src = "http://tribeca.vidavee.com/hsstv/trh/embedAsset.js?autoplay=off&width=640.0&height=426.0&d=A3081651C24CCD7865A5124EF3D47664&"
+      %SCRIPT{ :type=>"text/javascript", :src=>src }
+
+
+    - when 'communicate'
+      %h2
+        Training Video: Communicate with your Team
+      %center
+      - src = "http://tribeca.vidavee.com/hsstv/trh/embedAsset.js?autoplay=off&width=640.0&height=426.0&d=7B4004C172DA3206FCF138A113564579&"
+      %SCRIPT{ :type=>"text/javascript", :src=>src }
+
+

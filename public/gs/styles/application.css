@@ -1,0 +1,747 @@
+#top {
+//height: 100%;
+}
+#position_me {
+//left: 0;
+}
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Generic Items @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+.adPanel728x90{
+  width: 728px;
+	height: 90px;
+  background-color: #EDEDED;
+}
+
+.adPanel300x250{
+  width: 300px;
+	height: 250px;
+  background-color: #EDEDED;
+}
+#thinSpacerBand{
+	height: 4px;
+	background-color: #1A1A1A;
+}
+#greySpacerBand{
+	height: 20px;
+	background-color: #C1C1C1;
+}
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ User Application Layout @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+.outerContainer{
+	width:990px;
+}
+.profilePageHeader{
+	margin-left:10px;
+}
+.mainContentArea{
+  min-height: 620px;
+}
+#headerBand1{
+	height: 38px;
+	background-color: #000000;
+  font-size: 8.5pt;
+	color: #FFFFFF;
+}
+#headerBand1 span.userInfo{
+  float: none;
+  margin-left: 380px;
+  margin-top: -35px;
+	color: #777777;
+  font-size: 7.5pt;
+}
+#headerBand1 a.logout {
+	border-left: 1px solid #777777;
+	padding-left: 10px;
+  margin-left: 8px;
+  font-size: 8.5pt;
+  text-decoration: none;
+  color: #777777;
+}
+#headerBand1 a.logout:hover{
+  color: #777777;
+  background-color: #000000;
+}
+#headerBand1 img{
+  margin: 4px 0 0 20px;
+}
+#headerBand1 span {
+  display: block;
+  float: right;
+  padding-top: 12px;
+}
+#headerBand1 .button{
+  padding: 12px 22px 11px;
+  color: #6F6F6F;
+  text-decoration: none;
+}
+#headerBand1 .button_selected{
+  padding: 12px 22px 11px;
+  color: #000000;
+  background-color: #FFD700;
+  text-decoration: none;
+}
+#headerBand1 span a{
+  font-size: 9pt;
+  color: #6F6F6F;
+  text-decoration: none;
+}
+#headerBand1 .button:hover {
+  color: #000000;
+  background-color: #FFD700;
+  padding: 12px 22px 11px;
+}
+#headerBand1 .divider{
+  width: 1px;
+  height: 100%;
+  padding-top 0;
+  background-color: #FFFFFF;
+}
+#subNavBand{
+  height: 60px;
+  background: url("/gs/images/subNav_slice.png") repeat-x;
+}
+#subNavBand .iconContainer, #subNavBand .iconContainer_selected {
+  display: inline-block;
+  width: 72px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 14pt;
+  vertical-align: top;
+  margin-top: 7px;
+}
+#subNavBand a.iconContainer {
+/*  color: #6f6f6f;*/
+  color: #ececec;
+}
+#subNavBand a:hover.iconContainer {
+  color: #FFD700;
+}
+#subNavBand a.iconContainer_selected {
+  color: #FFD700;
+}
+#subNavBand .divider{
+  display: inline-block;
+	background: url("/images/subNav_icons/subNav_divider.png") no-repeat;
+  width: 8px;
+  height: 60px;
+}
+#actionNavBand {
+  background-color: #152966;
+  width: 100%;
+  height: 30px;
+  color: #FFFFFF;
+  font-size: 9pt;
+}
+#actionNavBand a, #gamexNavBand a {
+  color: #FFFFFF;
+	text-decoration: none;
+}
+#actionNavBand .actionTitle {
+  display: inline-block;
+  vertical-align: top;
+  background-color: #021240;
+  padding: 8px 40px 8px;
+}
+#actionNavBand .actionItem {
+  display: inline-block;
+  vertical-align: top;
+  background-color: #152966;
+  padding: 8px 40px 8px;
+}
+#actionNavBand .divider, #gamexNavBand .divider{
+  display: inline-block;
+  width: 2px;
+  height: 100%;
+  background-color: #707070;
+}
+#gamexNavBand {
+  background-color: #256E29;
+  width: 100%;
+  height: 30px;
+  color: #FFFFFF;
+  font-size: 9pt;
+}
+#gamexNavBand .actionTitle {
+  display: inline-block;
+  vertical-align: top;
+  background-color: #353535;
+  padding: 8px 40px 8px;
+}
+#gamexNavBand .actionItem {
+  display: inline-block;
+  vertical-align: top;
+  background-color: #256E29;
+  padding: 8px 40px 8px;
+}
+#headerBand2{
+	height: 33px;
+	background-color: #707070;
+}
+#headerBand2 .outerContainer{
+  position: relative;
+  padding: 8px 0 0 20px;
+  font-size: 9pt;
+	color: #FFFFFF;
+}
+#headerBand2 .videoQuickFind{
+  font-weight: bold;
+  padding-left: 12px;
+}
+#headerBand2 .videoQuickFind form{
+  display: inline-block;
+  padding-left: 7px;
+}
+#headerBand2 .videoQuickFind .submit{
+  position: absolute;
+  top: 7px;
+  left: 535px;
+} 
+#headerBand2 .siteSearch{
+  font-weight: bold;
+  padding-left: 120px;
+}
+#headerBand2 .siteSearch form{
+  display: inline-block;
+  padding-left: 7px;
+}
+#headerBand2 .siteSearch #searchTerms{
+  width: 175px;
+}
+#headerBand2 .siteSearch .submit{
+  position: absolute;
+  top: 7px;
+  right: 55px;
+} 
+.mainContentArea .adContainer{
+  padding-top: 10px;
+  margin-left: 32px;
+}
+.mainContentArea .adContainer .adCenter{
+  margin-left: 88px;
+}
+.mainContentArea .adPanel728x90{
+	margin: 0 10px;
+}
+.mainContentArea .rightAdContainer{
+  position: absolute;
+  height: 0;
+  width: 0;
+}
+.mainContentArea .rightAds{
+  position: relative;
+  top: -90px;
+  left: 820px;
+  width: 160px;
+	height: 600px;
+  background-color: #EDEDED;
+}
+#footerBand{
+	background-color: #1A1A1A;
+	height: 42px;
+}
+#footerBand .spacer{
+  height: 100%;
+  margin-left: 130px;
+}
+#footerBand span{
+  display: block;
+  float: left;
+}
+#footerBand .button{
+  padding: 15px 20px 0;
+  font-size: 9pt;
+  color: #6F6F6F;
+}
+#footerBand span a{
+  color: #6F6F6F;
+  text-decoration: none;
+}
+#footerBand .divider{
+  margin-top: 15px;
+  width: 1px;
+  height: 15px;
+  background-color: #6F6F6F;
+}
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Guest Application Layout @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+#headerBand0{
+  position: relative;
+	height: 115px;
+	background-color: #1A1A1A;
+}
+#headerBand0 .adContainer{
+  position: absolute;
+  top: 13px;
+  left: 12px;
+}
+#headerBand0 .loginContainer{
+  position: absolute;
+  top: 12px;
+  left: 750px;
+}
+.loginContainer .memberLink {
+  color: #FFD700;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: bold;
+}
+.loginContainer .memberLink a, .loginContainer .memberLink a:visited {
+  color: #FFD700;
+}
+.loginContainer .emailField {
+	background: url("/images/loginEmail.png") no-repeat;
+  margin-top: 5px;
+  width: 224px;
+  height: 30px;
+}
+.loginContainer .passwordField {
+	background: url("/images/loginPassword.png") no-repeat;
+  margin-top: 5px;
+  width: 168px;
+  height: 30px;
+}
+.loginContainer .loginFormEmail, .loginContainer .loginFormPassword {
+  position: relative;
+	height: 20px;
+  margin: 5px 5px 0;
+  border: none;
+  background-color: #7f7f7f;
+  z-index: 5;
+}
+.loginContainer .loginFormEmail {
+	width: 200px;
+}
+.loginContainer .loginFormPassword {
+	width: 130px;
+}
+#login input {
+  color: #ffffff;
+  font-size: 9pt;
+}
+.loginContainer .loginFormSubmit {
+  position: absolute;
+  top: 61px;
+  left: 170px;
+}
+.forgotPassword {
+  position: absolute;
+  top: 61px;
+  left: 140px;
+}
+
+
+#loginPopup .loginContainer{
+  position: absolute;
+  top: 30px;
+  left: 40px;
+}
+
+
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Site Index @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+#centerBand{
+  position: relative;
+  background-color: #000000;
+  xheight: 395px;
+  height:480px;
+  width:990px;
+}
+#centerBand #homeFlash {
+  float: left;
+	xwidth:580px;
+	width:640px;
+    height:395px;
+	background-image: url(../images/videoplayer_background.png);
+	background-repeat: no-repeat;
+}
+#centerBand #homeFlash h1 { /* Styles for the Error message displayed if JavaScript is disabled or SWFObject Fails */
+	color:#ffffff;
+	background-image: url(../images/error_icon.gif);
+	background-repeat: no-repeat;
+	height: 45px;
+	margin-right: 25px;
+	margin-bottom: 25px;
+	margin-left: 25px;
+	padding-left: 55px;
+	padding-top: 31px;
+}
+#centerBand #homeFlash p {
+	margin-left: 25px;
+	margin-right: 25px;
+	color:#ffffff;
+}
+#centerBand #homeDivider {
+  position: absolute;
+  left: 580px;
+  width: 4px;
+  height: 100%;
+  background-color: #8C8C8C;
+  display: none;
+}
+
+#centerBand #homeWelcome {
+  position: absolute;
+  xleft: 590px;
+  left:640px;
+  margin: 25px 40px 0 35px;
+}
+#centerBand #homeWelcome #header {
+  color: #FFD700;
+  font-size: 14pt;
+  font-weight:bold;
+}
+#centerBand #homeWelcome #content {
+  color: #CFCFCF;
+  font-size: 9pt;
+  line-height:16pt;
+  margin-top:10px;
+}
+#centerBand #homeWelcome #content a, centerBand #homeWelcome #content a:visited {
+  color: #FFD700;
+}
+#centerBand #homeWelcome #list li{
+	list-style-type: none;
+  background: url(/images/chevron_bullets.png) left center no-repeat;
+  color: #CFCFCF;
+  font-size: 9pt;
+  line-height:22pt;
+  margin-left: 35px;
+  padding-left: 20px;
+}
+#bottomBand{
+  position: relative;
+  height: 645px;
+  background-color: #FFFFFF;
+}
+#bottomBand .panelContainer1 {
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  clear: both;
+}
+#bottomBand .panelContainer2 {
+  position: absolute;
+  top: 15px;
+  left: 342px;
+  clear: both;
+}
+#bottomBand .panelContainer3 {
+  position: absolute;
+  top: 15px;
+  left: 666px;
+  clear: both;
+}
+#bottomBand .panel{
+  position: relative;
+  width: 306px;
+  height: 347px;
+  background-color: #1A1A1A;
+}
+#bottomBand .panel .morePhoto{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#bottomBand .panel .textContainer{
+  position: absolute;
+  top: 160px;
+  left: 0;
+  margin: 20px 25px 0;
+  font-size: 10pt;
+  line-height: 20px;
+  font-weight: normal;
+	color: #FFFFFF;
+}
+#bottomBand .panel .textContainer a{
+  font-weight: bold;
+	color: #FFFFFF;
+  text-decoration: none;
+}
+#bottomBand .panel .actionButton{
+  position: absolute;
+  bottom: -3px;
+  right: 0;
+}
+#bottomBand .multiAdContainer {
+  position: absolute;
+  background-color: #3F3F3F;
+  top: 378px;
+  left: 0;
+  width: 990px;
+  height: 267px;
+}
+#bottomBand .adContainer1 {
+  position: absolute;
+  top: 387px;
+  left: 22px;
+  clear: both;
+}
+#bottomBand .adContainer2 {
+  position: absolute;
+  top: 387px;
+  left: 344px;
+  clear: both;
+}
+#bottomBand .adContainer3 {
+  position: absolute;
+  top: 387px;
+  left: 666px;
+  clear: both;
+}
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Registration/Membership Page @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+#membershipBand {
+  position: relative;
+  height: 86px;
+	background-color: #000000;
+  font-size: 8.5pt;
+	color: #FFFFFF;
+}
+#membershipBand img {
+  margin: 25px 0 0 20px;
+}
+#membershipBand .content {
+  position: absolute;
+  margin-right: 20px;
+  top: 20px;
+  left: 270px;
+  font-size: 11pt;
+  line-height: 21px;
+}
+#memberBox {
+  margin: 20px;
+  position: relative;
+  width: 885px;
+  height: 216px;
+}
+#memberBox .memberBoxLeft {
+  background: url("/images/member_box_left.png") no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 216px;
+}
+#memberBox .memberBoxRight {
+  background: url("/images/member_box_right.png") no-repeat;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+  height: 216px;
+}
+#memberBox .memberBoxContent {
+  background-color: #131313;
+  position: absolute;
+  top: 0;
+  left: 18px;
+  width: 849px;
+  height: 216px;
+}
+#memberBox .memberBoxImage {
+  float: left;
+  margin-left: 40px;
+}
+#memberBox .memberBoxText {
+  position: absolute;
+  top: 15px;
+  left: 390px;
+  width: 280px;
+  color: #FFFFFF;
+}
+#memberBox .memberBoxTitle {
+  font-size: 16pt;
+  font-weight: bold;
+}
+#memberBox .memberBoxDesc {
+  margin-top: 7px;
+  font-size: 9pt;
+  line-height: 18px;
+}
+#memberBox .memberBoxJoin {
+  position: absolute;
+  bottom: -4px;
+  right: -12px;
+}
+#smallMemberBox {
+  position: relative;
+  width: 930px;
+  height: 116px;
+}
+#smallMemberBox .smallMemberBoxLeft {
+  background: url("/images/reg_topBox_left.png") no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 116px;
+}
+#smallMemberBox .smallMemberBoxRight {
+  background: url("/images/reg_topBox_right.png") no-repeat;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 116px;
+}
+#smallMemberBox .smallMemberBoxContent {
+  background-color: #1A1A1A;
+  position: absolute;
+  top: 0;
+  left: 24px;
+  width: 882px;
+  height: 116px;
+}
+#smallMemberBox .smallMemberBoxImage {
+  position: absolute;
+  top: 0;
+  left: 650px;
+}
+#smallMemberBox .smallMemberBoxText {
+  margin-top: 10px;
+  width: 575px;
+  color: #FFFFFF;
+}
+#smallMemberBox .smallMemberBoxTitle {
+  font-size: 16pt;
+  font-weight: bold;
+}
+#smallMemberBox .smallMemberBoxDesc {
+  margin-top: 7px;
+  font-size: 9pt;
+  line-height: 18px;
+}
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Find My School Page @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+#findBand {
+  position: relative;
+  height: 86px;
+	background-color: #000000;
+  font-size: 8.5pt;
+	color: #FFFFFF;
+}
+#findBand img {
+  margin: 25px 0 0 20px;
+}
+#findBand .content {
+  position: absolute;
+  margin-right: 20px;
+  top: 20px;
+  left: 300px;
+  font-size: 11pt;
+  line-height: 21px;
+}
+#stateMapBand {
+  background-color: #000000;
+  min-height: 400px;
+}
+#stateMap {
+  float: right;
+  margin-right: 20px;
+}
+#stateListing {
+  color: #FFFFFF;
+  padding: 20px 0 0 30px;
+}
+#stateListing .title {
+  font-size: 11pt;
+  font-weight: bold;
+}
+#stateListing .list {
+  font-size: 9pt;
+  line-height: 18px;
+}
+#stateListing .list a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+#schoolListingContainer {
+  min-height: 100px;
+  margin: 10px 20px 20px;
+}
+#schoolListingContainer #stateName{
+  font-size: 13pt;
+  font-weight: bold;
+}
+#schoolListingContainer #smallPrint{
+  font-size: 8pt;
+}
+#schoolListingContainer #schoolList{
+  margin-top: 10px;
+}
+#schoolListingContainer #schoolList a{
+  text-decoration: none;
+  color: #000000;
+}
+
+
+
+
+
+
+.gsField {
+  position: relative;
+  background: url("/images/gsField-224.png") no-repeat;
+  margin-top: 5px;
+  width: 224px;
+  height: 30px;
+}
+
+
+.gsField p {
+  position: absolute;
+
+  color: white;
+  font-family: 'Lucida Grande';
+  font-size: 9pt;
+  height: 20px;
+  margin:7px 5px 0;
+  border: none;
+  background-color: #7F7F7F;
+}
+
+
+.gsField .gsFieldShadow {
+ position: absolute;
+}
+
+.gsField input {
+  position: absolute;
+
+  color: white;
+  font-family: 'Lucida Grande';
+  font-size: 9pt;
+  width: 95%;
+  height: 20px;
+  margin: 5px 5px 0;
+  border: none;
+  background-color: #7F7F7F;
+}
+
+.gsSelect {
+  padding-top: 5px;
+}
+
+
+.gsSelect .fieldWithErrors {
+    float: left;
+    padding-right: 3px;
+}
+
+.gsSelect .fieldWithErrors select {
+    border: 1px solid red;
+}
+
+.gsSelect select {
+  background-color: #7F7F7F;
+  height: 30px;
+  color: white;
+}
+
+.gsField.gsSmall {
+  background: url("/images/gsField-112.png") no-repeat;
+}
+
+
+
+
+.float-left { float: left; }
+
